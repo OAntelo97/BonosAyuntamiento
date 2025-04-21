@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sUPmVvYjzn0TYsNB9cJt4R83xeGKEQ/4DmbUpH+mi8c=",
+  "Hash": "MM8SZFIXP9XyWg/EU5MV90P9ojgXkLf1uoggh1Sgxrc=",
   "Source": "BonosAyto",
   "BasePath": "_content/BonosAyto",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "BonosAyto\\wwwroot",
       "Source": "BonosAyto",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
       "SourceId": "BonosAyto",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/BonosAyto",
       "RelativePath": "BonosAyto#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css"
     },
     {
-      "Identity": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
       "SourceId": "BonosAyto",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/BonosAyto",
       "RelativePath": "BonosAyto#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,13 @@
       "Integrity": "XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
       "RelativePath": "app#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
       "RelativePath": "bootstrap/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -101,10 +101,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
       "RelativePath": "bootstrap/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
       "RelativePath": "favicon#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -146,7 +146,7 @@
   "Endpoints": [
     {
       "Route": "app.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -167,7 +167,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -183,7 +183,7 @@
     },
     {
       "Route": "app.da95v2qkru.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -204,7 +204,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -228,7 +228,7 @@
     },
     {
       "Route": "BonosAyto.bundle.scp.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -249,7 +249,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:03:34 GMT"
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -265,7 +265,7 @@
     },
     {
       "Route": "BonosAyto.dg1ol8kkx8.bundle.scp.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -286,7 +286,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:03:34 GMT"
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -310,7 +310,7 @@
     },
     {
       "Route": "BonosAyto.dg1ol8kkx8.styles.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -331,7 +331,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:03:34 GMT"
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -355,7 +355,7 @@
     },
     {
       "Route": "BonosAyto.styles.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -376,7 +376,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:03:34 GMT"
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -392,7 +392,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.6gzpyzhau4.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -413,7 +413,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -437,7 +437,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -458,7 +458,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -474,7 +474,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css.8inm30yfxf.map",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -495,7 +495,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -519,7 +519,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css.map",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -540,7 +540,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -556,7 +556,7 @@
     },
     {
       "Route": "favicon.ifv42okdf2.png",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -577,7 +577,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -601,7 +601,7 @@
     },
     {
       "Route": "favicon.png",
-      "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -622,7 +622,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 09:29:34 GMT"
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
         },
         {
           "Name": "Cache-Control",

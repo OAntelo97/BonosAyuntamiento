@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\",
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\",
   "Documents": [
     {
       "AbsoluteMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|c:\\users\\usuario\\documents\\github\\bonosayuntamiento\\bonosayto\\bonosayto\\bonosayto.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -23,10 +23,10 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "BonosAytoService",
-              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
+              "Title": "BonosAytoService.csproj",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
               "RelativeDocumentMoniker": "BonosAytoService\\BonosAytoService.csproj",
-              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
+              "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
               "RelativeToolTip": "BonosAytoService\\BonosAytoService.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
@@ -36,12 +36,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BonosAyto",
-              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\BonosAyto.csproj",
+              "Title": "BonosAyto.csproj",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\BonosAyto.csproj",
               "RelativeDocumentMoniker": "BonosAyto\\BonosAyto.csproj",
-              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\BonosAyto.csproj",
+              "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\BonosAyto.csproj",
               "RelativeToolTip": "BonosAyto\\BonosAyto.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-04-21T09:58:46.562Z",
               "EditorCaption": ""
