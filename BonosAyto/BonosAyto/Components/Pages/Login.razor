@@ -1,0 +1,27 @@
+﻿@layout LoginLayout
+@page "/login"
+
+@using BonosAyto.Components.Layout
+
+
+<div class="card">
+	<div class="card-body">
+		<img class="m-auto" src="favicon.png" alt="Alternate Text" />
+		<h3 class="text-center">Acceso</h3>
+		<EditForm Model="establecimiento" OnValidSubmit="@IniciarSesion">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<InputText id="descripcion" @bind-Value="establecimiento.Nombre" class="form-control mt-4" placeholder="Usuario" />
+			<InputText id="descripcion" @bind-Value="establecimiento.NIF" class="form-control mt-3" placeholder="Contrasena" />
+			<div class="mt-4 form-check">
+				<label for="disponible" class="form-check-label">Recordarme</label>
+
+				<input type="checkbox" class="form-check-input" />
+			</div>
+			<button type="submit" class="btn btn-primary mt-2 w-100">Acceder</button>
+			<a href="#" class="d-block text-center mt-2">Recordar contrasena</a>
+			<a href="#" class="d-block text-center mt-2">Cambiar contrasena</a>
+		</EditForm>
+	</div>
+</div>

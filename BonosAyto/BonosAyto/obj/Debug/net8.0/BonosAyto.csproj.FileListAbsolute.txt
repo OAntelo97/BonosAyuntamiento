@@ -83,3 +83,4 @@ C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debu
 C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\BonosAyto.pdb
 C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\BonosAyto.genruntimeconfig.cache
 C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\ref\BonosAyto.dll
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\scopedcss\Components\Layout\LoginLayout.razor.rz.scp.css
