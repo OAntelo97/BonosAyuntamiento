@@ -9,21 +9,39 @@
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#menuAdministracion" role="button" aria-expanded="false" aria-controls="menuAdministracion">
+                <span class="bi bi-chevron-down"></span>
+                ADMINISTRACIÓN
+            </a>
+            <div class="collapse" id="menuAdministracion">
+                <div class="ps-3">
+                    <NavLink class="nav-link" href="usuarios">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Usuarios
+                    </NavLink>
+                    <NavLink class="nav-link" href="beneficiarios">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Beneficiarios
+                    </NavLink>
+                    <NavLink class="nav-link" href="establecimientos">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Establecimientos
+                    </NavLink>
+                </div>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#menuInformes" role="button" aria-expanded="false" aria-controls="menuInformes">
+                <span class="bi bi-chevron-down"></span>
+                INFORMES
+            </a>
+            <div class="collapse" id="menuInformes">
+                <div class="ps-3">
+                    <NavLink class="nav-link" href="informe1">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Informe 1
+                    </NavLink>
+                    <NavLink class="nav-link" href="informe2">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Informe 2
+                    </NavLink>
+                </div>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
         </div>
 
         <div class="nav-item px-3">

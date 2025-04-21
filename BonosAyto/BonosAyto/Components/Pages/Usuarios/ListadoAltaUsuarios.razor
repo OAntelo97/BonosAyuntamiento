@@ -1,0 +1,42 @@
+﻿@page "/usuarios"
+@inject NavigationManager Navigate
+
+<h1>Listado y Alta de Usuarios</h1>
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-6">
+			FORMULARIO DE AGREGAR UN USUARIO
+		</div>
+
+		<div class="col-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var usuario in usuarios)
+                    {
+                        <tr>
+                            <td>@usuario.Id</td>
+                            <td>@usuario.Nombre</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" @onclick="@(() => VerDetalle(usuario.Id))">Detalle</button>
+                                <button class="btn btn-warning btn-sm" @onclick="@(() => Editar(usuario.Id))">Editar</button>
+                                <button class="btn btn-danger btn-sm" @onclick="@(() => Eliminar(usuario.Id))">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+		</div>
+
+	</div>
+</div>
+
