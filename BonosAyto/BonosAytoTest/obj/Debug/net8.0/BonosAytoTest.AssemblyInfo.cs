@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BonosAytoTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+234f5180a9fc2fc3cde740dce1b87a5d838f009b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbe4c5f7e3f14077b02e7fa3bcd0b307368d1985")]
 [assembly: System.Reflection.AssemblyProductAttribute("BonosAytoTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BonosAytoTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

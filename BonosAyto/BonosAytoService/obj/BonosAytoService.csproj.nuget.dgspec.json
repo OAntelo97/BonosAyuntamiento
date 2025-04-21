@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj": {}
+    "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj": {
+    "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
+        "projectUniqueName": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
         "projectName": "BonosAytoService",
-        "projectPath": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\obj\\",
+        "projectPath": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\BonosAytoService.csproj",
+        "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
