@@ -18,27 +18,35 @@ namespace BonosAytoTest
             var service = new BonoService();
             var bonoDTO = new BonoDTO
             {
-                AlumnoId = 3,
-                MateriaId = 2
+                IdBeneficiario = 3, 
+                TipoServicio = 'C', 
+                FechaInicio = DateTime.Now,
+                FechaCaducidad = DateTime.Now.AddMonths(1),
+                Importe = "100",
+                Activados = 20,
+                Canjeados = 0,
+                Caducados = 0,
+                UsuarioMod = 1,
+                FechaMod = DateTime.Now
             };
 
-            int nuevoId = service.Insertar(inscripcionDTO);
+            int nuevoId = service.Insertar(bonoDTO);
 
             Assert.True(nuevoId > 0);
 
 
 
             /*Test de consultar*/
-            var inscripcionObtenida = service.Consultar(nuevoId);
-            Assert.NotNull(inscripcionObtenida);
-            Assert.Equal(3, inscripcionObtenida?.AlumnoId);
+            var bonoObtenido = service.Consultar(nuevoId);
+            Assert.NotNull(bonoObtenido);
+            Assert.Equal(3, bonoObtenido?.Id);
 
 
 
             /*actualizacion*/
-            inscripcionObtenida.AlumnoId = 2;
-            inscripcionObtenida.MateriaId = 3;
-            var actualizado = service.Actualizar(inscripcionObtenida);
+            bonoObtenido.IdBeneficiario = 2;
+            bonoObtenido.Importe = "200";
+            var actualizado = service.Actualizar(bonoObtenido);
             Assert.True(actualizado);
 
 
@@ -46,7 +54,7 @@ namespace BonosAytoTest
 
             /**/
             var todos = service.Listar().ToList();
-            Assert.Contains(todos, a => a.Id == nuevoId && a.AlumnoId == 2);
+            Assert.Contains(todos, a => a.Id == nuevoId && a.IdBeneficiario == 2);
 
 
 
@@ -55,8 +63,8 @@ namespace BonosAytoTest
             var eliminado = service.Eliminar(nuevoId);
             Assert.True(eliminado);
 
-            var inscripcionEliminada = service.Consultar(nuevoId);
-            Assert.Null(inscripcionEliminada);
+            var bonoEliminado = service.Consultar(nuevoId);
+            Assert.Null(bonoEliminado);
         }
     }
 }
