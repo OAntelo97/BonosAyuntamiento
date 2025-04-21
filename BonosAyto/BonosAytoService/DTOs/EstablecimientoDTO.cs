@@ -9,6 +9,7 @@ namespace BonosAytoService.DTOs
     public class EstablecimientoDTO
     {
         public int Id { get; set; }
+        public string Nombre { get; set; }
         public string NIF { get; set; }
         public string Direccion { get; set; }
         public int CodigoPostal { get; set; }
