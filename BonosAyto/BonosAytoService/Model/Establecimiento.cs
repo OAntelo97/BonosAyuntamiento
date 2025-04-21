@@ -9,6 +9,7 @@ namespace BonosAytoService.Model
     public class Establecimiento
     {
         public int Id { get; set; }
+        public string Nombre { get; set; }
         public string NIF { get; set; }
         public string Direccion { get; set; }
         public int CodigoPostal { get; set; }
