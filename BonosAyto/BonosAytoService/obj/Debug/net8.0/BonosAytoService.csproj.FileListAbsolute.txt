@@ -1,0 +1,13 @@
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\bin\Debug\net8.0\BonosAytoService.deps.json
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\bin\Debug\net8.0\BonosAytoService.dll
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\bin\Debug\net8.0\BonosAytoService.pdb
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.csproj.AssemblyReference.cache
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.AssemblyInfoInputs.cache
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.AssemblyInfo.cs
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.sourcelink.json
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.dll
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\refint\BonosAytoService.dll
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.pdb
+C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\ref\BonosAytoService.dll
