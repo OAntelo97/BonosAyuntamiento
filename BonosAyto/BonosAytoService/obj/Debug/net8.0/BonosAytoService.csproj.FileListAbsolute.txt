@@ -11,3 +11,16 @@ C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\o
 C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\refint\BonosAytoService.dll
 C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.pdb
 C:\Users\usuario\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\ref\BonosAytoService.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\bin\Debug\net8.0\BonosAytoService.deps.json
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\bin\Debug\net8.0\BonosAytoService.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\bin\Debug\net8.0\BonosAytoService.pdb
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.csproj.AssemblyReference.cache
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.AssemblyInfoInputs.cache
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.AssemblyInfo.cs
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.csproj.CoreCompileInputs.cache
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.sourcelink.json
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\refint\BonosAytoService.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\BonosAytoService.pdb
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAytoService\obj\Debug\net8.0\ref\BonosAytoService.dll
