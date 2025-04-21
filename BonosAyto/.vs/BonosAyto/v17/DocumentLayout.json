@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6F36BD5B-4DD9-41C1-BF7E-C2FAD4B7CB2F}|BonosAytoTest\\BonosAytoTest.csproj|c:\\users\\usuario\\documents\\github\\bonosayuntamiento\\bonosayto\\bonosaytotest\\bonotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F36BD5B-4DD9-41C1-BF7E-C2FAD4B7CB2F}|BonosAytoTest\\BonosAytoTest.csproj|solutionrelative:bonosaytotest\\bonotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|c:\\users\\usuario\\documents\\github\\bonosayuntamiento\\bonosayto\\bonosayto\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|solutionrelative:bonosayto\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49CAAA52-CCAE-47AF-BA09-40D443BCD1F6}|BonosAytoService\\BonosAytoService.csproj|c:\\users\\usuario\\documents\\github\\bonosayuntamiento\\bonosayto\\bonosaytoservice\\model\\bono.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{49CAAA52-CCAE-47AF-BA09-40D443BCD1F6}|BonosAytoService\\BonosAytoService.csproj|solutionrelative:bonosaytoservice\\model\\bono.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,11 +38,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 254,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "BonoTest.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoTest\\BonoTest.cs",
+              "RelativeDocumentMoniker": "BonosAytoTest\\BonoTest.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoTest\\BonoTest.cs",
+              "RelativeToolTip": "BonosAytoTest\\BonoTest.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAADsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-21T12:10:43.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "BonosAyto\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "BonosAyto\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-21T11:50:28.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "CanjeoDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\DAOs\\CanjeoDAO.cs",
               "RelativeDocumentMoniker": "BonosAytoService\\DAOs\\CanjeoDAO.cs",
@@ -46,7 +80,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "BonoDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\DAOs\\BonoDAO.cs",
               "RelativeDocumentMoniker": "BonosAytoService\\DAOs\\BonoDAO.cs",
@@ -54,12 +88,11 @@
               "RelativeToolTip": "BonosAytoService\\DAOs\\BonoDAO.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAuwBkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:56:06.9Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:56:06.9Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CanjeoService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\Services\\CanjeoService.cs",
               "RelativeDocumentMoniker": "BonosAytoService\\Services\\CanjeoService.cs",
@@ -67,12 +100,11 @@
               "RelativeToolTip": "BonosAytoService\\Services\\CanjeoService.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAswDsAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:50:40.844Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:50:40.844Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "BonoService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\Services\\BonoService.cs",
               "RelativeDocumentMoniker": "BonosAytoService\\Services\\BonoService.cs",
@@ -80,12 +112,11 @@
               "RelativeToolTip": "BonosAytoService\\Services\\BonoService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAADwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:50:36.942Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:50:36.942Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Bono.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\Model\\Bono.cs",
               "RelativeDocumentMoniker": "BonosAytoService\\Model\\Bono.cs",
@@ -93,8 +124,7 @@
               "RelativeToolTip": "BonosAytoService\\Model\\Bono.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:15:44.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:15:44.351Z"
             }
           ]
         }
