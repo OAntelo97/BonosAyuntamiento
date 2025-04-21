@@ -42,8 +42,7 @@
               "RelativeToolTip": "BonosAytoService\\DAOs\\CanjeoDAO.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:56:07.839Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:56:07.839Z"
             },
             {
               "$type": "Document",
@@ -53,7 +52,7 @@
               "RelativeDocumentMoniker": "BonosAytoService\\DAOs\\BonoDAO.cs",
               "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAytoService\\DAOs\\BonoDAO.cs",
               "RelativeToolTip": "BonosAytoService\\DAOs\\BonoDAO.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAuwBkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-21T10:56:06.9Z",
               "EditorCaption": ""
@@ -68,8 +67,7 @@
               "RelativeToolTip": "BonosAytoService\\Services\\CanjeoService.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAswDsAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:50:40.844Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:50:40.844Z"
             },
             {
               "$type": "Document",
@@ -81,8 +79,7 @@
               "RelativeToolTip": "BonosAytoService\\Services\\BonoService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAADwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:50:36.942Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:50:36.942Z"
             },
             {
               "$type": "Document",
@@ -94,8 +91,7 @@
               "RelativeToolTip": "BonosAytoService\\Model\\Bono.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T10:15:44.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T10:15:44.351Z"
             }
           ]
         }
