@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.DTOs
 {
-    internal class BeneficiarioDTO
+    public class BeneficiarioDTO
     {
-        private int Id { get; set; }
-        private string Nombre { get; set; }
-        private string PrimerApellido { get; set; }
-        private string SegundoApellido { get; set; }
-        private string DNI { get; set; }
-        private string Direccion { get; set; }
-        private int CodigoPostal { get; set; }
-        private string Telefono { get; set; }
-        private string Email { get; set; }
-        private int UsuarioMod { get; set; }
-        private DateTime FechaMod { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string PrimerApellido { get; set; }
+        public string SegundoApellido { get; set; }
+        public string DNI { get; set; }
+        public string Direccion { get; set; }
+        public int CodigoPostal { get; set; }
+        public string Telefono { get; set; }
+        public string Email { get; set; }
+        public int UsuarioMod { get; set; }
+        public DateTime FechaMod { get; set; }
     }
 }

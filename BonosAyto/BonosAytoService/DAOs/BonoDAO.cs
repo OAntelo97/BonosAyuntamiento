@@ -11,10 +11,9 @@ namespace BonosAytoService.DAOs
 {
     public class BonoDAO
     {
-        private const string CadenaConexion = "server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
         public int Insertar(Bono bono)
         {
-            using var connection = new SqlConnection(CadenaConexion);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "INSERT INTO Bonos(Id, IdBeneficiario, TipoServicio, FechaInicio, FechaCaducidad, Importe, Activados, Canjeados, Caducados, UsuarioMod, FechaMod) VALUES " +
                 "(@Id, @IdBeneficiario, @TipoServicio, @FechaInicio, @FechaCaducidad, @Importe, @Activados, @Canjeados, @Caducados, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
             int valorAsignado = connection.QuerySingle<int>(sql, bono);
@@ -25,7 +24,7 @@ namespace BonosAytoService.DAOs
 
         public Bono? Consultar(int id)
         {
-            using var connection = new SqlConnection(CadenaConexion);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "SELECT * FROM Bonos WHERE Id=@Id";
             return connection.QueryFirstOrDefault<Bono>(sql, new { Id = id });
         }
@@ -34,7 +33,7 @@ namespace BonosAytoService.DAOs
 
         public IEnumerable<Bono> Listar()
         {
-            using var connection = new SqlConnection(CadenaConexion);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "SELECT * FROM Bonos ORDER BY Id ASC";
             return connection.Query<Bono>(sql);
         }
@@ -43,7 +42,7 @@ namespace BonosAytoService.DAOs
 
         public bool Actualizar(Bono bono)
         {
-            using var connection = new SqlConnection(CadenaConexion);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "UPDATE Bonos SET Id=@Id, IdBeneficiario=@IdBeneficiario, TipoServicio=@TipoServicio, FechaInicio=@FechaInicio, FechaCaducidad=@FechaCaducidad," +
                 " Importe=@Importe, Activados=@Activados, Canjeados=@Canjeados, Caducados=@Caducados, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE ID=@Id";
             return connection.Execute(sql, bono) > 0;
@@ -53,7 +52,7 @@ namespace BonosAytoService.DAOs
 
         public bool Eliminar(int id)
         {
-            using var connection = new SqlConnection(CadenaConexion);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Bonos WHERE Id=@id";
             return connection.Execute(sql, new { Id = id }) > 0;
         }

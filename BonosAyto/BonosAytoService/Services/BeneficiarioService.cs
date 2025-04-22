@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.Services
 {
-    internal class BeneficiarioService
+    public class BeneficiarioService
     {
         private readonly BeneficiarioDAO _dao;
         private readonly IMapper _mapper;
@@ -26,8 +26,7 @@ namespace BonosAytoService.Services
 
         }
 
-        private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=pruebaHugo;Trusted_Connection=True; TrustServerCertificate=True;";
-
+        
         public void Insertar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
