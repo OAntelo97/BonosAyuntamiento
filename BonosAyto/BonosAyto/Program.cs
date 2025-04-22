@@ -8,6 +8,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<EstablecimientoService>();
+
 
 
 var app = builder.Build();

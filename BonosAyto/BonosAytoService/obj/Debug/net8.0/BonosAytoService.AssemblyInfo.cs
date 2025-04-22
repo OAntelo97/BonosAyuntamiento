@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BonosAytoService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b306ed7d4d79b1ac19e598de1586c8cd84d4d0b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3cfd621aa8161883a50cdc07c2b1a50a609a6687")]
 [assembly: System.Reflection.AssemblyProductAttribute("BonosAytoService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BonosAytoService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
