@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.Services
 {
-    internal class UsuarioService
+    public class UsuarioService
     {
         private readonly UsuarioDAO _dao;
         private readonly IMapper _mapper;
@@ -28,10 +28,10 @@ namespace BonosAytoService.Services
 
         private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=pruebaHugo;Trusted_Connection=True; TrustServerCertificate=True;";
 
-        public void Insertar(UsuarioDTO user)
+        public int Insertar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
-            _dao.Insertar(umap);
+            return _dao.Insertar(umap);
         }
 
         public UsuarioDTO? Consultar(int id)
@@ -39,6 +39,13 @@ namespace BonosAytoService.Services
             var user = _dao.Consultar(id);
             return user == null ? null : _mapper.Map<UsuarioDTO>(user);
         }
+
+        public int comprobarUsuario(UsuarioDTO user)
+        {
+            var umap = _mapper.Map<Usuarios>(user);
+            return _dao.comprobarUsuario(umap);
+        }
+        
 
         public IEnumerable<UsuarioDTO> Listar()
         {

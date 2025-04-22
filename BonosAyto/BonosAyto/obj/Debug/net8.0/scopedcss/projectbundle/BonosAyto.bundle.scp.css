@@ -3,10 +3,6 @@
     height: 100vh;
 }
 
-InputText[b-ea801ja3ul]{
-    
-}
-
 /* _content/BonosAyto/Components/Layout/MainLayout.razor.rz.scp.css */
 .page[b-h705y7lslf] {
     position: relative;
@@ -209,4 +205,12 @@ main[b-h705y7lslf] {
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
     }
+}
+/* _content/BonosAyto/Components/Pages/Login/Login.razor.rz.scp.css */
+.card[b-5ajoov4kwt]{
+    width:400px
+}
+
+img[b-5ajoov4kwt]{
+    width:40%;
 }

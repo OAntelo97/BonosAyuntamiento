@@ -11,7 +11,7 @@ namespace BonosAytoService.DAOs
 {
     public class UsuarioDAO
     {
-        private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string conn = "Server=DESKTOP-N3LV49P\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
 
         public int Insertar(Usuarios user)
         {
@@ -37,6 +37,14 @@ namespace BonosAytoService.DAOs
             var sql = "SELECT * FROM Usuarios WHERE Id=@Id;";
             return connection.QueryFirstOrDefault<Usuarios>(sql, new { Id = id });
 
+        }
+
+        public int comprobarUsuario(Usuarios user)
+        {
+            using var conection = new SqlConnection(conn);
+            var sql = "SELECT * FROM Usuarios WHERE Usuario=@Usuario AND Pass = @Pass ;";
+            Usuarios usuario = conection.QueryFirstOrDefault<Usuarios>(sql, user);
+            return usuario != null? usuario.Id : -1;
         }
 
         public IEnumerable<Usuarios> Listar()

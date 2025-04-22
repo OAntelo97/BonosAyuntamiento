@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MX0uLec4xbCH4BVL3Fcr3iOiajxeILFkAvi/EyipJB8=",
+  "Hash": "ewrs8SW6M8wH95mYFVNQP0ghse0O4vy77ysPcsw18/I=",
   "Source": "BonosAyto",
   "BasePath": "_content/BonosAyto",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "ui1c6di5za",
-      "Integrity": "tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4=",
+      "Fingerprint": "t9e1v8hqwy",
+      "Integrity": "f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css"
@@ -52,8 +52,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "ui1c6di5za",
-      "Integrity": "tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4=",
+      "Fingerprint": "t9e1v8hqwy",
+      "Integrity": "f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css"
@@ -237,7 +237,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6031"
+          "Value": "6188"
         },
         {
           "Name": "Content-Type",
@@ -245,11 +245,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4=\""
+          "Value": "\"f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 15:44:18 GMT"
+          "Value": "Tue, 22 Apr 2025 10:25:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -259,7 +259,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4="
+          "Value": "sha256-f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ="
         }
       ]
     },
@@ -274,7 +274,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6031"
+          "Value": "6188"
         },
         {
           "Name": "Content-Type",
@@ -282,11 +282,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4=\""
+          "Value": "\"f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 15:44:18 GMT"
+          "Value": "Tue, 22 Apr 2025 10:25:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -296,12 +296,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4="
+          "Value": "sha256-f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ="
         }
       ]
     },
     {
-      "Route": "BonosAyto.ui1c6di5za.bundle.scp.css",
+      "Route": "BonosAyto.t9e1v8hqwy.bundle.scp.css",
       "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -311,7 +311,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6031"
+          "Value": "6188"
         },
         {
           "Name": "Content-Type",
@@ -319,11 +319,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4=\""
+          "Value": "\"f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 15:44:18 GMT"
+          "Value": "Tue, 22 Apr 2025 10:25:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -333,7 +333,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "ui1c6di5za"
+          "Value": "t9e1v8hqwy"
         },
         {
           "Name": "label",
@@ -341,12 +341,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4="
+          "Value": "sha256-f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ="
         }
       ]
     },
     {
-      "Route": "BonosAyto.ui1c6di5za.styles.css",
+      "Route": "BonosAyto.t9e1v8hqwy.styles.css",
       "AssetFile": "C:\\Users\\usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -356,7 +356,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6031"
+          "Value": "6188"
         },
         {
           "Name": "Content-Type",
@@ -364,11 +364,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4=\""
+          "Value": "\"f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 15:44:18 GMT"
+          "Value": "Tue, 22 Apr 2025 10:25:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -378,7 +378,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "ui1c6di5za"
+          "Value": "t9e1v8hqwy"
         },
         {
           "Name": "label",
@@ -386,7 +386,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-tgxemqUNYmllIakLmy9QrDiuWIUHR1d3ncowDbpnwW4="
+          "Value": "sha256-f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ="
         }
       ]
     },
