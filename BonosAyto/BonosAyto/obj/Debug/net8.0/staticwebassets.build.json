@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "I080XUZyEx1ouiaLSqHWtb1gXvKojrBhipkPY+wY+kA=",
+  "Hash": "MM8SZFIXP9XyWg/EU5MV90P9ojgXkLf1uoggh1Sgxrc=",
   "Source": "BonosAyto",
   "BasePath": "_content/BonosAyto",
   "Mode": "Default",
@@ -10,19 +10,19 @@
     {
       "Name": "BonosAyto\\wwwroot",
       "Source": "BonosAyto",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
       "SourceId": "BonosAyto",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/BonosAyto",
-      "RelativePath": "BonosAyto.styles.css",
+      "RelativePath": "BonosAyto#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Primary",
@@ -31,17 +31,19 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
+      "Fingerprint": "dg1ol8kkx8",
+      "Integrity": "XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
       "SourceId": "BonosAyto",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/BonosAyto",
-      "RelativePath": "BonosAyto.bundle.scp.css",
+      "RelativePath": "BonosAyto#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Primary",
@@ -50,85 +52,589 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
+      "Fingerprint": "dg1ol8kkx8",
+      "Integrity": "XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
-      "RelativePath": "app.css",
+      "RelativePath": "app#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "da95v2qkru",
+      "Integrity": "u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
-      "RelativePath": "bootstrap/bootstrap.min.css",
+      "RelativePath": "bootstrap/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "6gzpyzhau4",
+      "Integrity": "SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
-      "RelativePath": "bootstrap/bootstrap.min.css.map",
+      "RelativePath": "bootstrap/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "8inm30yfxf",
+      "Integrity": "gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
       "SourceId": "BonosAyto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
       "BasePath": "_content/BonosAyto",
-      "RelativePath": "favicon.png",
+      "RelativePath": "favicon#[.{fingerprint}]?.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "ifv42okdf2",
+      "Integrity": "4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "app.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2591"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE="
+        }
+      ]
+    },
+    {
+      "Route": "app.da95v2qkru.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2591"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "da95v2qkru"
+        },
+        {
+          "Name": "label",
+          "Value": "app.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE="
+        }
+      ]
+    },
+    {
+      "Route": "BonosAyto.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5901"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
+        }
+      ]
+    },
+    {
+      "Route": "BonosAyto.dg1ol8kkx8.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5901"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dg1ol8kkx8"
+        },
+        {
+          "Name": "label",
+          "Value": "BonosAyto.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
+        }
+      ]
+    },
+    {
+      "Route": "BonosAyto.dg1ol8kkx8.styles.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5901"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dg1ol8kkx8"
+        },
+        {
+          "Name": "label",
+          "Value": "BonosAyto.styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
+        }
+      ]
+    },
+    {
+      "Route": "BonosAyto.styles.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5901"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.6gzpyzhau4.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "162726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6gzpyzhau4"
+        },
+        {
+          "Name": "label",
+          "Value": "bootstrap/bootstrap.min.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "162726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.css.8inm30yfxf.map",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "449111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8inm30yfxf"
+        },
+        {
+          "Name": "label",
+          "Value": "bootstrap/bootstrap.min.css.map"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.css.map",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "449111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.ifv42okdf2.png",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1148"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ifv42okdf2"
+        },
+        {
+          "Name": "label",
+          "Value": "favicon.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.png",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1148"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Apr 2025 09:19:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
+        }
+      ]
     }
   ]
 }

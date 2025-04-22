@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.DTOs
 {
-    public class CanjeoDTO
+    public partial class CanjeoDTO
     {
         public int Id { get; set; }
         public int IdBono { get; set; }

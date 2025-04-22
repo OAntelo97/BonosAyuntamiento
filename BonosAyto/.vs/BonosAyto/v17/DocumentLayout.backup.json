@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|c:\\users\\usuario\\documents\\github\\bonosayuntamiento\\bonosayto\\bonosayto\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|solutionrelative:bonosayto\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|c:\\users\\usuario\\documents\\github\\bonosayuntamiento\\bonosayto\\bonosayto\\components\\pages\\usuarios\\listadoaltausuarios.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{500BED13-0A03-47D5-8477-0389ADF183A9}|BonosAyto\\BonosAyto.csproj|solutionrelative:bonosayto\\components\\pages\\usuarios\\listadoaltausuarios.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -23,25 +27,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Program.cs",
+              "RelativeDocumentMoniker": "BonosAyto\\Program.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Program.cs",
+              "RelativeToolTip": "BonosAyto\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T07:35:20.019Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ListadoAltaUsuarios.razor.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor.cs",
               "RelativeDocumentMoniker": "BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor.cs",
               "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor.cs",
               "RelativeToolTip": "BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-21T15:44:11.758Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ListadoAltaUsuarios.razor",
               "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor",
               "RelativeDocumentMoniker": "BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor",
               "ToolTip": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor",
               "RelativeToolTip": "BonosAyto\\Components\\Pages\\Usuarios\\ListadoAltaUsuarios.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-21T15:18:19.964Z",
               "EditorCaption": ""

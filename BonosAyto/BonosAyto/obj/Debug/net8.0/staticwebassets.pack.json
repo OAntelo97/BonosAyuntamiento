@@ -1,24 +1,28 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
-      "PackagePath": "staticwebassets\\BonosAyto.bundle.scp.css"
+      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BonosAyto.dg1ol8kkx8.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
+      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BonosAyto.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BonosAyto.Microsoft.AspNetCore.StaticWebAssets.props",

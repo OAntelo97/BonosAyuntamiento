@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.Services
 {
-    internal class UsuarioService
+    public partial class UsuarioService
     {
         private readonly UsuarioDAO _dao;
         private readonly IMapper _mapper;
