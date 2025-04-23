@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using BonosAytoService.DTOs;
+using BonosAytoService.Services;
+using BonosAytoService.DAOs;
 
 namespace BonosAyto.Components.Pages.Usuarios
 {
     public partial class ListadoAltaUsuarios
     {
-        [Inject]
-        private UsuarioService UsuarioService { get; set; }
+        private UsuarioService UsuarioService = new UsuarioService();
 
         private IEnumerable<UsuarioDTO> usuarios;
 
