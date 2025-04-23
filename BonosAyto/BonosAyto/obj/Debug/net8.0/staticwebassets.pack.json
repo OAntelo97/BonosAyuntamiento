@@ -2,7 +2,11 @@
   "Files": [
     {
       "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
-      "PackagePath": "staticwebassets\\BonosAyto.dg1ol8kkx8.bundle.scp.css"
+      "PackagePath": "staticwebassets\\BonosAyto.4jnvtdxkmq.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\JS\\DataTables.js",
+      "PackagePath": "staticwebassets\\JS\\DataTables.js"
     },
     {
       "Id": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\app.css",

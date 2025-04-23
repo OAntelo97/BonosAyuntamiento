@@ -1,4 +1,5 @@
 ﻿using BonosAytoService.Model;
+using BonosAytoService.Utils;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
@@ -11,12 +12,13 @@ namespace BonosAytoService.DAOs
 {
     public class UsuarioDAO
     {
-        private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string conn = "server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
 
         public int Insertar(Usuarios user)
         {
             using var connection = new SqlConnection(conn);
             var sql = "INSERT INTO Usuarios (Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod)  VALUES (@Usuario, @Pass, @Rol, @Email, @IdEstablecimiento, @UsuarioMod, @FechaMod);  SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
             var parameters = new
             {
                 user.Usuario,

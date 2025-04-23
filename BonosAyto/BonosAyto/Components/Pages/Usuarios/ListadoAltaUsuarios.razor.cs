@@ -32,28 +32,11 @@ namespace BonosAyto.Components.Pages.Usuarios
 
             // Si no existe, insertar
             int nuevoId = UsuarioService.Insertar(usuario);
+            usuarios = UsuarioService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
+
             Navigate.NavigateTo("/usuarios");
         }
 
-
-        private string busqueda = string.Empty;
-        private IEnumerable<UsuarioDTO> FiltrarUsuarios()
-        {
-            //Usamos .AsEnumerable() para asegurarnos de que estamos trabajando con una secuencia que puede ser filtrada usando LINQ (Language Integrated Query).
-            var usuariosFiltrados = UsuarioService.Listar().AsEnumerable();
-
-
-            /*Para filtrar todo usamos el método .Where(), que es parte de LINQ y filtra los elementos de la secuencia.
-             Funciona como el where de sql*/
-
-            // Filtrar por nombre
-            if (!string.IsNullOrEmpty(busqueda))
-            {
-                usuariosFiltrados = usuariosFiltrados.Where(u => u.Usuario.Contains(busqueda, StringComparison.OrdinalIgnoreCase));
-            }
-            
-            return usuariosFiltrados;
-        }
 
 
 
@@ -84,10 +67,7 @@ namespace BonosAyto.Components.Pages.Usuarios
             usuarios = UsuarioService.Listar();
         }
 
-        private void DarDeAlta()
-        {
-            Navigate.NavigateTo("/materias/altas");
-        }
+
     }
 }
 

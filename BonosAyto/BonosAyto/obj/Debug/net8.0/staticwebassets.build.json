@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MM8SZFIXP9XyWg/EU5MV90P9ojgXkLf1uoggh1Sgxrc=",
+  "Hash": "vt1oLXGBkUiF5bmVyjq1ZcWoUmVEqhydEfuORFBKFhc=",
   "Source": "BonosAyto",
   "BasePath": "_content/BonosAyto",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "dg1ol8kkx8",
-      "Integrity": "XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=",
+      "Fingerprint": "4jnvtdxkmq",
+      "Integrity": "4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css"
@@ -52,8 +52,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "dg1ol8kkx8",
-      "Integrity": "XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=",
+      "Fingerprint": "4jnvtdxkmq",
+      "Integrity": "4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css"
@@ -141,6 +141,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\JS\\DataTables.js",
+      "SourceId": "BonosAyto",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "BasePath": "_content/BonosAyto",
+      "RelativePath": "JS/DataTables#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6oxxz6n45l",
+      "Integrity": "Sozq0TmPpTCtq7E0U+8un8CgAJNb1NtHsKHiwtRiV5c=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\JS\\DataTables.js"
     }
   ],
   "Endpoints": [
@@ -227,6 +248,96 @@
       ]
     },
     {
+      "Route": "BonosAyto.4jnvtdxkmq.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5927"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 23 Apr 2025 11:48:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4jnvtdxkmq"
+        },
+        {
+          "Name": "label",
+          "Value": "BonosAyto.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q="
+        }
+      ]
+    },
+    {
+      "Route": "BonosAyto.4jnvtdxkmq.styles.css",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5927"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 23 Apr 2025 11:48:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4jnvtdxkmq"
+        },
+        {
+          "Name": "label",
+          "Value": "BonosAyto.styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q="
+        }
+      ]
+    },
+    {
       "Route": "BonosAyto.bundle.scp.css",
       "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
       "Selectors": [],
@@ -237,7 +348,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5901"
+          "Value": "5927"
         },
         {
           "Name": "Content-Type",
@@ -245,11 +356,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
+          "Value": "\"4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
+          "Value": "Wed, 23 Apr 2025 11:48:31 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -259,97 +370,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
-        }
-      ]
-    },
-    {
-      "Route": "BonosAyto.dg1ol8kkx8.bundle.scp.css",
-      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BonosAyto.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5901"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "dg1ol8kkx8"
-        },
-        {
-          "Name": "label",
-          "Value": "BonosAyto.bundle.scp.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
-        }
-      ]
-    },
-    {
-      "Route": "BonosAyto.dg1ol8kkx8.styles.css",
-      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BonosAyto.styles.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5901"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "dg1ol8kkx8"
-        },
-        {
-          "Name": "label",
-          "Value": "BonosAyto.styles.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
+          "Value": "sha256-4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q="
         }
       ]
     },
@@ -364,7 +385,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5901"
+          "Value": "5927"
         },
         {
           "Name": "Content-Type",
@@ -372,11 +393,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8=\""
+          "Value": "\"4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 21 Apr 2025 10:08:06 GMT"
+          "Value": "Wed, 23 Apr 2025 11:48:31 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -386,7 +407,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-XbI7Ouc6B4ocZobIXKb4GWFindD+23fqDO3/XfXlbI8="
+          "Value": "sha256-4Cn0l6B33w5MmVcvFjzNQucod7l91jygt7B5JZe4U2Q="
         }
       ]
     },
@@ -633,6 +654,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
+        }
+      ]
+    },
+    {
+      "Route": "JS/DataTables.6oxxz6n45l.js",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\JS\\DataTables.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "124"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Sozq0TmPpTCtq7E0U+8un8CgAJNb1NtHsKHiwtRiV5c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 23 Apr 2025 08:48:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6oxxz6n45l"
+        },
+        {
+          "Name": "label",
+          "Value": "JS/DataTables.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Sozq0TmPpTCtq7E0U+8un8CgAJNb1NtHsKHiwtRiV5c="
+        }
+      ]
+    },
+    {
+      "Route": "JS/DataTables.js",
+      "AssetFile": "C:\\Users\\Usuario\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\JS\\DataTables.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "124"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Sozq0TmPpTCtq7E0U+8un8CgAJNb1NtHsKHiwtRiV5c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 23 Apr 2025 08:48:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Sozq0TmPpTCtq7E0U+8un8CgAJNb1NtHsKHiwtRiV5c="
         }
       ]
     }

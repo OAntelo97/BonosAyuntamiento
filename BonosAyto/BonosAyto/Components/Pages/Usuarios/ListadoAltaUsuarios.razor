@@ -2,17 +2,17 @@
 @inject NavigationManager Navigate
 @using BonosAyto.Components.Pages.Usuarios
 @using BonosAytoService.DTOs
+@using BonosAyto.Components.DataTables
 
 
-<h1>Listado y Alta de Usuarios</h1>
+<h1 class="w-100 text-center text-decoration-underline">Listado y Alta de Usuarios</h1>
 
 <div class="container mb-4">
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-5">
             <EditForm Model="usuario" OnValidSubmit="@GuardarUsuario">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
 
                 <!--ID-->
                 <label for="id">Id</label>
@@ -21,15 +21,15 @@
 
                 <!-- Usuario -->
                 <label for="usuario">Usuario</label>
-                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" />
+                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required/>
 
                 <!-- Contraseña -->
                 <label for="pass">Pass</label>
-                <InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mb-2" />
+                <InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mb-2" required />
 
                 <!-- Rol -->
                 <label for="rol">Rol</label>
-                <InputSelect id="rol" @bind-Value="usuario.Rol" class="form-control mb-2">
+                <InputSelect id="rol" @bind-Value="usuario.Rol" class="form-control mb-2" required>
                     <option value="" selected>-- Selecciona un Rol --</option>
                     <option value="G">Gestión</option>
                     <option value="C">Control</option>
@@ -39,68 +39,69 @@
                 <!-- Email -->
                 <label for="email">Email</label>
                 <InputText id="email" @bind-Value="usuario.Email" class="form-control mb-2" />
+                <ValidationMessage For="@(() => usuario.Email)" />
 
                 <!-- Id del establecimiento -->
-                <label for="IdEstablecimiento">IdEstablecimiento</label>
-                <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-control mb-2">
-                    <option value="" selected>-- Selecciona un Id de Establecimiento --</option>
-                    @foreach (var establecimiento in EstablecimientoService.Listar())
-                    {
-                        <option value="@establecimiento.Id">@establecimiento.Id</option>
-                    }
-                </InputSelect>
+                @if (usuario?.Rol == 'S')
+                {
+                    <label for="IdEstablecimiento">IdEstablecimiento</label>
+                    <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-control mb-2">
+                        <option value="" selected>-- Selecciona un Id de Establecimiento --</option>
+                        @foreach (var establecimiento in EstablecimientoService.Listar())
+                        {
+                            <option value="@establecimiento.Id">@establecimiento.Id</option>
+                        }
+                    </InputSelect>
+                }
 
-                <!-- UsuarioMod -->
+                <!-- UsuarioMod -- Campo oculto, que contiene el id de la persona que está logueada y está dando de alta a nuevos usuarios --
+                        de momento, mientras no se termina el login, contiene un valor hardcodeado
                 <label for="usuarioMod">UsuarioMod</label>
-                <InputNumber id="usuarioMod" @bind-Value="usuario.UsuarioMod" class="form-control mb-2" />
+                <InputNumber id="usuarioMod" @bind-Value="usuario.UsuarioMod" class="form-control" required /> -->
 
-                <!-- Fecha de Modificacion -->
-                <label for="fechaMod">FechaMod</label>
-                <InputDate id="fechaMod" @bind-Value="usuario.FechaMod" class="form-control mb-4" />
 
-                <div class="d-flex justify-content-end">
+                <div class="mt-4 d-flex justify-content-end">
                     <button type="submit" class="btn btn-secondary">Guardar usuario</button>
                 </div>
             </EditForm>
 		</div>
 
 
-		<div class="col-6">
-            <!-- Buscador -->
-            <input type="text" @bind="busqueda" class="form-control mb-3" placeholder="Buscar usuario..." style="width: 100%;" />
-
+		<div class="col-7">
             <!-- Tbla de listados-->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var usuario in FiltrarUsuarios())
-                    {
+            <DataTables>
+                <table class="table" id="tablaListado">
+                    <thead>
                         <tr>
-                            <td>@usuario.Id</td>
-                            <td>@usuario.Usuario</td>
-                            <td>@usuario.Email</td>
-                            <td>
-                                <button class="btn btn-sm" @onclick="@(() => VerDetalle(usuario.Id))">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                                <button class="btn btn-sm" @onclick="@(() => Editar(usuario.Id))">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="btn btn-sm" @onclick="@(() => Eliminar(usuario.Id))">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var usuario in usuarios)
+                        {
+                            <tr>
+                                <td>@usuario.Id</td>
+                                <td>@usuario.Usuario</td>
+                                <td>@usuario.Email</td>
+                                <td>
+                                    <button class="btn btn-sm" @onclick="@(() => VerDetalle(usuario.Id))">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                    <button class="btn btn-sm" @onclick="@(() => Editar(usuario.Id))">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm" @onclick="@(() => Eliminar(usuario.Id))">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </DataTables>
 
 		</div>
 
