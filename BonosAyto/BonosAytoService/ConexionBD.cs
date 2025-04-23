@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService
 {
-    public class ConexionBD
+    public static class ConexionBD
     {
         private static string _configuration;
 
