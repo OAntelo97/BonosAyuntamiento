@@ -32,6 +32,8 @@ namespace BonosAytoService.Services
         public int Insertar(CanjeoDTO canjeoDTO)
         {
             var canjeo = _mapper.Map<Canjeo>(canjeoDTO);
+            canjeo.FechaMod = DateTime.Now;
+            canjeo.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Insertar(canjeo);
         }
 
@@ -57,6 +59,8 @@ namespace BonosAytoService.Services
         public bool Actualizar(CanjeoDTO canjeoDTO)
         {
             var canjeo = _mapper.Map<Canjeo>(canjeoDTO);
+            canjeo.FechaMod = DateTime.Now;
+            canjeo.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Actualizar(canjeo);
         }
 

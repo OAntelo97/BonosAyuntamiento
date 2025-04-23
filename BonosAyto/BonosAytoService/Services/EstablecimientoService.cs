@@ -26,7 +26,7 @@ namespace BonosAytoService.Services
         {
             var establecimiento = _mapper.Map<Establecimiento>(establecimientoDTO);
             establecimiento.FechaMod = DateTime.Now;
-            establecimiento.UsuarioMod = 1; //Provisional (modificar en un futuro por id del usuario logedo)
+            establecimiento.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Insertar(establecimiento);
         }
 
@@ -46,7 +46,7 @@ namespace BonosAytoService.Services
         {
             var establecimiento = _mapper.Map<Establecimiento>(establecimientoDTO);
             establecimiento.FechaMod = DateTime.Now;
-            establecimiento.UsuarioMod = 1; //Provisional (modificar en un futuro por id del usuario logedo)
+            establecimiento.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Actualizar(establecimiento);
         }
 
