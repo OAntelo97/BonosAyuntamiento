@@ -12,7 +12,7 @@ namespace BonosAytoService.DAOs
 {
     public class UsuarioDAO
     {
-        private const string conn = "Server=DESKTOP-N3LV49P\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string conn = "Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
 
         public int Insertar(Usuarios user)
         {
