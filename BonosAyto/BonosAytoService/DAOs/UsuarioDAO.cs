@@ -12,13 +12,14 @@ namespace BonosAytoService.DAOs
 {
     public class UsuarioDAO
     {
-        private const string conn = "server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string conn = "Server=DESKTOP-N3LV49P\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
 
         public int Insertar(Usuarios user)
         {
             using var connection = new SqlConnection(conn);
             var sql = "INSERT INTO Usuarios (Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod)  VALUES (@Usuario, @Pass, @Rol, @Email, @IdEstablecimiento, @UsuarioMod, @FechaMod);  SELECT CAST(SCOPE_IDENTITY() AS INT);";
             user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
+
             var parameters = new
             {
                 user.Usuario,
@@ -27,7 +28,7 @@ namespace BonosAytoService.DAOs
                 user.Email,
                 user.IdEstablecimiento,
                 user.UsuarioMod,
-                FechaMod=DateTime.Now
+                FechaMod = DateTime.Now
             };
             return connection.Execute(sql, parameters);
         }
@@ -41,6 +42,15 @@ namespace BonosAytoService.DAOs
 
         }
 
+        public int comprobarUsuario(Usuarios user)
+        {
+            using var conection = new SqlConnection(conn);
+            var sql = "SELECT * FROM Usuarios WHERE Usuario=@Usuario AND Pass = @Pass ;";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
+            Usuarios usuario = conection.QueryFirstOrDefault<Usuarios>(sql, user);
+            return usuario != null ? usuario.Id : -1;
+        }
+
         public IEnumerable<Usuarios> Listar()
         {
             using var connection = new SqlConnection(conn);
@@ -52,6 +62,7 @@ namespace BonosAytoService.DAOs
         {
             using var connection = new SqlConnection(conn);
             var sql = "UPDATE Usuarios SET Usuario=@Usuario, Pass=@Pass, Rol=@Rol, Email=@Email, IdEstablecimiento=@IdEstablecimiento, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE Id=@Id;";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
             var parameters = new
             {
                 user.Id,
