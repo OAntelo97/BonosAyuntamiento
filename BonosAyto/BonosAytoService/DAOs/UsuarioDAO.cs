@@ -1,4 +1,5 @@
 ﻿using BonosAytoService.Model;
+using BonosAytoService.Utils;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
@@ -17,6 +18,8 @@ namespace BonosAytoService.DAOs
         {
             using var connection = new SqlConnection(conn);
             var sql = "INSERT INTO Usuarios (Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod)  VALUES (@Usuario, @Pass, @Rol, @Email, @IdEstablecimiento, @UsuarioMod, @FechaMod);  SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
+            
             var parameters = new
             {
                 user.Usuario,
@@ -43,6 +46,7 @@ namespace BonosAytoService.DAOs
         {
             using var conection = new SqlConnection(conn);
             var sql = "SELECT * FROM Usuarios WHERE Usuario=@Usuario AND Pass = @Pass ;";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
             Usuarios usuario = conection.QueryFirstOrDefault<Usuarios>(sql, user);
             return usuario != null? usuario.Id : -1;
         }
@@ -58,6 +62,7 @@ namespace BonosAytoService.DAOs
         {
             using var connection = new SqlConnection(conn);
             var sql = "UPDATE Usuarios SET Usuario=@Usuario, Pass=@Pass, Rol=@Rol, Email=@Email, IdEstablecimiento=@IdEstablecimiento, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE Id=@Id;";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
             var parameters = new
             {
                 user.Id,

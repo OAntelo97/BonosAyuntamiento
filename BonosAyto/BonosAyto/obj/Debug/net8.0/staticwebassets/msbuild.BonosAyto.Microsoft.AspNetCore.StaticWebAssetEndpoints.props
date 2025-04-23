@@ -16,13 +16,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BonosAyto.t9e1v8hqwy.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6188"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\u0022"},{"Name":"Last-Modified","Value":"Tue, 22 Apr 2025 10:25:13 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6188"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 23 Apr 2025 11:24:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BonosAyto/BonosAyto.t9e1v8hqwy.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BonosAyto.t9e1v8hqwy.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"t9e1v8hqwy"},{"Name":"integrity","Value":"sha256-f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ="},{"Name":"label","Value":"_content/BonosAyto/BonosAyto.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6188"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\u0022"},{"Name":"Last-Modified","Value":"Tue, 22 Apr 2025 10:25:13 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6188"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022f9J0YbswweD8/TqXBOfnS/yz/obwx4uo8O3UapbZBKQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 23 Apr 2025 11:24:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BonosAyto/bootstrap/bootstrap.min.6gzpyzhau4.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\bootstrap\bootstrap.min.css'))</AssetFile>

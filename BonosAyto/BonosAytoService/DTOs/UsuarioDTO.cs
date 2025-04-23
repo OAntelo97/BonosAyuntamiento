@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BonosAytoService.DTOs
         public string Pass { get; set; }
         public char Rol { get; set; }
         public string Email { get; set; }
-        public int IdEstablecimiento { get; set; }
+        public int? IdEstablecimiento { get; set; }
         public int UsuarioMod { get; set; }
         public DateTime FechaMod { get; set; }
     }

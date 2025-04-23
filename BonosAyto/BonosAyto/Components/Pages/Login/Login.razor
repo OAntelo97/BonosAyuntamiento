@@ -12,8 +12,8 @@
 			<DataAnnotationsValidator />
 			
 
-			<InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mt-4" placeholder="Usuario" />
-			<InputText id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contrasena" />
+			<InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mt-4" placeholder="Usuario" required/>
+			<InputText id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contrasena" required />
 			<ValidationSummary />
 			<div class="mt-4 form-check text-start">
 				<label for="disponible" class="form-check-label">Recordarme</label>

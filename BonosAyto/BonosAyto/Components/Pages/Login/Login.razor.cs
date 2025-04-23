@@ -1,4 +1,5 @@
-﻿using BonosAytoService.DTOs;
+﻿using System.Diagnostics;
+using BonosAytoService.DTOs;
 using BonosAytoService.Services;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -35,6 +36,7 @@ namespace BonosAyto.Components.Pages.Login
             int id = UsuarioService.comprobarUsuario(usuario);
 
             if (id != -1) {
+                GlobalVariables.usuario = UsuarioService.Consultar(id);
                 Navigate.NavigateTo("/");
             }
             else
@@ -42,6 +44,11 @@ namespace BonosAyto.Components.Pages.Login
                 validationMessageStore.Add(() => usuario.Pass, "El nombre de usuario o la contraseña no son correctos");
                 editContext.NotifyValidationStateChanged();
             }
+        }
+
+        void prueba()
+        {
+
         }
     }
 }

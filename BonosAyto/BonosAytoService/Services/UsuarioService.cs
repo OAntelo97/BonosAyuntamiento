@@ -31,6 +31,7 @@ namespace BonosAytoService.Services
         public int Insertar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
+            umap.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Insertar(umap);
         }
 
@@ -56,6 +57,7 @@ namespace BonosAytoService.Services
         public bool Actualizar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
+            umap.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Actualizar(umap);
 
         }
