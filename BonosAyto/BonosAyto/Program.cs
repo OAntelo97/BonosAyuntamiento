@@ -13,7 +13,7 @@ builder.Services.AddScoped<EstablecimientoService>();
 
 
 var app = builder.Build();
-ConexionBD.Inicilizar("Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
+ConexionBD.Inicilizar("Server=DESKTOP-N3LV49P\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
 
 
 // Configure the HTTP request pipeline.
@@ -28,6 +28,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+//app.MapControllers();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

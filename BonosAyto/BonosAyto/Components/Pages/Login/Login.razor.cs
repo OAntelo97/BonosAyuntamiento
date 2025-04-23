@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+using Azure;
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 
 namespace BonosAyto.Components.Pages.Login
 {
@@ -9,6 +12,9 @@ namespace BonosAyto.Components.Pages.Login
     {
         private UsuarioDTO usuario = new UsuarioDTO();
         public UsuarioService UsuarioService { get; set; }
+
+        [Inject]
+        IHttpContextAccessor httpContextAccessor { get; set; }
 
         EditContext editContext;
 
@@ -24,7 +30,13 @@ namespace BonosAyto.Components.Pages.Login
 
             // Add additional validation handler
             editContext.OnValidationRequested += IniciarSesion;
-            
+
+            var token = httpContextAccessor.HttpContext.Request.Cookies["UsId"];
+            if (token!=null)
+            {
+                Navigate.NavigateTo("/");
+            }
+
         }
 
 
@@ -37,6 +49,9 @@ namespace BonosAyto.Components.Pages.Login
 
             if (id != -1) {
                 GlobalVariables.usuario = UsuarioService.Consultar(id);
+                CookieOptions options = new CookieOptions();
+                options.Expires = DateTime.Now.AddDays(30);
+                httpContextAccessor.HttpContext.Response.Cookies.Append("UsId", usuario.Id.ToString(), options);
                 Navigate.NavigateTo("/");
             }
             else
