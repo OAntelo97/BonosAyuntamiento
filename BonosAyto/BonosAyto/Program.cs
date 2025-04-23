@@ -12,7 +12,6 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstablecimientoService>();
 
 
-
 var app = builder.Build();
 ConexionBD.Inicilizar("Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
 
