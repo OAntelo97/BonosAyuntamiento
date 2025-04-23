@@ -13,8 +13,8 @@ namespace BonosAytoService.Model
         public string Pass { get; set; }
         public char Rol {  get; set; }
         public string Email { get; set; }
-        public int IdEstablecimiento { get; set; }
-        public int UsuarioMod {  get; set; }
+        public int? IdEstablecimiento { get; set; }
+        public int UsuarioMod { get; set; } = 1;
         public DateTime FechaMod { get; set; }
     }
 }

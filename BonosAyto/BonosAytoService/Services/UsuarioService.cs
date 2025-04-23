@@ -2,6 +2,8 @@
 using BonosAytoService.DAOs;
 using BonosAytoService.DTOs;
 using BonosAytoService.Model;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.Services
 {
-    public class UsuarioService
+    public partial class UsuarioService
     {
         private readonly UsuarioDAO _dao;
         private readonly IMapper _mapper;
@@ -26,11 +28,32 @@ namespace BonosAytoService.Services
 
         }
 
-       
-        public void Insertar(UsuarioDTO user)
+        private const string conn = "Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+
+        public bool UsuarioExiste(string user)
+        {
+            using var conection = new SqlConnection(conn);
+            var sql = "SELECT * FROM dbo.Usuarios WHERE Usuario = @Usuario;";
+
+            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Usuario = user });
+
+            return usuario != null;
+        }
+        public bool EmailExiste(string email)
+        {
+            using var conection = new SqlConnection(conn);
+            var sql = "SELECT * FROM dbo.Usuarios WHERE Email = @Email;";
+
+            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Email = email });
+
+            return usuario != null;
+        }
+
+
+        public int Insertar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
-            _dao.Insertar(umap);
+            return _dao.Insertar(umap);
         }
 
         public UsuarioDTO? Consultar(int id)

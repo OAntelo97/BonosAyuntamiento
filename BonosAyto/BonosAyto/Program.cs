@@ -1,5 +1,5 @@
 using BonosAyto.Components;
-using BonosAytoService;
+using BonosAytoService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-var app = builder.Build();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<EstablecimientoService>();
 
-ConexionBD.Inicilizar("Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
+
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -28,3 +31,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+

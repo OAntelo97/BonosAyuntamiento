@@ -1,4 +1,5 @@
 ﻿using BonosAytoService.Model;
+using BonosAytoService.Utils;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
@@ -11,10 +12,13 @@ namespace BonosAytoService.DAOs
 {
     public class UsuarioDAO
     {
-         public int Insertar(Usuarios user)
+        private const string conn = "server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+
+        public int Insertar(Usuarios user)
         {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            using var connection = new SqlConnection(conn);
             var sql = "INSERT INTO Usuarios (Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod)  VALUES (@Usuario, @Pass, @Rol, @Email, @IdEstablecimiento, @UsuarioMod, @FechaMod);  SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
             var parameters = new
             {
                 user.Usuario,
@@ -31,7 +35,7 @@ namespace BonosAytoService.DAOs
         public Usuarios? Consultar(int id)
         {
 
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            using var connection = new SqlConnection(conn);
             var sql = "SELECT * FROM Usuarios WHERE Id=@Id;";
             return connection.QueryFirstOrDefault<Usuarios>(sql, new { Id = id });
 
@@ -39,14 +43,14 @@ namespace BonosAytoService.DAOs
 
         public IEnumerable<Usuarios> Listar()
         {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            using var connection = new SqlConnection(conn);
             var sql = "SELECT * FROM Usuarios";
             return connection.Query<Usuarios>(sql);
         }
 
         public bool Actualizar(Usuarios user)
         {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            using var connection = new SqlConnection(conn);
             var sql = "UPDATE Usuarios SET Usuario=@Usuario, Pass=@Pass, Rol=@Rol, Email=@Email, IdEstablecimiento=@IdEstablecimiento, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE Id=@Id;";
             var parameters = new
             {
@@ -64,7 +68,7 @@ namespace BonosAytoService.DAOs
         }
         public bool Eliminar(int id)
         {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            using var connection = new SqlConnection(conn);
             var sql = "DELETE FROM Usuarios WHERE Id=@id;";
             return connection.Execute(sql, new { Id = id }) > 0;
         }
