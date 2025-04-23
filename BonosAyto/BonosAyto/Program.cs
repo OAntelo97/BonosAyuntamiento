@@ -1,4 +1,5 @@
 using BonosAyto.Components;
+using BonosAytoService;
 using BonosAytoService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddScoped<EstablecimientoService>();
 
 
 var app = builder.Build();
+ConexionBD.Inicilizar("Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
