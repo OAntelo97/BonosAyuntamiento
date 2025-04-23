@@ -2,6 +2,8 @@
 using BonosAytoService.DAOs;
 using BonosAytoService.DTOs;
 using BonosAytoService.Model;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +48,7 @@ namespace BonosAytoService.Services
             var umap = _mapper.Map<Usuarios>(user);
             return _dao.comprobarUsuario(umap);
         }
-        
+
 
         public IEnumerable<UsuarioDTO> Listar()
         {
@@ -64,6 +66,25 @@ namespace BonosAytoService.Services
         public bool Eliminar(int id)
         {
             return _dao.Eliminar(id);
+        }
+
+        public bool UsuarioExiste(string user)
+        {
+            using var conection = new SqlConnection(conn);
+            var sql = "SELECT * FROM dbo.Usuarios WHERE Usuario = @Usuario;";
+
+            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Usuario = user });
+
+            return usuario != null;
+        }
+        public bool EmailExiste(string email)
+        {
+            using var conection = new SqlConnection(conn);
+            var sql = "SELECT * FROM dbo.Usuarios WHERE Email = @Email;";
+
+            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Email = email });
+
+            return usuario != null;
         }
     }
 }
