@@ -1,4 +1,5 @@
 ﻿using BonosAytoService.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace BonosAyto.Components.Pages.Beneficiaros
 {
@@ -6,12 +7,20 @@ namespace BonosAyto.Components.Pages.Beneficiaros
     {
         private string datos = "";
         private string materias = "";
+
+        [Parameter]
         public int Id { get; set; }
 
-        BeneficiarioService beneficiarioService =new BeneficiarioService();
+        private BeneficiarioService beneficiarioService = new BeneficiarioService();
 
-        public DetalleBeneficiario() { 
-            datos=beneficiarioService.Consultar(Id).Nombre;
+        protected override void OnInitialized()
+        {
+            var beneficiario = beneficiarioService.Consultar(Id);
+            if (beneficiario != null)
+            {
+                datos = beneficiario.Nombre;
+                materias = ""; 
+            }
         }
     }
 }

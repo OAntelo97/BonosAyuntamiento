@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\files\\PlantillaBeneficiarios.xlsx",
+      "PackagePath": "staticwebassets\\files\\PlantillaBeneficiarios.xlsx"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BonosAyto.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

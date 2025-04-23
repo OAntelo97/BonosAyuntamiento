@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "I080XUZyEx1ouiaLSqHWtb1gXvKojrBhipkPY+wY+kA=",
+  "Hash": "T6mZPqoOGSYr1Cu/v030XzctHbVRmvwyIsDT0a45SIU=",
   "Source": "BonosAyto",
   "BasePath": "_content/BonosAyto",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\files\\PlantillaBeneficiarios.xlsx",
+      "SourceId": "BonosAyto",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Galsoft-FCT\\Documents\\GitHub\\BonosAyuntamiento\\BonosAyto\\BonosAyto\\wwwroot\\",
+      "BasePath": "_content/BonosAyto",
+      "RelativePath": "files/PlantillaBeneficiarios.xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\files\\PlantillaBeneficiarios.xlsx"
     }
   ]
 }

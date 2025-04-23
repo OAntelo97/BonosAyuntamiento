@@ -166,3 +166,11 @@ C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\
 C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\BonosAyto.csproj.Up2Date
 C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\BonosAyto.genruntimeconfig.cache
 C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\obj\Debug\net8.0\ref\BonosAyto.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\ClosedXML.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\ClosedXML.Parser.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\ExcelNumberFormat.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\RBush.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\SixLabors.Fonts.dll
+C:\Users\Galsoft-FCT\Documents\GitHub\BonosAyuntamiento\BonosAyto\BonosAyto\bin\Debug\net8.0\System.IO.Packaging.dll
