@@ -1,3 +1,7 @@
+using Blazorise;
+using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
+using Blazorise.Charts;
 using BonosAyto.Components;
 using BonosAytoService;
 using BonosAytoService.Services;
@@ -13,7 +17,23 @@ builder.Services.AddScoped<EstablecimientoService>();
 
 ConexionBD.Inicilizar("Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
 
+
+//GRAFICOS  DE INFORMES
+// Blazorise + ChartJs
+builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrap5Providers()
+    .AddFontAwesomeIcons()
+    .AddChartJs();  // ¡Este es el punto clave para los gráficos!
+
+
 var app = builder.Build();
+
+
+app.UseBlazorise(); //graficos
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

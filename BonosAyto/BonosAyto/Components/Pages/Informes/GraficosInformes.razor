@@ -1,0 +1,22 @@
+﻿@page "/informe1"
+
+<h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
+@using Blazorise.Charts
+@using BonosAytoService.Services
+@inject EstablecimientoService EstablecimientoService
+
+<Dropdown>
+    <DropdownToggle Color="Color.Primary"> @establecimientoSeleccionado ?? "Establecimiento" </DropdownToggle>
+    <DropdownMenu>
+        @foreach (var e in nombresEstablecimientos)
+        {
+            <DropdownItem @onclick="@(() => SeleccionarEstablecimiento(e))">@e</DropdownItem>
+        }
+    </DropdownMenu>
+</Dropdown>
+
+<h5>Bonos canjeados + Importe por establecimiento</h5>
+
+<BarChart TItem="double" @ref="barChart" />
+
+

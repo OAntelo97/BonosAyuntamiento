@@ -1,7 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Text.RegularExpressions;
+using AutoMapper;
+using Blazorise;
 using BonosAytoService.DAOs;
 using BonosAytoService.DTOs;
 using BonosAytoService.Model;
+using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace BonosAytoService.Services
 {
@@ -54,5 +58,20 @@ namespace BonosAytoService.Services
         {
             return _dao.Eliminar(id);
         }
+
+
+
+        /*GRÁFICOS*/
+        public List<EstablecimientoDatosDTO> ObtenerDatosPorEstablecimiento()
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var query = @"SELECT e.Nombre AS NombreEstablecimiento, COUNT(*) AS BonosCanjeados, SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
+                FROM Canjeos c JOIN Bonos b ON c.IdBono = b.Id JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+                WHERE c.OpExitosa = 1
+                GROUP BY e.Nombre";
+
+            return connection.Query<EstablecimientoDatosDTO>(query).ToList();
+        }
+
     }
 }
