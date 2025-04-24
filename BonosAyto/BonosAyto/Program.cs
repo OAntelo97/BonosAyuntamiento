@@ -1,6 +1,8 @@
 using BonosAyto.Components;
 using BonosAytoService;
 using BonosAytoService.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "UsId";
+        options.LoginPath = "/login";
+        options.Cookie.MaxAge = TimeSpan.FromDays(30);
+    });
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstablecimientoService>();
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
@@ -28,6 +40,10 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 //app.MapControllers();
 

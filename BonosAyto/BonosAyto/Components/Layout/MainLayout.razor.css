@@ -94,3 +94,11 @@ main {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.img-usuario {
+    width:60px;
+}
+
+.dropdown-usuario{
+    max-width: 400px
+}
