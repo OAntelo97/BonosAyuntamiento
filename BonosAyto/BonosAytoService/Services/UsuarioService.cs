@@ -28,7 +28,7 @@ namespace BonosAytoService.Services
 
         }
 
-        private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=pruebaHugo;Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string conn = "Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
 
         public int Insertar(UsuarioDTO user)
         {
@@ -59,6 +59,10 @@ namespace BonosAytoService.Services
         public bool Actualizar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
+            if (GlobalVariables.usuario == null)
+            {
+                throw new Exception("El usuario actual no está logueado");
+            }
             umap.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Actualizar(umap);
 
@@ -68,21 +72,21 @@ namespace BonosAytoService.Services
             return _dao.Eliminar(id);
         }
 
-        public bool UsuarioExiste(string user)
+        public bool UsuarioExiste(string user, int idExcluir)
         {
             using var conection = new SqlConnection(conn);
-            var sql = "SELECT * FROM dbo.Usuarios WHERE Usuario = @Usuario;";
+            var sql = "SELECT * FROM dbo.Usuarios WHERE Usuario = @Usuario and Id != @IdExcluir;";
 
-            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Usuario = user });
+            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Usuario = user, IdExcluir = idExcluir});
 
             return usuario != null;
         }
-        public bool EmailExiste(string email)
+        public bool EmailExiste(string email, int idExcluir)
         {
             using var conection = new SqlConnection(conn);
-            var sql = "SELECT * FROM dbo.Usuarios WHERE Email = @Email;";
+            var sql = "SELECT * FROM dbo.Usuarios WHERE Email = @Email and Id != @IdExcluir;";
 
-            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Email = email });
+            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Email = email, IdExcluir = idExcluir });
 
             return usuario != null;
         }
