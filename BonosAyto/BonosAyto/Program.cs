@@ -11,10 +11,9 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstablecimientoService>();
 
+ConexionBD.Inicilizar("Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
 
 var app = builder.Build();
-ConexionBD.Inicilizar("Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
