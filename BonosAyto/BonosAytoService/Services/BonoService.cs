@@ -32,6 +32,8 @@ namespace BonosAytoService.Services
         public int Insertar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
+            bono.FechaMod = DateTime.Now;
+            bono.UsuarioMod=1;
             return _dao.Insertar(bono);
         }
 

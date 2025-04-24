@@ -1,4 +1,5 @@
 ﻿using BonosAytoService.Model;
+using BonosAytoService.Services;
 using BonosAytoService.Utils;
 using Dapper;
 using Microsoft.Data.SqlClient;
@@ -27,7 +28,7 @@ namespace BonosAytoService.DAOs
                 user.Rol,
                 user.Email,
                 user.IdEstablecimiento,
-                user.UsuarioMod,
+                UsuarioMod = GlobalVariables.usuario.Id,
                 FechaMod = DateTime.Now
             };
             return connection.Execute(sql, parameters);
@@ -71,7 +72,7 @@ namespace BonosAytoService.DAOs
                 user.Rol,
                 user.Email,
                 user.IdEstablecimiento,
-                user.UsuarioMod,
+                UsuarioMod=GlobalVariables.usuario.Id,
                 FechaMod = DateTime.Now
             };
             return connection.Execute(sql, parameters) > 0;

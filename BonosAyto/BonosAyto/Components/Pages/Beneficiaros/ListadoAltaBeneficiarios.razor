@@ -22,6 +22,7 @@
     });
 </script>
 
+
 <!--[Título vista]-->
 <div class="d-flex justify-content-center my-4">
     <h1 class="text-center">Listado y Alta de Beneficiarios</h1>
@@ -97,9 +98,11 @@
 
         <div class="col-7 border border-dark ">
             <!--buscador-->
+            <!--
+
             <div class="m-3">
                 <div class="input-group">
-                    <button class="btn btn-outline-secondary" type="button" @onclick="FiltrarBeneficiarios"> <!--remove outline-->
+                    <button class="btn btn-outline-secondary" type="button" @onclick="FiltrarBeneficiarios"> 
                         <i class="bi bi-search"></i> 
                     </button>
                     <input @bind="searchbar"
@@ -108,6 +111,7 @@
                            placeholder="Buscar beneficiario..." />
                 </div>
             </div>
+            -->
             <table id="listaBeneficiarios"  class="table">
                 <thead class="bg-light ">
                     <tr>
@@ -120,20 +124,17 @@
                 </thead>
                 
                 <tbody>
-                    @foreach (BeneficiarioDTO ben in beneficiariosFiltrados)
+                    @foreach (var ben in listaBeneficiarios)
                     {
                         <tr>
                             <td>@ben.Id</td>
                             <td>@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
                             <td>@ben.Telefono</td>
                             <td>@ben.Email</td>
-
-                            <td class="m-0">
-                                
-                                <!-- @onclick="@(() => VerDetalle(ben.Id))"-->
-                                <i class="bi bi-search me-1" @onclick="()=>VerDetalle(ben.Id)"></i>
-                                <i class="bi bi-pencil me-1 d-inline-block" @onclick="()=>Modificar(ben.Id)" style="transform: scaleX(-1);"></i>
-                                <i class="bi bi-trash me-1" @onclick="()=>Borrar(ben.Id)"></i>
+                            <td>
+                                <i class="bi bi-search me-1" @onclick="() => VerDetalle(ben.Id)"></i>
+                                <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => Modificar(ben.Id)" style="transform: scaleX(-1);"></i>
+                                <i class="bi bi-trash me-1" @onclick="() => Borrar(ben.Id)"></i>
                             </td>
                         </tr>
                     }

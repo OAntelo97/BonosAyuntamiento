@@ -20,12 +20,11 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         private BeneficiarioService beneficiarioService = new BeneficiarioService();
 
         private IEnumerable<BeneficiarioDTO> listaBeneficiarios;
-        private List<BeneficiarioDTO> beneficiariosFiltrados = new();
 
-        private string searchbar = "";
+       // private string searchbar = "";
         private string fichero = "Sin selección";
 
-        private void FiltrarBeneficiarios() //filtrar lista
+     /*   private void FiltrarBeneficiarios() //filtrar lista
         {
             if (string.IsNullOrWhiteSpace(searchbar))
             {
@@ -40,18 +39,17 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                     .ToList();
                 StateHasChanged();
             }
-        }
+        }*/
 
 
         protected override void OnInitialized() //cargar lista
         {
             listaBeneficiarios = beneficiarioService.Listar();
-            beneficiariosFiltrados = listaBeneficiarios.ToList();
         }
 
         private void AltaBeneficiario()         //dar de alta beneficiarios           
         {                                       
-            BeneficiarioDTO ben = new BeneficiarioDTO     //Cambiar UsuarioMod
+            BeneficiarioDTO ben = new BeneficiarioDTO     
             {
                 Nombre = modeloAlta.Nombre,
                 PrimerApellido = modeloAlta.PrimerApellido,
@@ -60,13 +58,13 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 Direccion = modeloAlta.Direccion,
                 Email = modeloAlta.Email,
                 CodigoPostal = modeloAlta.CodigoPostal,
-                Telefono = modeloAlta.Telefono,
-                UsuarioMod = 0                                //Cambiar UsuarioMod
+                Telefono = modeloAlta.Telefono
             };
             beneficiarioService.Insertar(ben);
             listaBeneficiarios = beneficiarioService.Listar();
-            FiltrarBeneficiarios();
+           // FiltrarBeneficiarios();
             modeloAlta.reset();
+            StateHasChanged();
         }
 
         private string mensajeError = null;
@@ -105,7 +103,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         {
             beneficiarioService.Eliminar(Id);
             listaBeneficiarios = beneficiarioService.Listar();
-            FiltrarBeneficiarios();
+            //   FiltrarBeneficiarios();
+            StateHasChanged();
         }
 
         private async Task CargarExcel()  //cargar datos de excel
@@ -127,7 +126,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
                     int currentRow = 2; 
 
-                    foreach (var row in rows)  //recorrer
+                    foreach (var row in rows)
                     {
                         var alta = new AltaBen
                         {
@@ -144,7 +143,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                         var context = new ValidationContext(alta);
                         var results = new List<ValidationResult>();
 
-                        bool isValid = Validator.TryValidateObject(alta, context, results, true);  //validar
+                        bool isValid = Validator.TryValidateObject(alta, context, results, true); 
                           
                         if (isValid)  
                         {
@@ -157,19 +156,19 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                                 Direccion = alta.Direccion,
                                 CodigoPostal = alta.CodigoPostal,
                                 Telefono = alta.Telefono,
-                                Email = alta.Email,
-                                UsuarioMod = 0                                  // cambiar UsuarioMod
+                                Email = alta.Email
                             });
                         }
 
                         currentRow++;
                     }
-                    foreach (var b in nuevosBeneficiarios) //insertar
+                    foreach (var b in nuevosBeneficiarios) 
                     {
                         beneficiarioService.Insertar(b);
                     }
                     listaBeneficiarios = beneficiarioService.Listar();
-                    FiltrarBeneficiarios();
+                    //     FiltrarBeneficiarios();
+                    StateHasChanged();
 
                     mensajeError = $"Se cargaron {nuevosBeneficiarios.Count} beneficiarios correctamente.";
                 }
