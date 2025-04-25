@@ -1,7 +1,7 @@
 ﻿
 @page "/home"
 @using BonosAytoService.Services
-
+@attribute [Authorize(Roles = "S")]
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>

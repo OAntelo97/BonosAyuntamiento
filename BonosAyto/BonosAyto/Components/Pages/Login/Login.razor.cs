@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Azure;
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
@@ -21,6 +23,7 @@ namespace BonosAyto.Components.Pages.Login
         public UsuarioService UsuarioService { get; set; }
 
         [Inject] private IJSRuntime JS { get; set; }
+        [CascadingParameter]
         public HttpContext? HttpContext { get; set; }
         [Inject]
         IHttpContextAccessor httpContextAccessor { get; set; }
@@ -82,20 +85,41 @@ namespace BonosAyto.Components.Pages.Login
             }
         }
 
+        //private async Task Authenticate()
+        //{
+        //    var claims = new List<Claim>
+        //        {
+        //            new Claim(ClaimTypes.Name, usuario.Usuario)
+        //        };
+
+        //    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //    var principal = new ClaimsPrincipal(identity);
+        //    await HttpContext!.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        //    GlobalVariables.usuario = UsuarioService.Consultar(usuario.Id);
+        //    Navigate.NavigateTo("/home");
+            
+
+        //}
+
+        //private async Task Authenticate2()
+        //{
+        //    await SetCookie("UsId", usuario.Id.ToString(), 30);
+        //    await AuthService.Authenticate(usuario);
+        //}
+
         private async Task Authenticate()
         {
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, usuario.Usuario)
-                };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContext!.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-            GlobalVariables.usuario = UsuarioService.Consultar(usuario.Id);
+            LoginViewModel usuarioLogin = new LoginViewModel
+            {
+                Id  = GlobalVariables.usuario.Id,
+                Usuario = GlobalVariables.usuario.Usuario,
+                Rol = GlobalVariables.usuario.Rol
+            };
+            await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
+            
             Navigate.NavigateTo("/home");
-
         }
+        
 
         private void Validaciones()
         {
@@ -109,7 +133,7 @@ namespace BonosAyto.Components.Pages.Login
             }
             else
             {
-                usuario.Id = id;
+                GlobalVariables.usuario = UsuarioService.Consultar(id); ;
             }
         }
 

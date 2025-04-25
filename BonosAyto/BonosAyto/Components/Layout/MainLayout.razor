@@ -1,7 +1,7 @@
 ﻿@using BonosAytoService.Services
 @inherits LayoutComponentBase
 @inject NavigationManager Navigate
-
+@attribute [Authorize(Roles = "S")]
 <div class="page">
     <div class="sidebar">
         <NavMenu />

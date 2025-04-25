@@ -22,7 +22,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstablecimientoService>();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddControllers();
 
 var app = builder.Build();
 ConexionBD.Inicilizar("Server=DESKTOP-N3LV49P\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
@@ -44,6 +44,7 @@ app.UseAntiforgery();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllers();
 
 //app.MapControllers();
 

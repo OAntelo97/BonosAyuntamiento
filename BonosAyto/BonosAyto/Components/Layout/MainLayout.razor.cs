@@ -1,4 +1,5 @@
-﻿using BonosAytoService.Services;
+﻿using System.Text.Json;
+using BonosAytoService.Services;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -11,7 +12,7 @@ namespace BonosAyto.Components.Layout
 
         async Task DeleteCookie()
         {
-            await JS.InvokeVoidAsync("cookieHelper.deleteCookie", "UsId");
+            await JS.InvokeVoidAsync("cookieHelper.authLogout", "UsId");
             GlobalVariables.usuario = null;
             Navigate.NavigateTo("/");
         }
