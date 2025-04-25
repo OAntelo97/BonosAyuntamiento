@@ -26,14 +26,12 @@ builder.Services
         options.Immediate = true;
     })
     .AddBootstrap5Providers()
-    .AddFontAwesomeIcons()
-    .AddChartJs();  // ¡Este es el punto clave para los gráficos!
+    .AddFontAwesomeIcons();
 
 
 var app = builder.Build();
 
 
-app.UseBlazorise(); //graficos
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

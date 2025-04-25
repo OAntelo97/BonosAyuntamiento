@@ -1,10 +1,13 @@
 ﻿using Blazorise.Charts;
 using BonosAytoService.DTOs;
+using BonosAytoService.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace BonosAyto.Components.Pages.Informes
 {
     public partial class GraficosInformes
     {
+
         private BarChart<double> barChart;
         private List<EstablecimientoDatosDTO> datos = new();
         private List<string> nombresEstablecimientos = new();
@@ -16,14 +19,12 @@ namespace BonosAyto.Components.Pages.Informes
         {
             if (firstRender)
             {
-                datos = EstablecimientoService.ObtenerDatosPorEstablecimiento();
+                datos = await EstablecimientoService.ObtenerDatosPorEstablecimiento();  // Cambié la llamada para que sea await
                 nombresEstablecimientos = datos.Select(d => d.NombreEstablecimiento).ToList();
                 await SeleccionarEstablecimiento(nombresEstablecimientos.FirstOrDefault());
                 primerRender = false;
             }
         }
-
-
 
         private async Task SeleccionarEstablecimiento(string nombre)
         {
@@ -31,27 +32,37 @@ namespace BonosAyto.Components.Pages.Informes
 
             establecimientoSeleccionado = nombre;
 
-            if (datos == null) return;
+            if (datos == null || !datos.Any()) return;
 
             var item = datos.FirstOrDefault(d => d?.NombreEstablecimiento == nombre);
 
             if (item == null)
             {
-                await barChart.Clear();
-                await barChart.Update();
+                if (barChart != null)
+                {
+                    await barChart.Clear();
+                    await barChart.Update();
+                }
                 return;
             }
 
             if (barChart == null) return;
 
+            // Asegúrate de limpiar antes de agregar nuevos datasets
             await barChart.Clear();
-            await barChart.AddLabels(nombre);
+
+            // Configurar etiquetas
+            await barChart.AddLabels(new List<string> { item.NombreEstablecimiento });
+
+            // Agregar el primer dataset: Bonos Canjeados
             await barChart.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Bonos Canjeados",
                 Data = new List<double> { item.BonosCanjeados },
                 BackgroundColor = "rgba(54, 162, 235, 0.6)"
             });
+
+            // Agregar el segundo dataset: Importe Total
             await barChart.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Importe Total",
@@ -59,9 +70,10 @@ namespace BonosAyto.Components.Pages.Informes
                 BackgroundColor = "rgba(255, 99, 132, 0.6)"
             });
 
-            await barChart.Update();
+            await barChart.Update(); // Actualiza el gráfico
         }
+    }
 
 
     }
-}
+

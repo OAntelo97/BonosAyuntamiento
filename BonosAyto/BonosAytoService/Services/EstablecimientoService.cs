@@ -62,15 +62,15 @@ namespace BonosAytoService.Services
 
 
         /*GRÁFICOS*/
-        public List<EstablecimientoDatosDTO> ObtenerDatosPorEstablecimiento()
+        public async Task<List<EstablecimientoDatosDTO>> ObtenerDatosPorEstablecimiento()
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var query = @"SELECT e.Nombre AS NombreEstablecimiento, COUNT(*) AS BonosCanjeados, SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
-                FROM Canjeos c JOIN Bonos b ON c.IdBono = b.Id JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-                WHERE c.OpExitosa = 1
-                GROUP BY e.Nombre";
+        FROM Canjeos c JOIN Bonos b ON c.IdBono = b.Id JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+        WHERE c.OpExitosa = 1
+        GROUP BY e.Nombre";
 
-            return connection.Query<EstablecimientoDatosDTO>(query).ToList();
+            return (await connection.QueryAsync<EstablecimientoDatosDTO>(query)).ToList();
         }
 
     }

@@ -5,7 +5,7 @@
 @using BonosAytoService.Services
 @inject EstablecimientoService EstablecimientoService
 
-<Dropdown>
+@* <Dropdown>
     <DropdownToggle Color="Color.Primary"> @establecimientoSeleccionado ?? "Establecimiento" </DropdownToggle>
     <DropdownMenu>
         @foreach (var e in nombresEstablecimientos)
@@ -13,10 +13,14 @@
             <DropdownItem @onclick="@(() => SeleccionarEstablecimiento(e))">@e</DropdownItem>
         }
     </DropdownMenu>
-</Dropdown>
+</Dropdown> *@
 
 <h5>Bonos canjeados + Importe por establecimiento</h5>
 
 <BarChart TItem="double" @ref="barChart" />
 
 
+@* <BarChart TItem="double" @ref="barChart">
+    <BarChartDataset TItem="double" Label="Dataset 1" Data="new double[] { 10, 20, 30 }" BackgroundColor="rgba(54, 162, 235, 0.6)" />
+    <BarChartDataset TItem="double" Label="Dataset 2" Data="new double[] { 15, 25, 35 }" BackgroundColor="rgba(255, 99, 132, 0.6)" />
+</BarChart> *@
