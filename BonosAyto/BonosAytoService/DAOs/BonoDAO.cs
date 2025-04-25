@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BonosAytoService.Model;
+using BonosAytoService.Services;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -14,9 +15,26 @@ namespace BonosAytoService.DAOs
         public int Insertar(Bono bono)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "INSERT INTO Bonos(Id, IdBeneficiario, TipoServicio, FechaInicio, FechaCaducidad, Importe, Activados, Canjeados, Caducados, UsuarioMod, FechaMod) VALUES " +
-                "(@Id, @IdBeneficiario, @TipoServicio, @FechaInicio, @FechaCaducidad, @Importe, @Activados, @Canjeados, @Caducados, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-            int valorAsignado = connection.QuerySingle<int>(sql, bono);
+            var sql = "INSERT INTO Bonos(IdBeneficiario, TipoServicio, FechaInicio, FechaCaducidad, Importe, Activados, Canjeados, Caducados, UsuarioMod, FechaMod) VALUES " +
+                "( @IdBeneficiario, @TipoServicio, @FechaInicio, @FechaCaducidad, @Importe, @Activados, @Canjeados, @Caducados, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            GlobalVariables.usuario = new DTOs.UsuarioDTO();
+            GlobalVariables.usuario.Id = 4;
+
+            var parameters = new
+            {
+                bono.IdBeneficiario,
+                bono.TipoServicio,
+                bono.FechaInicio,
+                bono.FechaCaducidad,
+                bono.Importe,
+                bono.Activados,
+                bono.Canjeados,
+                bono.Caducados,
+                UsuarioMod = GlobalVariables.usuario.Id,
+                FechaMod = DateTime.Now
+            };
+
+            int valorAsignado = connection.QuerySingle<int>(sql, parameters);
             return valorAsignado;
         }
 
@@ -38,14 +56,39 @@ namespace BonosAytoService.DAOs
             return connection.Query<Bono>(sql);
         }
 
+        public IEnumerable<Bono> Listar(int id)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT * FROM Bonos where IdBeneficiario=@Id ORDER BY FechaInicio ASC";
+            return connection.Query<Bono>(sql, new {Id=id });
+        }
+
 
 
         public bool Actualizar(Bono bono)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "UPDATE Bonos SET Id=@Id, IdBeneficiario=@IdBeneficiario, TipoServicio=@TipoServicio, FechaInicio=@FechaInicio, FechaCaducidad=@FechaCaducidad," +
+            var sql = "UPDATE Bonos SET IdBeneficiario=@IdBeneficiario, TipoServicio=@TipoServicio, FechaInicio=@FechaInicio, FechaCaducidad=@FechaCaducidad," +
                 " Importe=@Importe, Activados=@Activados, Canjeados=@Canjeados, Caducados=@Caducados, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE ID=@Id";
-            return connection.Execute(sql, bono) > 0;
+            GlobalVariables.usuario = new DTOs.UsuarioDTO();
+            GlobalVariables.usuario.Id = 4;
+
+            var parameters = new
+            {
+                bono.Id,
+                bono.IdBeneficiario,
+                bono.TipoServicio,
+                bono.FechaInicio,
+                bono.FechaCaducidad,
+                bono.Importe,
+                bono.Activados,
+                bono.Canjeados,
+                bono.Caducados,
+                UsuarioMod = GlobalVariables.usuario.Id,
+                FechaMod = DateTime.Now
+            };
+
+            return connection.Execute(sql, parameters) > 0;
         }
 
 

@@ -77,6 +77,7 @@ namespace BonosAytoService.DTOs
             FechaInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             FechaCaducidad = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddMonths(3);
             Activados = 20;
+            Importe = 3;
         }
     }
 

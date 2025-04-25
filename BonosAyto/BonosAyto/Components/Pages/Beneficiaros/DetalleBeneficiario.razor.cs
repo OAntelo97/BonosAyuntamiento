@@ -5,6 +5,17 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 
+using Microsoft.AspNetCore.Components;
+using BonosAytoService.DAOs;
+using BonosAytoService.DTOs;
+using BonosAytoService.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Components.Forms;
+using System.ComponentModel;
+using ClosedXML.Excel;
+using Microsoft.JSInterop;
+
 
 namespace BonosAyto.Components.Pages.Beneficiaros
 {
@@ -24,12 +35,19 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         public bool edit { get; set; }
         EditContext bonoContext;
 
+        private IEnumerable<BonoDTO> listaBonos;
+        [Inject] 
+        private IJSRuntime JS { get; set; }
+
+
+
 
         private string tituloDetalleBeneficiario {  get; set; }
         protected override void OnInitialized()
         {
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var queryParams = QueryHelpers.ParseQuery(uri.Query);
+            listaBonos = bonoService.Listar(Id);
 
             if (queryParams.TryGetValue("edit", out var editValue))
             {
@@ -84,7 +102,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             bonoContext.Validate();
         }
 
-        private void AgregarBono() {
+        private async Task AgregarBono() {
+            listaBonos = bonoService.Listar(Id);
+
             BonoDTO bonoDTO = new BonoDTO { 
                 IdBeneficiario=Id,
                 TipoServicio=bonoAsig.TipoServicio,
@@ -95,9 +115,34 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 Canjeados=0,
                 Caducados=0
             };
-            //bonoService.Insertar(bonoDTO);  
-            //actualizar lista
-            Console.WriteLine("funciona");
+
+            await JS.InvokeVoidAsync("destroyBonosTable");
+            bonoService.Insertar(bonoDTO);
+            listaBonos = bonoService.Listar(Id);
+            //   FiltrarBeneficiarios();
+            await InvokeAsync(StateHasChanged);
+            await Task.Delay(100);
+            await JS.InvokeVoidAsync("initializeBonosTable");
+        }
+
+
+        //botones accion
+        private void VerDetalle(int id)
+        {
+            Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
+        }
+        private void Modificar(int id)
+        {
+            Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
+        }
+
+        private async  Task Borrar(int id)
+        {
+            bonoService.Eliminar(id);
+
+            listaBonos = bonoService.Listar(Id);
+//            await JS.InvokeVoidAsync("removeRowByIdFromTable", id);
+
+        }
     }
-}
 }

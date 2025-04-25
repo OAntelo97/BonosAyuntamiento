@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.JSInterop;
 
 
 
@@ -24,22 +26,25 @@ namespace BonosAyto.Components.Pages.Beneficiaros
        // private string searchbar = "";
         private string fichero = "Sin selección";
 
-     /*   private void FiltrarBeneficiarios() //filtrar lista
-        {
-            if (string.IsNullOrWhiteSpace(searchbar))
-            {
-                beneficiariosFiltrados = listaBeneficiarios.ToList();
-            }
-            else
-            {
-                beneficiariosFiltrados = listaBeneficiarios
-                    .Where(b => (b.Nombre + " " + b.PrimerApellido + " " + b.SegundoApellido).ToLower().Contains(searchbar.ToLower())
-                             || b.Telefono.Contains(searchbar)
-                             || b.Email.ToLower().Contains(searchbar.ToLower()))
-                    .ToList();
-                StateHasChanged();
-            }
-        }*/
+        [Inject]
+        private IJSRuntime JS { get; set; }
+
+        /*   private void FiltrarBeneficiarios() //filtrar lista
+           {
+               if (string.IsNullOrWhiteSpace(searchbar))
+               {
+                   beneficiariosFiltrados = listaBeneficiarios.ToList();
+               }
+               else
+               {
+                   beneficiariosFiltrados = listaBeneficiarios
+                       .Where(b => (b.Nombre + " " + b.PrimerApellido + " " + b.SegundoApellido).ToLower().Contains(searchbar.ToLower())
+                                || b.Telefono.Contains(searchbar)
+                                || b.Email.ToLower().Contains(searchbar.ToLower()))
+                       .ToList();
+                   StateHasChanged();
+               }
+           }*/
 
 
         protected override void OnInitialized() //cargar lista
@@ -47,7 +52,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             listaBeneficiarios = beneficiarioService.Listar();
         }
 
-        private void AltaBeneficiario()         //dar de alta beneficiarios           
+        private async Task AltaBeneficiario()         //dar de alta beneficiarios           
         {                                       
             BeneficiarioDTO ben = new BeneficiarioDTO     
             {
@@ -60,11 +65,16 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 CodigoPostal = modeloAlta.CodigoPostal,
                 Telefono = modeloAlta.Telefono
             };
+            await JS.InvokeVoidAsync("destroyBenTable");
             beneficiarioService.Insertar(ben);
             listaBeneficiarios = beneficiarioService.Listar();
-           // FiltrarBeneficiarios();
+            //   FiltrarBeneficiarios();
             modeloAlta.reset();
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
+            await Task.Delay(100);
+            await JS.InvokeVoidAsync("initializeBenTable");
+
+
         }
 
         private string mensajeError = null;

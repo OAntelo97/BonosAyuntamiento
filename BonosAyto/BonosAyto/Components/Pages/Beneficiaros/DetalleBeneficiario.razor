@@ -1,5 +1,6 @@
 ﻿@page "/beneficiarios/detallebeneficiario/{Id:int}"
 @using BonosAytoService.DTOs
+@inject NavigationManager Navigate
 
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -11,11 +12,72 @@
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
 
+
+
 <script>
     $(document).ready(function () {
-        $('#listaBonosBeneficiario').DataTable();
+        $('#listaBonosBeneficiario').DataTable({
+            order: [[1, 'asc']] 
+        });
     });
 </script>
+
+
+<script>
+    var bonosTable;
+
+    function initializeBonosTable() {
+        if (!$.fn.DataTable.isDataTable('#listaBonosBeneficiario')) {
+            bonosTable = $('#listaBonosBeneficiario').DataTable({
+                order: [[1, 'asc']]
+            });
+        }
+    }
+
+    function destroyBonosTable() {
+        if ($.fn.DataTable.isDataTable('#listaBonosBeneficiario')) {
+            $('#listaBonosBeneficiario').DataTable().destroy();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Delay DataTable init until the tab is shown
+        document.querySelector('button[data-bs-target="#profile"]').addEventListener('shown.bs.tab', function () {
+            initializeBonosTable();
+        });
+    });
+
+    function removeRowByIdFromTable(id) {
+        var table = $('#yourTableId').DataTable();  // Replace with your actual table selector
+        var row = table.row(function (idx, data, node) {
+            return data.id === id;  // Ensure this matches the data structure, such as a property 'id'
+        });
+
+        if (row.length > 0) {
+            row.remove().draw();  // Remove and redraw the table
+        } else {
+            console.log("Row not found for ID: " + id);  // Log if row not found
+        }
+    }
+
+    function addRowToDataTable(bonoDTO) {
+        var table = $('#yourTableId').DataTable();  // Replace with your actual table ID
+        table.row.add({
+            id: bonoDTO.id,
+            tipoServicio: bonoDTO.tipoServicio,
+            fechaInicio: bonoDTO.fechaInicio,
+            fechaCaducidad: bonoDTO.fechaCaducidad,
+            importe: bonoDTO.importe,
+            activados: bonoDTO.activados,
+            canjeados: bonoDTO.canjeados,
+            caducados: bonoDTO.caducados
+        }).draw();  // Add the row and redraw the table
+    }
+
+
+</script>
+
+
 
 <!--[Título vista]-->
 <div class="d-flex justify-content-center my-4">
@@ -88,15 +150,13 @@
                         </h6>
 
 
-                        <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono">
+                        <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono" >
                             <DataAnnotationsValidator />
                             <ValidationSummary />
 
                             <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select" >     <!--cambiar valores-->
                                 <option value=' '>Tipo servicio</option>
-                                <option value='1'>Servicio 1</option>
-                                <option value='2'>Servicio 2</option>
-                                <option value='3'>Servicio 3</option>
+                                <option value='R'>Restaurante</option>
                             </InputSelect>
 
                             <div class="container mt-3">
@@ -159,7 +219,20 @@
                             </thead>
 
                             <tbody>
-                                
+                                @foreach (var bon in listaBonos)
+                                {
+                                    <tr data-id="@bon.Id">
+                                        <td>@bon.TipoServicio</td>
+                                        <td>@bon.FechaInicio</td>
+                                        <td>@bon.FechaCaducidad</td>
+                                        <td>@bon.Importe</td>
+                                        <td>
+                                            <i class="bi bi-search me-1" @onclick="() => VerDetalle(bon.Id)"></i>
+                                            <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => Modificar(bon.Id)" style="transform: scaleX(-1);"></i>
+                                            <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
+                                        </td>
+                                    </tr>
+                                }
 
                             </tbody>
                         </table>

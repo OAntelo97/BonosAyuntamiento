@@ -16,8 +16,8 @@ namespace BonosAytoService.DAOs
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "INSERT INTO Beneficiarios (Nombre, PrimerApellido, SegundoApellido, DNI, Direccion, CodigoPostal, Telefono, Email, UsuarioMod, FechaMod) VALUES (@Nombre, @PrimerApellido, @SegundoApellido, @DNI, @Direccion, @CodigoPostal, @Telefono, @Email, @UsuarioMod, @FechaMod);";
-            //GlobalVariables.usuario=new DTOs.UsuarioDTO();
-            //GlobalVariables.usuario.Id = 4;
+            GlobalVariables.usuario=new DTOs.UsuarioDTO();
+            GlobalVariables.usuario.Id = 4;
             
             var parameters = new
             {

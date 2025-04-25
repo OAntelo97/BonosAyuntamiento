@@ -32,8 +32,6 @@ namespace BonosAytoService.Services
         public int Insertar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
-            bono.FechaMod = DateTime.Now;
-            bono.UsuarioMod=1;
             return _dao.Insertar(bono);
         }
 
@@ -51,6 +49,12 @@ namespace BonosAytoService.Services
         {
             var lista = _dao.Listar();
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
+        }
+        public IEnumerable<BonoDTO> Listar( int Id)
+        {
+            var lista = _dao.Listar(Id).OrderBy(b => b.FechaInicio);
+            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
+            return mapped;
         }
 
 

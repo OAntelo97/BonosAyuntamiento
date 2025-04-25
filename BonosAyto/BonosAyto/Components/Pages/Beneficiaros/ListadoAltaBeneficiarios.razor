@@ -18,8 +18,31 @@
 
 <script>
     $(document).ready(function () {
-        $('#listaBeneficiarios').DataTable();
+        $('#ListaBeneficiarios').DataTable();
     });
+</script>
+
+<script>
+    var bonosTable;
+
+    function initializeBenTable() {
+        if ($.fn.DataTable.isDataTable('#listaBeneficiarios')) {
+            bonosTable = $('#ListaBeneficiarios').DataTable();
+        } else {
+            bonosTable = $('#ListaBeneficiarios').DataTable();
+        }
+    }
+
+    function destroyBenTable() {
+        if ($.fn.DataTable.isDataTable('#ListaBeneficiarios')) {
+            $('#ListaBeneficiarios').DataTable().destroy();
+        }
+    }
+
+    function refreshBenTable() {
+        destroyBonosTable();
+        initializeBonosTable();
+    }
 </script>
 
 
@@ -112,7 +135,7 @@
                 </div>
             </div>
             -->
-            <table id="listaBeneficiarios"  class="table">
+            <table id="ListaBeneficiarios"  class="table">
                 <thead class="bg-light ">
                     <tr>
                         <th>Id</th>
