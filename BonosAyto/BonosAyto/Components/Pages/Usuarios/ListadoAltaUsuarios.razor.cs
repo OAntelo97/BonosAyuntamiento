@@ -21,11 +21,11 @@ namespace BonosAyto.Components.Pages.Usuarios
         private async Task GuardarUsuario()
         {
             // Comprobar si el nombre de usuario ya existe
-            if (UsuarioService.UsuarioExiste(usuario.Usuario))
+            if (UsuarioService.UsuarioExiste(usuario.Usuario, usuario.Id))
             {
                 await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
                 return; //rompe la ejecucion para que el id autoincremental no sigue contando pese a no tener lugar la insercion por un error
-            }else if(UsuarioService.EmailExiste(usuario.Email)){
+            }else if(UsuarioService.EmailExiste(usuario.Email, usuario.Id)){
                 await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
                 return;
             }
@@ -54,7 +54,7 @@ namespace BonosAyto.Components.Pages.Usuarios
 
         private void VerDetalle(int id)
         {
-            Navigate.NavigateTo($"/usuarios/detalle/{id}");
+            Navigate.NavigateTo($"/usuarios/ver/{id}");
         }
         private void Editar(int id)
         {
