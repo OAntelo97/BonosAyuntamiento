@@ -1,5 +1,4 @@
 using BonosAyto.Components;
-using BonosAytoService;
 using BonosAytoService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +9,6 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstablecimientoService>();
-
-ConexionBD.Inicilizar("Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
 
 var app = builder.Build();
 
