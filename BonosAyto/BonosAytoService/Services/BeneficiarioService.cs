@@ -30,6 +30,8 @@ namespace BonosAytoService.Services
         public void Insertar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
+            bmap.FechaMod = DateTime.Now;
+            bmap.UsuarioMod = GlobalVariables.usuario.Id;
             _dao.Insertar(bmap);
         }
 
@@ -48,6 +50,8 @@ namespace BonosAytoService.Services
         public bool Actualizar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
+            bmap.FechaMod = DateTime.Now;
+            bmap.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Actualizar(bmap);
 
         }
