@@ -29,39 +29,47 @@ namespace BonosAytoService.Services
             _mapper = config.CreateMapper();
         }
 
-        public int Insertar(BonoDTO bonoDTO)
+        public async Task<int> Insertar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
-            return _dao.Insertar(bono);
+            bono.FechaMod = DateTime.Now;
+            bono.UsuarioMod = GlobalVariables.usuario.Id;
+            return await _dao.Insertar(bono);
         }
 
 
 
-        public BonoDTO? Consultar(int id)
+        public async Task<BonoDTO?> Consultar(int id)
         {
-            var bono = _dao.Consultar(id);
+            var bono = await _dao.Consultar(id);
             return bono == null ? null : _mapper.Map<BonoDTO>(bono);
         }
 
-
-
-        public IEnumerable<BonoDTO> Listar()
+        public async Task<IEnumerable<BonoDTO>> ConsultarPorBeneficiario(int idBeneficiario)
         {
-            var lista = _dao.Listar();
+            var lista = await _dao.ConsultarPorBeneficiario(idBeneficiario);
+            return _mapper.Map<IEnumerable<BonoDTO>>(lista);
+        }
+
+        public async Task<IEnumerable<BonoDTO>> Listar()
+        {
+            var lista = await _dao.Listar();
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
         }
 
 
-        public bool Actualizar(BonoDTO bonoDTO)
+        public async Task<bool> Actualizar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
-            return _dao.Actualizar(bono);
+            bono.FechaMod = DateTime.Now;
+            bono.UsuarioMod = GlobalVariables.usuario.Id;
+            return await _dao.Actualizar(bono);
         }
 
 
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            return _dao.Eliminar(id);
+            return await _dao.Eliminar(id);
         }
 
     }

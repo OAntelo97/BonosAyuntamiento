@@ -1,4 +1,5 @@
-﻿using BonosAytoService.Services;
+﻿using System.Threading.Tasks;
+using BonosAytoService.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace BonosAyto.Components.Pages.Beneficiaros
@@ -13,9 +14,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private BeneficiarioService beneficiarioService = new BeneficiarioService();
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            var beneficiario = beneficiarioService.Consultar(Id);
+            var beneficiario = await beneficiarioService.Consultar(Id);
             if (beneficiario != null)
             {
                 datos = beneficiario.Nombre;

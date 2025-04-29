@@ -17,7 +17,7 @@
 
                 Formulario: Agregar Beneficiario
             </h6>
-
+            <p>@string.Join("<br>", strings)</p>
             <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -61,9 +61,13 @@
                 </label>
                 <span>@(fichero ?? "Sin elección")</span>
             </div>
-            @if (mensajeError != null)
+            @if (mensajeError.Count() != 0)
             {
-                <div class="text-danger mt-2">@mensajeError</div>
+                foreach(string mensaje in mensajeError)
+                {
+                    <div class="text-danger mt-2">@mensaje</div>
+                }
+                
             }
 
             <a class="mt-2" href="files/PlantillaBeneficiarios.xlsx" download>Descargar plantilla Excel</a>

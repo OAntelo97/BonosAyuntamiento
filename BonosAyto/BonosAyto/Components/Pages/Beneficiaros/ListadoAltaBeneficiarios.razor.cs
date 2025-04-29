@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel;
 using ClosedXML.Excel;
+using System.Threading.Tasks;
+using BonosAytoService.Model;
+using Microsoft.JSInterop;
 
 
 namespace BonosAyto.Components.Pages.Beneficiaros
@@ -19,12 +22,15 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private IEnumerable<BeneficiarioDTO> listaBeneficiarios;
         private List<BeneficiarioDTO> beneficiariosFiltrados = new();
-
+        [Inject]
+        private IJSRuntime JS { get; set; }
+        List<string> strings = ["manzana", "pera", "naranja"];
         private string searchbar = "";
         private string fichero = "Sin selección";
 
         private void FiltrarBeneficiarios() //filtrar lista
         {
+            
             if (string.IsNullOrWhiteSpace(searchbar))
             {
                 beneficiariosFiltrados = listaBeneficiarios.ToList();
@@ -41,13 +47,13 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         }
 
 
-        protected override void OnInitialized() //cargar lista
+        protected override async Task OnInitializedAsync() //cargar lista
         {
-            listaBeneficiarios = beneficiarioService.Listar();
+            listaBeneficiarios = await beneficiarioService.Listar();
             beneficiariosFiltrados = listaBeneficiarios.ToList();
         }
 
-        private void AltaBeneficiario()         //dar de alta beneficiarios           
+        private async Task AltaBeneficiario()         //dar de alta beneficiarios           
         {                                       
             BeneficiarioDTO ben = new BeneficiarioDTO     //Cambiar UsuarioMod
             {
@@ -61,13 +67,25 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 Telefono = modeloAlta.Telefono,
                 UsuarioMod = 0                                //Cambiar UsuarioMod
             };
-            beneficiarioService.Insertar(ben);
-            listaBeneficiarios = beneficiarioService.Listar();
+            ;
+            var (res1, res2) = await beneficiarioService.Insertar(ben);
+            // Comprobar si el nombre de usuario ya existe
+            if (res2 == -2)
+            {
+                await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
+                return; //rompe la ejecucion para no recargar la lista innecesariamnete
+            }
+            else if (res1 == -2)
+            {
+                await JS.InvokeVoidAsync("alert", "Ese DNI ya está registrado");
+                return;
+            }
+            listaBeneficiarios = await beneficiarioService.Listar();
             FiltrarBeneficiarios();
             modeloAlta.reset();
         }
 
-        private string mensajeError = null;
+        private List<string> mensajeError = [];
         private IBrowserFile fExcel = null;
         private void SeleccionarFichero(InputFileChangeEventArgs e)  //seleccionar fichero, solo permite xlsx
         {
@@ -75,17 +93,17 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
             if (file != null)
             {
+                mensajeError = [];
                 if (file.Name.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
                 {
                     fichero = file.Name;
                     fExcel = file;
-                    mensajeError = null;
                 }
                 else
                 {
                     fichero = null;
                     fExcel = null;
-                    mensajeError = "Por favor selecciona un archivo Excel .xlsx";
+                    mensajeError.Add("Por favor selecciona un archivo Excel .xlsx");
                 }
             }
         }
@@ -99,10 +117,10 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         {
             Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}");
         }
-        private void Borrar(int Id)
+        private async Task Borrar(int Id)
         {
             beneficiarioService.Eliminar(Id);
-            listaBeneficiarios = beneficiarioService.Listar();
+            listaBeneficiarios = await beneficiarioService.Listar();
             FiltrarBeneficiarios();
         }
 
@@ -155,30 +173,55 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                                 Direccion = alta.Direccion,
                                 CodigoPostal = alta.CodigoPostal,
                                 Telefono = alta.Telefono,
-                                Email = alta.Email,
-                                UsuarioMod = 0                                  // cambiar UsuarioMod
+                                Email = alta.Email
                             });
                         }
 
                         currentRow++;
                     }
+                    List<string> DNIErrors= new List<string>();
+                    List<string> EmailErrors = new List<string>();
+                    int numBeneficiarios = nuevosBeneficiarios.Count();
                     foreach (var b in nuevosBeneficiarios) //insertar
                     {
-                        beneficiarioService.Insertar(b);
+                        var (res1, res2) = await beneficiarioService.Insertar(b);
+                        // Comprobar si el nombre de usuario ya existe
+                        if (res2 == -2)
+                        {
+                            DNIErrors.Add(b.DNI);
+                            numBeneficiarios--;
+                        }
+                        else if (res1 == -2)
+                        {
+                            EmailErrors.Add(b.Email);
+                            numBeneficiarios--;
+                        }
                     }
-                    listaBeneficiarios = beneficiarioService.Listar();
+                    listaBeneficiarios =  await beneficiarioService.Listar();
                     FiltrarBeneficiarios();
 
-                    mensajeError = $"Se cargaron {nuevosBeneficiarios.Count} beneficiarios correctamente.";
+                    mensajeError.Add($"Se cargaron {numBeneficiarios} beneficiarios correctamente.");
+                    if (DNIErrors.Count + EmailErrors.Count > 0)
+                    {
+                        mensajeError.Add($"Hubo {DNIErrors.Count + EmailErrors.Count} beneficiarios que fallaron al insertarse.");
+                        if (DNIErrors.Count > 0)
+                        {
+                            mensajeError.Add($"{DNIErrors.Count} beneficiarios tienen un DNI que ya se encuentra en la base de datos: {string.Join(", ",DNIErrors)}");
+                        }
+                        if (EmailErrors.Count > 0) {
+                            mensajeError.Add($"{DNIErrors.Count} beneficiarios tienen un Email que ya se encuentra en la base de datos: {string.Join(", ", DNIErrors)}");
+                        }
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
-                    mensajeError = $"Error al procesar el archivo, beneficiarios ya registrados";
+                    mensajeError.Add($"Error al procesar el archivo, beneficiarios ya registrados");
                 }
             }
             else
             {
-                mensajeError = "Por favor, selecciona un archivo Excel antes de cargar.";
+                mensajeError.Add("Por favor, selecciona un archivo Excel antes de cargar.");
             }
         }
 

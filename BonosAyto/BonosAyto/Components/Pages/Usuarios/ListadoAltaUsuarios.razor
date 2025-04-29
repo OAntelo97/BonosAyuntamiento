@@ -45,7 +45,7 @@
                     <label for="IdEstablecimiento">IdEstablecimiento</label>
                     <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-control mb-2">
                         <option value="" selected>-- Selecciona un Id de Establecimiento --</option>
-                        @foreach (var establecimiento in EstablecimientoService.Listar())
+                        @foreach (var establecimiento in establecimientos)
                         {
                             <option value="@establecimiento.Id">@establecimiento.Id</option>
                         }

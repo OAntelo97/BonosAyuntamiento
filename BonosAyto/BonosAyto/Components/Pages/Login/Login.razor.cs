@@ -33,10 +33,10 @@ namespace BonosAyto.Components.Pages.Login
             validationMessageStore.Clear();
 
 
-            int id = UsuarioService.comprobarUsuario(usuario);
+            int id = await UsuarioService.comprobarUsuario(usuario);
 
             if (id != -1) {
-                GlobalVariables.usuario = UsuarioService.Consultar(id);
+                GlobalVariables.usuario = await UsuarioService.Consultar(id);
                 Navigate.NavigateTo("/");
             }
             else
