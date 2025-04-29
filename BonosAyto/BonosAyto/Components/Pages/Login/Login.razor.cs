@@ -21,15 +21,8 @@ namespace BonosAyto.Components.Pages.Login
         private UsuarioDTO usuario = new UsuarioDTO();
         private bool recordarme = false;
         public UsuarioService UsuarioService { get; set; }
-
         [Inject] private IJSRuntime JS { get; set; }
-        [CascadingParameter]
-        public HttpContext? HttpContext { get; set; }
-        [Inject]
-        IHttpContextAccessor httpContextAccessor { get; set; }
-
         EditContext editContext;
-
         ValidationMessageStore validationMessageStore;
 
 
@@ -56,9 +49,15 @@ namespace BonosAyto.Components.Pages.Login
             //    Navigate.NavigateTo("/home");
             //}
 
+            //var user = new UsuarioDTO
+            //{
+            //    Usuario = "Galsoft",
+            //    Pass = "asdf",
+            //    Rol = 'G',
+            //    Email = "oscar.a@galsoft.es"
+            //};
 
-
-
+            //UsuarioService.Insertar(user);
         }
 
 
