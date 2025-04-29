@@ -1,81 +1,8 @@
 ﻿@page "/beneficiarios/detallebeneficiario/{Id:int}"
 @using BonosAytoService.DTOs
+@using BonosAyto.Components.DataTables
 @inject NavigationManager Navigate
 
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css" rel="stylesheet" />
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
-
-
-
-<script>
-    $(document).ready(function () {
-        $('#listaBonosBeneficiario').DataTable({
-            order: [[1, 'asc']] 
-        });
-    });
-</script>
-
-
-<script>
-    var bonosTable;
-
-    function initializeBonosTable() {
-        if (!$.fn.DataTable.isDataTable('#listaBonosBeneficiario')) {
-            bonosTable = $('#listaBonosBeneficiario').DataTable({
-                order: [[1, 'asc']]
-            });
-        }
-    }
-
-    function destroyBonosTable() {
-        if ($.fn.DataTable.isDataTable('#listaBonosBeneficiario')) {
-            $('#listaBonosBeneficiario').DataTable().destroy();
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Delay DataTable init until the tab is shown
-        document.querySelector('button[data-bs-target="#profile"]').addEventListener('shown.bs.tab', function () {
-            initializeBonosTable();
-        });
-    });
-
-    function removeRowByIdFromTable(id) {
-        var table = $('#yourTableId').DataTable();  // Replace with your actual table selector
-        var row = table.row(function (idx, data, node) {
-            return data.id === id;  // Ensure this matches the data structure, such as a property 'id'
-        });
-
-        if (row.length > 0) {
-            row.remove().draw();  // Remove and redraw the table
-        } else {
-            console.log("Row not found for ID: " + id);  // Log if row not found
-        }
-    }
-
-    function addRowToDataTable(bonoDTO) {
-        var table = $('#yourTableId').DataTable();  // Replace with your actual table ID
-        table.row.add({
-            id: bonoDTO.id,
-            tipoServicio: bonoDTO.tipoServicio,
-            fechaInicio: bonoDTO.fechaInicio,
-            fechaCaducidad: bonoDTO.fechaCaducidad,
-            importe: bonoDTO.importe,
-            activados: bonoDTO.activados,
-            canjeados: bonoDTO.canjeados,
-            caducados: bonoDTO.caducados
-        }).draw();  // Add the row and redraw the table
-    }
-
-
-</script>
 
 
 
@@ -95,7 +22,7 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-       
+
         <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="container">
                 <div class="row">
@@ -111,10 +38,10 @@
                             <InputText id="apellido1" disabled="@(!edit)" @bind-Value="detalleValid.PrimerApellido" class="form-control" />
 
                             <label for="apellido2" class="mt-3">Segundo Apellido</label>
-                            <InputText id="apellido2"   disabled="@(!edit)"  @bind-Value="detalleValid.SegundoApellido" class="form-control" />
+                            <InputText id="apellido2" disabled="@(!edit)" @bind-Value="detalleValid.SegundoApellido" class="form-control" />
 
                             <label for="dni" class="mt-3">DNI</label>
-                            <InputText id="dni" disabled="@(!edit)"   @bind-Value="detalleValid.DNI" class="form-control" />
+                            <InputText id="dni" disabled="@(!edit)" @bind-Value="detalleValid.DNI" class="form-control" />
 
                             <label for="direccion" class="mt-3">Dirección</label>
                             <InputText id="direccion" disabled="@(!edit)" @bind-Value="detalleValid.Direccion" class="form-control" />
@@ -150,11 +77,12 @@
                         </h6>
 
 
-                        <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono" >
+                        <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
 
-                            <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select" >     <!--cambiar valores-->
+                            <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select">
+                                <!--cambiar valores-->
                                 <option value=' '>Tipo servicio</option>
                                 <option value='R'>Restaurante</option>
                             </InputSelect>
@@ -163,11 +91,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="fechainicio">Fecha inicio</label>
-                                        <InputDate id="fechainicio" onblur="@AutoCaducidad" @bind-Value="bonoAsig.FechaInicio"  class="form-control" />
+                                        <InputDate id="fechainicio" onblur="@AutoCaducidad" @bind-Value="bonoAsig.FechaInicio" class="form-control" />
                                     </div>
                                     <div class="col">
                                         <label for="fechafin">Fecha caducidad</label>
-                                        <InputDate id="fechafin"  @bind-Value="bonoAsig.FechaCaducidad" class="form-control" /> 
+                                        <InputDate id="fechafin" onblur="@CheckCaducidad" @bind-Value="bonoAsig.FechaCaducidad" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +105,7 @@
                                     <div class="col">
                                         <label for="imp">Importe</label>
                                         <InputRadioGroup id="imp" @bind-Value="bonoAsig.Importe">
-                                            <div class="form-check"> 
+                                            <div class="form-check">
                                                 <InputRadio class="form-check-input" Value="3" />
                                                 <label class="form-check-label">3€</label>
                                             </div>
@@ -206,36 +134,61 @@
 
                     <div class="col-7 border border-dark ">
                         <!--buscador-->
+                        <!--labels para filtro-->
 
-                        <table id="listaBonosBeneficiario" class="table">
-                            <thead class="bg-light ">
-                                <tr>
-                                    <th>Tipo servicio</th>
-                                    <th>Fecha inicio</th>
-                                    <th>Fecha caducidad</th>
-                                    <th>Importe</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
+                        <!--
+                        <p id="date_filter">
+                            <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                            <span id="date-label-to" class="date-label">To:</span><input class="date_range_filter date" type="text" id="datepicker_to" />
+                        </p>
 
-                            <tbody>
-                                @foreach (var bon in listaBonos)
-                                {
-                                    <tr data-id="@bon.Id">
-                                        <td>@bon.TipoServicio</td>
-                                        <td>@bon.FechaInicio</td>
-                                        <td>@bon.FechaCaducidad</td>
-                                        <td>@bon.Importe</td>
-                                        <td>
-                                            <i class="bi bi-search me-1" @onclick="() => VerDetalle(bon.Id)"></i>
-                                            <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => Modificar(bon.Id)" style="transform: scaleX(-1);"></i>
-                                            <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
-                                        </td>
+
+                        -->
+                        <label class="my-3">Fecha inicio: <input type="date" id="minDate" /></label>
+                        <label class="my-3">Fecha fin: <input type="date" id="maxDate" /></label>
+
+
+                        <DataTablesBonos>
+
+                            <table class="table" id="listaBonosBeneficiario">
+                                <thead class="bg-light ">
+                                    <tr>
+                                        <th>Tipo servicio</th>
+                                        <th>Fecha inicio</th>
+                                        <th>Fecha caducidad</th>
+                                        <th>Importe</th>
+                                        <th>Acciones</th>
                                     </tr>
-                                }
+                                    <!--
 
-                            </tbody>
-                        </table>
+                                    <tr>
+                                        <th><input type="date" placeholder="Fecha inicio" class="form-control form-control-sm" /></th>
+                                        <th><input type="date" placeholder="Fecha fin" class="form-control form-control-sm" /></th>
+                                        <th />
+                                        <th />
+                                        <th />
+                                    </tr>
+                                    -->
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var bon in listaBonos)
+                                    {
+                                        <tr data-id="@bon.Id">
+                                            <td> @TipoServicioNombre(bon.TipoServicio) </td>
+                                            <td>@bon.FechaInicio.ToString("dd-MM-yyyy")</td>
+                                            <td>@bon.FechaCaducidad.ToString("dd-MM-yyyy")</td>
+                                            <td>@bon.Importe</td>
+                                            <td>
+                                                <i class="bi bi-search me-1" @onclick="() => VerDetalle(bon.Id)"></i>
+                                                <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => Modificar(bon.Id)" style="transform: scaleX(-1);"></i>
+                                                <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </DataTablesBonos>
 
                     </div>
 

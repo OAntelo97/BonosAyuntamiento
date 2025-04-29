@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel;
 using ClosedXML.Excel;
 using Microsoft.JSInterop;
+using DocumentFormat.OpenXml.EMMA;
 
 
 namespace BonosAyto.Components.Pages.Beneficiaros
@@ -34,15 +35,16 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         [Parameter]
         public bool edit { get; set; }
         EditContext bonoContext;
+        ValidationMessageStore messageStore;
 
         private IEnumerable<BonoDTO> listaBonos;
-        [Inject] 
+        [Inject]
         private IJSRuntime JS { get; set; }
 
 
 
 
-        private string tituloDetalleBeneficiario {  get; set; }
+        private string tituloDetalleBeneficiario { get; set; }
         protected override void OnInitialized()
         {
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
@@ -66,14 +68,16 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 CodigoPostal = detalleB.CodigoPostal,
                 Telefono = detalleB.Telefono
             };
-            bonoAsig = new AsignarBono { 
-                TipoServicio=' ',
-                FechaInicio= new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0),
-                FechaCaducidad= new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddMonths(3),
-                Importe=3,
-                Activados=20
+            bonoAsig = new AsignarBono
+            {
+                TipoServicio = ' ',
+                FechaInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0),
+                FechaCaducidad = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddMonths(3),
+                Importe = 3,
+                Activados = 20
             };
             bonoContext = new EditContext(bonoAsig);
+            messageStore = new ValidationMessageStore(bonoContext);
 
             titulo();
         }
@@ -92,39 +96,54 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             titulo();
         }
 
-        private void titulo() { 
+        private void titulo()
+        {
             tituloDetalleBeneficiario = $"Información de {detalleB.Nombre} {detalleB.PrimerApellido} {detalleB.SegundoApellido}";
         }
 
-        private void AutoCaducidad() {
+        private void AutoCaducidad()
+        {
             bonoAsig.FechaCaducidad = bonoAsig.FechaInicio.AddMonths(3);
-            bonoContext.NotifyFieldChanged(new FieldIdentifier(bonoAsig, nameof(bonoAsig.FechaCaducidad)));
-            bonoContext.Validate();
         }
 
-        private async Task AgregarBono() {
+        private void CheckCaducidad()
+        {
+            if (bonoAsig.FechaCaducidad <= bonoAsig.FechaInicio)
+            {
+                bonoAsig.FechaCaducidad = bonoAsig.FechaInicio.AddMonths(3);
+            }
+        }
+
+
+        private async Task AgregarBono()
+        {
             listaBonos = bonoService.Listar(Id);
 
-            BonoDTO bonoDTO = new BonoDTO { 
-                IdBeneficiario=Id,
-                TipoServicio=bonoAsig.TipoServicio,
-                FechaInicio=bonoAsig.FechaInicio,
-                FechaCaducidad=bonoAsig.FechaCaducidad,
-                Importe=bonoAsig.Importe+ "€",
-                Activados=bonoAsig.Activados,
-                Canjeados=0,
-                Caducados=0
+            BonoDTO bonoDTO = new BonoDTO
+            {
+                IdBeneficiario = Id,
+                TipoServicio = bonoAsig.TipoServicio,
+                FechaInicio = bonoAsig.FechaInicio,
+                FechaCaducidad = bonoAsig.FechaCaducidad,
+                Importe = bonoAsig.Importe + "€",
+                Activados = bonoAsig.Activados,
+                Canjeados = 0,
+                Caducados = 0
             };
 
-            await JS.InvokeVoidAsync("destroyBonosTable");
-            bonoService.Insertar(bonoDTO);
+            int nuevoId = bonoService.Insertar(bonoDTO);
             listaBonos = bonoService.Listar(Id);
-            //   FiltrarBeneficiarios();
-            await InvokeAsync(StateHasChanged);
-            await Task.Delay(100);
-            await JS.InvokeVoidAsync("initializeBonosTable");
+            bonoAsig.reset();
         }
 
+        public string TipoServicioNombre(char c)
+        {
+            switch (c)
+            {
+                case 'R': return "Restaurante";
+                default: return "Tipo inválido";
+            }
+        }
 
         //botones accion
         private void VerDetalle(int id)
@@ -136,13 +155,14 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
         }
 
-        private async  Task Borrar(int id)
+        private async Task Borrar(int id)
         {
-            bonoService.Eliminar(id);
-
-            listaBonos = bonoService.Listar(Id);
-//            await JS.InvokeVoidAsync("removeRowByIdFromTable", id);
-
+            bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");
+            if (confirmed)
+            {
+                bonoService.Eliminar(id);
+                listaBonos = bonoService.Listar(Id);
+            }
         }
     }
 }

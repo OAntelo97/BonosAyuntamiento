@@ -32,6 +32,8 @@ namespace BonosAytoService.Services
         public int Insertar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
+
+            bono.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Insertar(bono);
         }
 
@@ -61,6 +63,8 @@ namespace BonosAytoService.Services
         public bool Actualizar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
+
+            bono.UsuarioMod = GlobalVariables.usuario.Id;
             return _dao.Actualizar(bono);
         }
 
@@ -68,6 +72,12 @@ namespace BonosAytoService.Services
         public bool Eliminar(int id)
         {
             return _dao.Eliminar(id);
+        }
+
+        public bool EliminarTalonariosBeneficiario(int id)
+        {
+
+            return _dao.EliminarTalonarios(id);
         }
 
     }

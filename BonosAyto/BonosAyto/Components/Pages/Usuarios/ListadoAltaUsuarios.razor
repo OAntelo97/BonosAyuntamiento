@@ -5,23 +5,21 @@
 @using BonosAyto.Components.DataTables
 
 
-<h1 class="w-100 text-center text-decoration-underline">Listado y Alta de Usuarios</h1>
+<h1 class="w-100 text-center my-4">Listado y Alta de Usuarios</h1>
 
-<div class="container mb-4">
+<div class="container">
     <div class="row">
 
-        <div class="col-5">
+        <div class="col-4 border border-dark">
+
+            <h6 class="mb-3 mt-2 text-center">Formulario: Agregar Usuario</h6>
+
             <EditForm Model="usuario" OnValidSubmit="@GuardarUsuario">
                 <DataAnnotationsValidator />
 
-                <!--ID-->
-                <label for="id">Id</label>
-                <input id="id" class="form-control mb-2" value="El Id se genera automaticamente" readonly />
-
-
                 <!-- Usuario -->
                 <label for="usuario">Usuario</label>
-                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required/>
+                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required />
 
                 <!-- Contraseña -->
                 <label for="pass">Pass</label>
@@ -54,20 +52,16 @@
                     </InputSelect>
                 }
 
-                <!-- UsuarioMod -- Campo oculto, que contiene el id de la persona que está logueada y está dando de alta a nuevos usuarios --
-                        de momento, mientras no se termina el login, contiene un valor hardcodeado
-                <label for="usuarioMod">UsuarioMod</label>
-                <InputNumber id="usuarioMod" @bind-Value="usuario.UsuarioMod" class="form-control" required /> -->
-
 
                 <div class="mt-4 d-flex justify-content-end">
                     <button type="submit" class="btn btn-secondary">Guardar usuario</button>
                 </div>
             </EditForm>
-		</div>
+        </div>
 
+        <div class="col-1"></div>
 
-		<div class="col-7">
+        <div class="col-7 border border-dark">
             <!-- Tbla de listados-->
             <DataTables>
                 <table class="table" id="tablaListado">
@@ -103,8 +97,7 @@
                 </table>
             </DataTables>
 
-		</div>
+        </div>
 
-	</div>
+    </div>
 </div>
-

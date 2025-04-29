@@ -5,3 +5,4 @@ var tabla;
 function start() {
     tabla = new DataTable('#tablaListado');
 }
+

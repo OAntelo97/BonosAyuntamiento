@@ -9,13 +9,14 @@ using System.ComponentModel;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.JSInterop;
+using BonosAytoService.Model;
 
 
 
 
 namespace BonosAyto.Components.Pages.Beneficiaros
 {
-    public partial class ListadoAltaBeneficiarios     
+    public partial class ListadoAltaBeneficiarios
     {
         AltaBen modeloAlta = new AltaBen(); //clase de validacion
 
@@ -23,29 +24,10 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private IEnumerable<BeneficiarioDTO> listaBeneficiarios;
 
-       // private string searchbar = "";
         private string fichero = "Sin selección";
 
         [Inject]
         private IJSRuntime JS { get; set; }
-
-        /*   private void FiltrarBeneficiarios() //filtrar lista
-           {
-               if (string.IsNullOrWhiteSpace(searchbar))
-               {
-                   beneficiariosFiltrados = listaBeneficiarios.ToList();
-               }
-               else
-               {
-                   beneficiariosFiltrados = listaBeneficiarios
-                       .Where(b => (b.Nombre + " " + b.PrimerApellido + " " + b.SegundoApellido).ToLower().Contains(searchbar.ToLower())
-                                || b.Telefono.Contains(searchbar)
-                                || b.Email.ToLower().Contains(searchbar.ToLower()))
-                       .ToList();
-                   StateHasChanged();
-               }
-           }*/
-
 
         protected override void OnInitialized() //cargar lista
         {
@@ -53,8 +35,10 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         }
 
         private async Task AltaBeneficiario()         //dar de alta beneficiarios           
-        {                                       
-            BeneficiarioDTO ben = new BeneficiarioDTO     
+        {
+            
+
+            BeneficiarioDTO ben = new BeneficiarioDTO
             {
                 Nombre = modeloAlta.Nombre,
                 PrimerApellido = modeloAlta.PrimerApellido,
@@ -65,15 +49,19 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 CodigoPostal = modeloAlta.CodigoPostal,
                 Telefono = modeloAlta.Telefono
             };
+           
+            int nuevoId = beneficiarioService.Insertar(ben);
+            listaBeneficiarios = beneficiarioService.Listar(); 
+            modeloAlta.reset();
+
+            /*
             await JS.InvokeVoidAsync("destroyBenTable");
             beneficiarioService.Insertar(ben);
             listaBeneficiarios = beneficiarioService.Listar();
-            //   FiltrarBeneficiarios();
-            modeloAlta.reset();
             await InvokeAsync(StateHasChanged);
             await Task.Delay(100);
             await JS.InvokeVoidAsync("initializeBenTable");
-
+            */
 
         }
 
@@ -109,12 +97,22 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         {
             Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}?edit=true");
         }
-        private void Borrar(int Id)
+        private async Task Borrar(int Id)
         {
-            beneficiarioService.Eliminar(Id);
-            listaBeneficiarios = beneficiarioService.Listar();
-            //   FiltrarBeneficiarios();
-            StateHasChanged();
+            bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea eliminar al beneficiario?");
+            if (confirmed)
+            {
+                var eliminado = beneficiarioService.Eliminar(Id);
+                listaBeneficiarios = beneficiarioService.Listar();
+
+                /*
+                 BonoService bonoService = new BonoService();
+                 bonoService.EliminarTalonariosBeneficiario(Id);
+                 beneficiarioService.Eliminar(Id);
+                 listaBeneficiarios = beneficiarioService.Listar();
+                 StateHasChanged();
+                */
+            }
         }
 
         private async Task CargarExcel()  //cargar datos de excel
@@ -134,7 +132,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
                     var nuevosBeneficiarios = new List<BeneficiarioDTO>();
 
-                    int currentRow = 2; 
+                    int currentRow = 2;
 
                     foreach (var row in rows)
                     {
@@ -153,9 +151,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                         var context = new ValidationContext(alta);
                         var results = new List<ValidationResult>();
 
-                        bool isValid = Validator.TryValidateObject(alta, context, results, true); 
-                          
-                        if (isValid)  
+                        bool isValid = Validator.TryValidateObject(alta, context, results, true);
+
+                        if (isValid)
                         {
                             nuevosBeneficiarios.Add(new BeneficiarioDTO
                             {
@@ -172,12 +170,11 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
                         currentRow++;
                     }
-                    foreach (var b in nuevosBeneficiarios) 
+                    foreach (var b in nuevosBeneficiarios)
                     {
                         beneficiarioService.Insertar(b);
                     }
                     listaBeneficiarios = beneficiarioService.Listar();
-                    //     FiltrarBeneficiarios();
                     StateHasChanged();
 
                     mensajeError = $"Se cargaron {nuevosBeneficiarios.Count} beneficiarios correctamente.";
@@ -192,8 +189,5 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 mensajeError = "Por favor, selecciona un archivo Excel antes de cargar.";
             }
         }
-
-
-
     }
 }

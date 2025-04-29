@@ -17,8 +17,7 @@ namespace BonosAytoService.DAOs
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "INSERT INTO Bonos(IdBeneficiario, TipoServicio, FechaInicio, FechaCaducidad, Importe, Activados, Canjeados, Caducados, UsuarioMod, FechaMod) VALUES " +
                 "( @IdBeneficiario, @TipoServicio, @FechaInicio, @FechaCaducidad, @Importe, @Activados, @Canjeados, @Caducados, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-            GlobalVariables.usuario = new DTOs.UsuarioDTO();
-            GlobalVariables.usuario.Id = 4;
+
 
             var parameters = new
             {
@@ -70,8 +69,7 @@ namespace BonosAytoService.DAOs
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "UPDATE Bonos SET IdBeneficiario=@IdBeneficiario, TipoServicio=@TipoServicio, FechaInicio=@FechaInicio, FechaCaducidad=@FechaCaducidad," +
                 " Importe=@Importe, Activados=@Activados, Canjeados=@Canjeados, Caducados=@Caducados, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE ID=@Id";
-            GlobalVariables.usuario = new DTOs.UsuarioDTO();
-            GlobalVariables.usuario.Id = 4;
+
 
             var parameters = new
             {
@@ -98,6 +96,12 @@ namespace BonosAytoService.DAOs
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Bonos WHERE Id=@id";
             return connection.Execute(sql, new { Id = id }) > 0;
+        }
+
+        public bool EliminarTalonarios(int id) {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "DELETE FROM Bonos WHERE IdBeneficiario=@Id";
+            return connection.Execute(sql, new { Id= id }) > 0;
         }
     }
 }
