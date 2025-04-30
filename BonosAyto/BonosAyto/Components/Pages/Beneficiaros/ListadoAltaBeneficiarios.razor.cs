@@ -53,16 +53,6 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             int nuevoId = beneficiarioService.Insertar(ben);
             listaBeneficiarios = beneficiarioService.Listar(); 
             modeloAlta.reset();
-
-            /*
-            await JS.InvokeVoidAsync("destroyBenTable");
-            beneficiarioService.Insertar(ben);
-            listaBeneficiarios = beneficiarioService.Listar();
-            await InvokeAsync(StateHasChanged);
-            await Task.Delay(100);
-            await JS.InvokeVoidAsync("initializeBenTable");
-            */
-
         }
 
         private string mensajeError = null;
@@ -104,14 +94,6 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             {
                 var eliminado = beneficiarioService.Eliminar(Id);
                 listaBeneficiarios = beneficiarioService.Listar();
-
-                /*
-                 BonoService bonoService = new BonoService();
-                 bonoService.EliminarTalonariosBeneficiario(Id);
-                 beneficiarioService.Eliminar(Id);
-                 listaBeneficiarios = beneficiarioService.Listar();
-                 StateHasChanged();
-                */
             }
         }
 

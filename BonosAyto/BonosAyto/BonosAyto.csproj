@@ -7,18 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\JS\DataTablesBonos.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\JS\DataTablesBonos.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\JS\DataTablesBonos.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.2" />
   </ItemGroup>
 

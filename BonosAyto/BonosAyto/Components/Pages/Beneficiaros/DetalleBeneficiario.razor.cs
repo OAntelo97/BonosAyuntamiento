@@ -155,6 +155,20 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
         }
 
+        private bool filtT = false;
+        public async Task FiltrarTri() {
+            if (filtT) {
+                filtT = false;
+                listaBonos = bonoService.Listar(Id);
+            }
+            else
+            {
+                filtT = true;
+                //filtrar
+                listaBonos=bonoService.ListarFiltT(Id);
+            }
+        }
+
         private async Task Borrar(int id)
         {
             bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");

@@ -105,7 +105,6 @@
                                         <table class="table table-hover align-middle">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>Id</th>
                                                     <th class="nombre-columna text-truncate">Nombre</th>
                                                     <th>Telefono</th>
                                                     <th>Email</th>
@@ -116,7 +115,6 @@
                                                 @foreach (var ben in listaBeneficiarios)
                                                 {
                                                     <tr>
-                                                        <td>@ben.Id</td>
                                                         <td class="nombre-columna text-truncate">@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
                                                         <td>@ben.Telefono</td>
                                                         <td>@ben.Email</td>

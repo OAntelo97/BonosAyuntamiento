@@ -133,19 +133,10 @@
                     <div class="col-1"></div>
 
                     <div class="col-7 border border-dark ">
-                        <!--buscador-->
-                        <!--labels para filtro-->
+                        <div class="d-inline">
 
-                        <!--
-                        <p id="date_filter">
-                            <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
-                            <span id="date-label-to" class="date-label">To:</span><input class="date_range_filter date" type="text" id="datepicker_to" />
-                        </p>
-
-
-                        -->
-                        <label class="my-3">Fecha inicio: <input type="date" id="minDate" /></label>
-                        <label class="my-3">Fecha fin: <input type="date" id="maxDate" /></label>
+                            <button class="btn btn-dark rounded-0 m-2" onclick="@FiltrarTri">Trimestre</button>
+                        </div>
 
 
                         <DataTablesBonos>
@@ -159,16 +150,6 @@
                                         <th>Importe</th>
                                         <th>Acciones</th>
                                     </tr>
-                                    <!--
-
-                                    <tr>
-                                        <th><input type="date" placeholder="Fecha inicio" class="form-control form-control-sm" /></th>
-                                        <th><input type="date" placeholder="Fecha fin" class="form-control form-control-sm" /></th>
-                                        <th />
-                                        <th />
-                                        <th />
-                                    </tr>
-                                    -->
                                 </thead>
 
                                 <tbody>
@@ -194,10 +175,6 @@
 
                 </div>
             </div>
-            <!--
-
-            <InputTextArea @bind-Value="materias" class="form-control" readonly rows="10" />
-            -->
         </div>
     </div>
 
