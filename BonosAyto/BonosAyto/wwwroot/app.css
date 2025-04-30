@@ -61,3 +61,24 @@ h5 {
 .css-min-vh-75 {
     min-height: 75vh;
 }
+
+
+.nombre-columna {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font: bold;
+}
+
+.acciones-columna {
+    min-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font: bold;
+}
+
+.pen {
+    transform: scaleX(-1);
+}

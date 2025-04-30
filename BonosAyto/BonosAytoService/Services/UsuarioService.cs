@@ -28,7 +28,7 @@ namespace BonosAytoService.Services
 
         }
 
-        private const string conn = "Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
 
         public int Insertar(UsuarioDTO user)
         {
