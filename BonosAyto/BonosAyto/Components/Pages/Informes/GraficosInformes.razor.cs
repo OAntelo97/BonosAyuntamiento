@@ -2,59 +2,74 @@
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
 using Microsoft.AspNetCore.Components;
+using Blazorise;
 
 namespace BonosAyto.Components.Pages.Informes
 {
     public partial class GraficosInformes
     {
-
         private BarChart<double> barChart;
-        private List<EstablecimientoDatosDTO> datos = new();
+        private BarChart<double> barChartComparativo;
         private List<string> nombresEstablecimientos = new();
         private string establecimientoSeleccionado;
+        private string filtroSeleccionado = "Todos";
+        private string tituloGrafico = String.Empty;
 
-        private bool primerRender = true;
+        // Se actualiza en cada cambio
+        private async Task CambiarEstablecimiento(string nombre)
+        {
+            establecimientoSeleccionado = nombre;
+            await ActualizarGrafico();
+        }
+
+        private async Task CambiarFiltro(string filtro)
+        {
+            filtroSeleccionado = filtro;
+            await ActualizarGrafico();
+        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                datos = await EstablecimientoService.ObtenerDatosPorEstablecimiento();  // Cambié la llamada para que sea await
-                nombresEstablecimientos = datos.Select(d => d.NombreEstablecimiento).ToList();
-                await SeleccionarEstablecimiento(nombresEstablecimientos.FirstOrDefault());
-                primerRender = false;
+                var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
+                nombresEstablecimientos = datos;
+                establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
+                await ActualizarGrafico();
             }
         }
 
-        private async Task SeleccionarEstablecimiento(string nombre)
+        private async Task ActualizarGrafico()
         {
-            if (string.IsNullOrWhiteSpace(nombre)) return;
+            if (string.IsNullOrWhiteSpace(establecimientoSeleccionado))
+                return;
 
-            establecimientoSeleccionado = nombre;
+            EstablecimientoDatosDTO item;
 
-            if (datos == null || !datos.Any()) return;
+            if (filtroSeleccionado == "Todos")
+            {
+                item = await EstablecimientoService.ObtenerDatosPorEstablecimiento(establecimientoSeleccionado);
+                tituloGrafico = "Bonos canjeados + importe por establecimiento";
+            }
+            else
+            {
+                item = await EstablecimientoService.ObtenerDatosUltimoTrimestrePorEstablecimiento(establecimientoSeleccionado);
+                tituloGrafico = "Bonos canjeados + importe en el trimestre activo";
+            }
 
-            var item = datos.FirstOrDefault(d => d?.NombreEstablecimiento == nombre);
+            if (barChart == null)
+                return;
+
+            await barChart.Clear();
 
             if (item == null)
             {
-                if (barChart != null)
-                {
-                    await barChart.Clear();
-                    await barChart.Update();
-                }
+                await barChart.Update();
                 return;
             }
 
-            if (barChart == null) return;
-
-            // Asegúrate de limpiar antes de agregar nuevos datasets
-            await barChart.Clear();
-
-            // Configurar etiquetas
             await barChart.AddLabels(new List<string> { item.NombreEstablecimiento });
 
-            // Agregar el primer dataset: Bonos Canjeados
             await barChart.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Bonos Canjeados",
@@ -62,7 +77,6 @@ namespace BonosAyto.Components.Pages.Informes
                 BackgroundColor = "rgba(54, 162, 235, 0.6)"
             });
 
-            // Agregar el segundo dataset: Importe Total
             await barChart.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Importe Total",
@@ -70,10 +84,54 @@ namespace BonosAyto.Components.Pages.Informes
                 BackgroundColor = "rgba(255, 99, 132, 0.6)"
             });
 
-            await barChart.Update(); // Actualiza el gráfico
+            await barChart.Update();
+            await ActualizarGraficoComparativo();
+
         }
+
+        private async Task ActualizarGraficoComparativo()
+        {
+            if (string.IsNullOrWhiteSpace(establecimientoSeleccionado))
+                return;
+
+            bool soloTrimestre = filtroSeleccionado == "Trimestre activo";
+            var datos = await EstablecimientoService.ObtenerBonosEImportePorDiaSemana(establecimientoSeleccionado, soloTrimestre);
+
+            if (barChartComparativo == null)
+                return;
+
+            await barChartComparativo.Clear();
+
+            // Mapping de días (1 = domingo, 2 = lunes, ..., 7 = sábado)
+            string[] diasES = new[] { "L", "M", "X", "J", "V", "S", "D" };  // Eje X
+            var bonos = new List<double>();
+            var importes = new List<double>();
+
+            for (int i = 1; i <= 7; i++)  // De 1 (domingo) a 7 (sábado)
+            {
+                var dia = datos.ContainsKey(i) ? datos[i] : (0, 0.0);
+                bonos.Add(dia.Item1);
+                importes.Add(dia.Item2);
+            }
+
+            await barChartComparativo.AddLabels(diasES);
+
+            await barChartComparativo.AddDataSet(new BarChartDataset<double>
+            {
+                Label = "Bonos Canjeados",
+                Data = bonos,
+                BackgroundColor = "rgba(54, 162, 235, 0.6)"
+            });
+
+            await barChartComparativo.AddDataSet(new BarChartDataset<double>
+            {
+                Label = "Importe Total",
+                Data = importes,
+                BackgroundColor = "rgba(255, 206, 86, 0.6)"
+            });
+
+            await barChartComparativo.Update();
+        }
+
     }
-
-
-    }
-
+}

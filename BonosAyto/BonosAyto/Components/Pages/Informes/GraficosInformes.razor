@@ -1,26 +1,72 @@
 ﻿@page "/informe1"
 
-<h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
+@using Blazorise
 @using Blazorise.Charts
 @using BonosAytoService.Services
 @inject EstablecimientoService EstablecimientoService
 
-@* <Dropdown>
-    <DropdownToggle Color="Color.Primary"> @establecimientoSeleccionado ?? "Establecimiento" </DropdownToggle>
-    <DropdownMenu>
-        @foreach (var e in nombresEstablecimientos)
-        {
-            <DropdownItem @onclick="@(() => SeleccionarEstablecimiento(e))">@e</DropdownItem>
-        }
-    </DropdownMenu>
-</Dropdown> *@
+<h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
 
-<h5>Bonos canjeados + Importe por establecimiento</h5>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <!-- Dropdown de establecimiento -->
+            <Dropdown>
+                <DropdownToggle Color="Color.Primary">@(@establecimientoSeleccionado ?? "Establecimiento")</DropdownToggle>
+                <DropdownMenu>
+                    @foreach (var e in nombresEstablecimientos)
+                    {
+                        <DropdownItem @onclick="@(() => CambiarEstablecimiento(e))">@e</DropdownItem>
+                    }
+                </DropdownMenu>
+            </Dropdown>
 
-<BarChart TItem="double" @ref="barChart" />
+            <!-- Dropdown de filtro -->
+            <Dropdown class="mt-2">
+                <DropdownToggle Color="Color.Secondary">@filtroSeleccionado</DropdownToggle>
+                <DropdownMenu>
+                    <DropdownItem @onclick="@(() => CambiarFiltro("Todos"))">Todos</DropdownItem>
+                    <DropdownItem @onclick="@(() => CambiarFiltro("Trimestre activo"))">Trimestre activo</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+
+            <h5 class="mt-3">@tituloGrafico</h5>
+
+            <BarChart TItem="double" @ref="barChart" />
+        </div>
 
 
-@* <BarChart TItem="double" @ref="barChart">
-    <BarChartDataset TItem="double" Label="Dataset 1" Data="new double[] { 10, 20, 30 }" BackgroundColor="rgba(54, 162, 235, 0.6)" />
-    <BarChartDataset TItem="double" Label="Dataset 2" Data="new double[] { 15, 25, 35 }" BackgroundColor="rgba(255, 99, 132, 0.6)" />
-</BarChart> *@
+        @* <div class="col-md-6 col-sm-12">
+            <!-- Dropdown de establecimiento -->
+            <Dropdown>
+                <DropdownToggle Color="Color.Primary">@(@establecimientoSeleccionado ?? "Establecimiento")</DropdownToggle>
+                <DropdownMenu>
+                    @foreach (var e in nombresEstablecimientos)
+                    {
+                        <DropdownItem @onclick="@(() => CambiarEstablecimiento(e))">@e</DropdownItem>
+                    }
+                </DropdownMenu>
+            </Dropdown>
+
+            <!-- Dropdown de filtro -->
+            <Dropdown class="mt-2">
+                <DropdownToggle Color="Color.Secondary">@filtroSeleccionado</DropdownToggle>
+                <DropdownMenu>
+                    <DropdownItem @onclick="@(() => CambiarFiltro("Todos"))">Todos</DropdownItem>
+                    <DropdownItem @onclick="@(() => CambiarFiltro("Trimestre activo"))">Trimestre activo</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+
+            <h5 class="mt-3">@tituloGrafico</h5>
+
+            <BarChart TItem="double" @ref="barChart" />
+        </div> *@
+        <div class="col-md-6 col-sm-12">
+            <h5 class="mt-5">Bonos Canjeados + Importe por día</h5>
+            <BarChart TItem="double" @ref="barChartComparativo" />
+
+        </div>
+    </div>
+</div>
+
+

@@ -62,15 +62,100 @@ namespace BonosAytoService.Services
 
 
         /*GRÁFICOS*/
-        public async Task<List<EstablecimientoDatosDTO>> ObtenerDatosPorEstablecimiento()
+        public async Task<List<string>> ObtenerTodosLosNombresDeEstablecimientos()
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var query = @"SELECT e.Nombre AS NombreEstablecimiento, COUNT(*) AS BonosCanjeados, SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
-        FROM Canjeos c JOIN Bonos b ON c.IdBono = b.Id JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-        WHERE c.OpExitosa = 1
-        GROUP BY e.Nombre";
+            var query = "SELECT Nombre FROM Establecimientos ORDER BY Id";
+            return (await connection.QueryAsync<string>(query)).ToList();
+        }
 
-            return (await connection.QueryAsync<EstablecimientoDatosDTO>(query)).ToList();
+        public async Task<EstablecimientoDatosDTO> ObtenerDatosPorEstablecimiento(string nombre)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+
+            var query = @"
+                SELECT 
+                    e.Nombre AS NombreEstablecimiento,
+                    COUNT(*) AS BonosCanjeados,
+                    SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
+                FROM Canjeos c
+                JOIN Bonos b ON c.IdBono = b.Id
+                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+                WHERE e.Nombre = @Nombre
+                GROUP BY e.Nombre";
+
+            return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query, new { Nombre = nombre });
+        }
+
+        public async Task<EstablecimientoDatosDTO> ObtenerDatosUltimoTrimestrePorEstablecimiento(string nombre)
+        {
+            var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
+
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+
+            var query = @"
+                SELECT 
+                    e.Nombre AS NombreEstablecimiento,
+                    COUNT(*) AS BonosCanjeados,
+                    SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
+                FROM Canjeos c
+                JOIN Bonos b ON c.IdBono = b.Id
+                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+                WHERE e.Nombre = @Nombre
+                AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin
+                GROUP BY e.Nombre";
+
+            return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query, new
+            {
+                Nombre = nombre,
+                FechaInicio = fechaInicio,
+                FechaFin = fechaFin
+            });
+        }
+
+        private (DateTime fechaInicio, DateTime fechaFin) ObtenerRangoTrimestreEnCurso()
+        {
+            var fechaActual = DateTime.Now;
+            int mesActual = fechaActual.Month;
+            int trimestreActual = (int)Math.Ceiling(mesActual / 3.0);
+            int mesInicio = (trimestreActual - 1) * 3 + 1;
+
+            var fechaInicio = new DateTime(fechaActual.Year, mesInicio, 1);
+            var fechaFin = fechaInicio.AddMonths(3).AddDays(-1); // Fin del trimestre
+
+            return (fechaInicio, fechaFin);
+        }
+
+        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorDiaSemana(string nombre, bool soloTrimestreActual)
+        {
+            var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
+
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+
+            var query = @"
+        SELECT DATEPART(WEEKDAY, b.FechaInicio) AS DiaSemana,
+               COUNT(*) AS TotalBonos,
+               SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
+        FROM Canjeos c
+        JOIN Bonos b ON c.IdBono = b.Id
+        JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+        WHERE e.Nombre = @Nombre
+        " + (soloTrimestreActual ? "AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin" : "") + @"
+        GROUP BY DATEPART(WEEKDAY, b.FechaInicio)";
+
+            var resultados = await connection.QueryAsync<(int DiaSemana, int TotalBonos, double TotalImporte)>(query, new
+            {
+                Nombre = nombre,
+                FechaInicio = fechaInicio,
+                FechaFin = fechaFin
+            });
+
+            // Mapear de 1 (domingo) a 7 (sábado)
+            var diasSemana = Enumerable.Range(1, 7).ToDictionary(d => d, d => (0, 0.0));
+            foreach (var r in resultados)
+                diasSemana[r.DiaSemana] = (r.TotalBonos, r.TotalImporte);
+
+            return diasSemana;
         }
 
     }
