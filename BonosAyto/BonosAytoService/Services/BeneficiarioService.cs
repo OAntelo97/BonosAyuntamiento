@@ -27,16 +27,12 @@ namespace BonosAytoService.Services
         }
 
         
-        public void Insertar(BeneficiarioDTO ben)
+        public int Insertar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
-<<<<<<< Updated upstream
             bmap.FechaMod = DateTime.Now;
             bmap.UsuarioMod = GlobalVariables.usuario.Id;
-            _dao.Insertar(bmap);
-=======
             return _dao.Insertar(bmap);
->>>>>>> Stashed changes
         }
 
         public BeneficiarioDTO? Consultar(int id)

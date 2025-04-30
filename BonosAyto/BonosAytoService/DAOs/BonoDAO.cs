@@ -39,6 +39,31 @@ namespace BonosAytoService.DAOs
         }
 
 
+        public IEnumerable<Bono> Listar(int id)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT * FROM Bonos where IdBeneficiario=@Id ORDER BY FechaInicio ASC";
+            return connection.Query<Bono>(sql, new { Id = id });
+        }
+        public IEnumerable<Bono> ListarFiltT(int id)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+
+            var sqlFecha = "SELECT MAX(FechaCaducidad) FROM Bonos WHERE IdBeneficiario = @Id";
+            var maxFecha = connection.ExecuteScalar<DateTime?>(sqlFecha, new { Id = id });
+
+            if (maxFecha == null)
+                return Enumerable.Empty<Bono>();
+
+            var f2 = maxFecha.Value;
+            var f1 = f2.AddMonths(-3);
+
+            var sqlBonos = "SELECT * FROM Bonos WHERE IdBeneficiario = @Id AND FechaCaducidad BETWEEN @F1 AND @F2 ORDER BY FechaInicio ASC";
+
+            return connection.Query<Bono>(sqlBonos, new { Id = id, F1 = f1, F2 = f2 });
+        }
+
+
 
         public bool Actualizar(Bono bono)
         {

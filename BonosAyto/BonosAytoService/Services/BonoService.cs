@@ -52,6 +52,18 @@ namespace BonosAytoService.Services
             var lista = _dao.Listar();
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
         }
+        public IEnumerable<BonoDTO> Listar(int Id)
+        {
+            var lista = _dao.Listar(Id).OrderBy(b => b.FechaInicio);
+            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
+            return mapped;
+        }
+        public IEnumerable<BonoDTO> ListarFiltT(int Id)
+        {
+            var lista = _dao.ListarFiltT(Id).OrderBy(b => b.FechaInicio);
+            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
+            return mapped;
+        }
 
 
         public bool Actualizar(BonoDTO bonoDTO)
