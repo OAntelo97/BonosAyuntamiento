@@ -16,6 +16,7 @@ namespace BonosAyto.Components.Pages.Usuarios
         [Inject]
         private IJSRuntime JS { get; set; }
 
+        private bool cargado = false;
 
         private UsuarioDTO usuario = new UsuarioDTO();
 
@@ -48,6 +49,7 @@ namespace BonosAyto.Components.Pages.Usuarios
 
         /******************LISTADO*****************/
         private IEnumerable<UsuarioDTO> usuarios = [];
+        
 
         protected override async Task OnInitializedAsync()
         {
@@ -56,6 +58,7 @@ namespace BonosAyto.Components.Pages.Usuarios
 
             // Obtener todos los establecimietos
             establecimientos = await EstablecimientoService.Listar();
+            cargado = true;
         }
 
 

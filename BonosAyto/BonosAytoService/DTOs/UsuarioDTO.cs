@@ -15,7 +15,7 @@ namespace BonosAytoService.DTOs
         public char Rol { get; set; }
 
         [EmailAddress(ErrorMessage = "Formato de correo no válido!")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public int? IdEstablecimiento { get; set; }
         public int UsuarioMod { get; set; } = 1;
         public DateTime FechaMod { get; set; }

@@ -25,7 +25,7 @@ namespace BonosAytoService.DAOs
             {
                 int error1 = -1;
                 int? error2 = null;
-                if (ex.Number == 2601)
+                if (ex.Number == 2601 || ex.Number == 2627)
                 {
 
 
@@ -73,7 +73,7 @@ namespace BonosAytoService.DAOs
             {
                 int error1 = -1;
                 int? error2 = null;
-                if (ex.Number == 2601)
+                if (ex.Number == 2601 || ex.Number == 2627)
                 {
 
 
