@@ -105,7 +105,6 @@
                                         <table class="table table-hover align-middle">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th>Id</th>
                                                     <th class="nombre-columna text-truncate">Nombre</th>
                                                     <th>Telefono</th>
                                                     <th>Email</th>
@@ -116,7 +115,6 @@
                                                 @foreach (var ben in listaBeneficiarios)
                                                 {
                                                     <tr>
-                                                        <td>@ben.Id</td>
                                                         <td class="nombre-columna text-truncate">@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
                                                         <td>@ben.Telefono</td>
                                                         <td>@ben.Email</td>
@@ -143,68 +141,6 @@
                     </div>
                 </div>
             </div>
-            @if (mensajeError != null)
-            {
-                <div class="text-danger mt-2">@mensajeError</div>
-            }
-
-            <a class="mt-2" href="files/PlantillaBeneficiarios.xlsx" download>Descargar plantilla Excel</a>
-
-            <div class="text-end mb-3">
-                <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0" @onclick="CargarExcel">Cargar Excel</button>
-            </div>
-
-        </div>
-        <div class="col-1"></div>
-
-        <div class="col-7 border border-dark ">
-            <!--buscador-->
-            <div class="m-3">
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary" type="button" @onclick="FiltrarBeneficiarios"> <!--remove outline-->
-                        <i class="bi bi-search"></i> 
-                    </button>
-                    <input @bind="searchbar"
-                           @bind:event="oninput"
-                           class="form-control"
-                           placeholder="Buscar beneficiario..." />
-                </div>
-            </div>
-            <table class="table">
-                <thead class="bg-light ">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Telefono</th>
-                        <th>Email</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    @foreach (BeneficiarioDTO ben in beneficiariosFiltrados)
-                    {
-                        <tr>
-                            <td>@ben.Id</td>
-                            <td>@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
-                            <td>@ben.Telefono</td>
-                            <td>@ben.Email</td>
-
-                            <td class="m-0">
-                                
-                                <!-- @onclick="@(() => VerDetalle(ben.Id))"-->
-                                <i class="bi bi-search me-1" @onclick="()=>VerDetalle(ben.Id)"></i>
-                                <i class="bi bi-pencil me-1 d-inline-block" @onclick="()=>Modificar(ben.Id)" style="transform: scaleX(-1);"></i>
-                                <i class="bi bi-trash me-1" @onclick="()=>Borrar(ben.Id)"></i>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-=======
->>>>>>> Stashed changes
-        </div>
-
+        </div>       
     </div>
 </div>
