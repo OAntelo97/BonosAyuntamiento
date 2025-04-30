@@ -61,9 +61,9 @@ namespace BonosAytoService.DAOs
         public async Task<int> comprobarUsuario(Usuarios user)
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios WHERE Usuario=@Usuario AND Pass = @Pass ;";
+            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios WHERE Usuario = @Usuario AND Pass = @Pass ;";
             user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
-            Usuarios usuario = conection.QueryFirstOrDefault<Usuarios>(sql, user);
+            Usuarios? usuario = await conection.QueryFirstOrDefaultAsync<Usuarios>(sql, user);
             return usuario != null ? usuario.Id : -1;
         }
 
@@ -78,7 +78,6 @@ namespace BonosAytoService.DAOs
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "UPDATE Usuarios SET Usuario=@Usuario, Pass=@Pass, Rol=@Rol, Email=@Email, IdEstablecimiento=@IdEstablecimiento, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE Id=@Id;";
-            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
             
             try
             {

@@ -17,7 +17,6 @@
 
                 Formulario: Agregar Beneficiario
             </h6>
-            <p>@string.Join("<br>", strings)</p>
             <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -95,7 +94,6 @@
             <table class="table">
                 <thead class="bg-light ">
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Telefono</th>
                         <th>Email</th>
@@ -107,7 +105,6 @@
                     @foreach (BeneficiarioDTO ben in beneficiariosFiltrados)
                     {
                         <tr>
-                            <td>@ben.Id</td>
                             <td>@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
                             <td>@ben.Telefono</td>
                             <td>@ben.Email</td>
