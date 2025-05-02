@@ -26,14 +26,14 @@ namespace BonosAytoService.DAOs
         public async Task<Establecimiento?> Consultar(int id)
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT Nombre, NIF, Direccion, CodigoPostal, Telefono, Email, UsuarioMod, FechaMod FROM Establecimientos WHERE Id = @Id";
+            var sql = "SELECT Id, Nombre, NIF, Direccion, CodigoPostal, Telefono, Email, UsuarioMod, FechaMod FROM Establecimientos WHERE Id = @Id";
             return await conection.QueryFirstOrDefaultAsync<Establecimiento?>(sql, new { Id = id });
         }
 
         public async Task<IEnumerable<Establecimiento>> Listar()
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT Nombre, NIF, Direccion, CodigoPostal, Telefono, Email, UsuarioMod, FechaMod FROM Establecimientos";
+            var sql = "SELECT Id, Nombre, NIF, Direccion, CodigoPostal, Telefono, Email, UsuarioMod, FechaMod FROM Establecimientos";
             return await conection.QueryAsync<Establecimiento>(sql);
         }
 

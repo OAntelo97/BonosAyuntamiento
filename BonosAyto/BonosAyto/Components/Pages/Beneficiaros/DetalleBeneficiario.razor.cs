@@ -24,8 +24,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
     public partial class DetalleBeneficiario
     {
         private BeneficiarioDTO detalleB = new BeneficiarioDTO();
-        private AltaBen detalleValid;
-        public AsignarBono bonoAsig;
+        private AltaBen detalleValid = new AltaBen();
+        public AsignarBono bonoAsig = new AsignarBono();
         private BeneficiarioService beneficiarioService = new BeneficiarioService();
         private BonoService bonoService = new BonoService();
         [Parameter]
@@ -38,7 +38,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         EditContext bonoContext;
         ValidationMessageStore messageStore;
 
-        private IEnumerable<BonoDTO> listaBonos;
+        private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
         private IJSRuntime JS { get; set; } 
         private string tituloDetalleBeneficiario { get; set; }
@@ -47,14 +47,14 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         {
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var queryParams = QueryHelpers.ParseQuery(uri.Query);
-            listaBonos = bonoService.Listar(Id);
+            listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
 
             if (queryParams.TryGetValue("edit", out var editValue))
             {
                 edit = bool.TryParse(editValue, out var result) && result;
             }
 
-            detalleB = beneficiarioService.Consultar(Id);
+            detalleB = await beneficiarioService.Consultar(Id);
             detalleValid = new AltaBen
             {
                 Nombre = detalleB.Nombre,
@@ -79,7 +79,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
             titulo();
         }
-        private void ModificarBeneficiario()         //modificar beneficiarios           
+        private async Task ModificarBeneficiario()         //modificar beneficiarios           
         {
             detalleB.Nombre = detalleValid.Nombre;
             detalleB.PrimerApellido = detalleValid.PrimerApellido;
@@ -90,7 +90,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             detalleB.CodigoPostal = detalleValid.CodigoPostal;
             detalleB.Telefono = detalleValid.Telefono;
 
-            beneficiarioService.Actualizar(detalleB);
+            await beneficiarioService.Actualizar(detalleB);
             titulo();
         }
 
@@ -115,7 +115,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private async Task AgregarBono()
         {
-            listaBonos = bonoService.Listar(Id);
+            listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
 
             BonoDTO bonoDTO = new BonoDTO
             {
@@ -129,8 +129,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 Caducados = 0
             };
 
-            int nuevoId = bonoService.Insertar(bonoDTO);
-            listaBonos = bonoService.Listar(Id);
+            int nuevoId = await bonoService.Insertar(bonoDTO);
+            listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
             bonoAsig.reset();
         }
 
@@ -159,13 +159,13 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             if (filtT)
             {
                 filtT = false;
-                listaBonos = bonoService.Listar(Id);
+                listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
             }
             else
             {
                 filtT = true;
                 //filtrar
-                listaBonos = bonoService.ListarFiltT(Id);
+                listaBonos = await bonoService.ListarFiltT(Id);
             }
         }
 
@@ -174,8 +174,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");
             if (confirmed)
             {
-                bonoService.Eliminar(id);
-                listaBonos = bonoService.Listar(Id);
+                await bonoService.Eliminar(id);
+                listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
             }
         }
     }

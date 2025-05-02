@@ -20,7 +20,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private BeneficiarioService beneficiarioService = new BeneficiarioService();
 
-        private IEnumerable<BeneficiarioDTO> listaBeneficiarios;
+        private IEnumerable<BeneficiarioDTO> listaBeneficiarios = [];
         private List<BeneficiarioDTO> beneficiariosFiltrados = new();
         [Inject]
         private IJSRuntime JS { get; set; }
@@ -119,7 +119,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         }
         private async Task Borrar(int Id)
         {
-            beneficiarioService.Eliminar(Id);
+            await beneficiarioService.Eliminar(Id);
             listaBeneficiarios = await beneficiarioService.Listar();
             FiltrarBeneficiarios();
         }

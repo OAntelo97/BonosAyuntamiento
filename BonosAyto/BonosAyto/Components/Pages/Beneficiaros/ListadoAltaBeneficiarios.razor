@@ -4,11 +4,11 @@
 
 <style>
     .nombre-columna {
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font:bold;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font:bold;
     }
 
 </style>
@@ -21,7 +21,7 @@
         <ul class="nav nav-tabs mb-3" id="tabsBeneficiarios" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="lista-tab" data-bs-toggle="tab" data-bs-target="#lista" type="button"
-                        role="tab" aria-controls="lista" aria-selected="true">
+                role="tab" aria-controls="lista" aria-selected="true">
                     <i class="bi bi-card-checklist me-1"></i> Alta beneficiarios
                 </button>
             </li>
@@ -81,9 +81,9 @@
                                         </label>
                                         <span>@(fichero ?? "Sin elección")</span>
                                     </div>
-                                    @if (mensajeError != null)
+                                    @foreach (string mensaje in mensajeError)
                                     {
-                                        <div class="text-danger mt-2">@mensajeError</div>
+                                        <div class="text-danger mt-2">@mensaje</div>
                                     }
 
                                     <a class="mt-2" href="files/PlantillaBeneficiarios.xlsx" download>Descargar plantilla Excel</a>

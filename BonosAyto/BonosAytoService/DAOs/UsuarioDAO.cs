@@ -36,8 +36,6 @@ namespace BonosAytoService.DAOs
                     {
                         error2 = -2;
                     }
-
-                    return (error1, error2);
                 }
                 return (error1, error2);
             }

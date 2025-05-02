@@ -35,9 +35,13 @@ namespace BonosAyto.Components.Pages.Usuarios
             {
                 await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
                 return; 
+            }else if(res1 == -1)
+            {
+                await JS.InvokeVoidAsync("alert", "A ocurido un fallo inesperado");
+                return;
             }
 
-            usuarios = await UsuarioService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
+                usuarios = await UsuarioService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
 
             Navigate.NavigateTo("/usuarios");
         }
