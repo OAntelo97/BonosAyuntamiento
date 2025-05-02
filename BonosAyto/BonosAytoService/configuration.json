@@ -1,7 +1,7 @@
 ﻿{
-  "ConnectionStrings": {
-    "Connection": "SERVER=PC-OSCAR-ANTELO;DATABASE=AytoCoruna;Integrated Security=False;User Id=sa;Password=ADMIN0;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True"
-  }
+    "ConnectionStrings": {
+        "Connection": "Server=DESKTOP-N3LV49P\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;"
+    }
 }
 
 
