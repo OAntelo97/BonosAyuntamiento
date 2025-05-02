@@ -27,37 +27,37 @@ namespace BonosAytoService.Services
         }
 
         
-        public int Insertar(BeneficiarioDTO ben)
+        public async Task<(int, int?)> Insertar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
             bmap.FechaMod = DateTime.Now;
             bmap.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Insertar(bmap);
+            return await _dao.Insertar(bmap);
         }
 
-        public BeneficiarioDTO? Consultar(int id)
+        public async Task<BeneficiarioDTO?> Consultar(int id)
         {
-            var c = _dao.Consultar(id);
+            var c = await _dao.Consultar(id);
             return c == null ? null : _mapper.Map<BeneficiarioDTO>(c);
         }
 
-        public IEnumerable<BeneficiarioDTO> Listar()
+        public async Task<IEnumerable<BeneficiarioDTO>> Listar()
         {
-            var lista = _dao.Listar();
+            var lista = await _dao.Listar();
             return lista.Select(_mapper.Map<BeneficiarioDTO>);
         }
 
-        public bool Actualizar(BeneficiarioDTO ben)
+        public async Task<(int, int?)> Actualizar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
             bmap.FechaMod = DateTime.Now;
             bmap.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Actualizar(bmap);
+            return await _dao.Actualizar(bmap);
 
         }
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            return _dao.Eliminar(id);
+            return await _dao.Eliminar(id);
         }
     }
 }

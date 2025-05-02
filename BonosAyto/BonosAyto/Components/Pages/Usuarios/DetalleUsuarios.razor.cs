@@ -24,14 +24,19 @@ namespace BonosAyto.Components.Pages.Usuarios
         private bool EsModoLectura => Modo?.ToLower() != "editar";
 
         private string nombreEstablecimiento = string.Empty; //variable donde guardar el nombre del establecimiento con cierto Id para verlo en el form
-        protected override void OnInitialized()
+
+        private IEnumerable<EstablecimientoDTO> establecimientos { get; set; }
+        protected override async Task OnInitializedAsync()
         {
             // Cargar el usuario desde la base de datos
-            usuario = UsuarioService.Consultar(Id);
+            usuario = await UsuarioService.Consultar(Id);
+
+            // Carga todos los establecimietos
+            establecimientos = await EstablecimientoService.Listar();
 
             if (usuario?.IdEstablecimiento != null)
             {
-                var establecimiento = EstablecimientoService.Consultar(usuario.IdEstablecimiento.Value);
+                var establecimiento = await EstablecimientoService.Consultar(usuario.IdEstablecimiento.Value);
                 nombreEstablecimiento = establecimiento?.Nombre ?? "Desconocido";
             }
 
@@ -41,20 +46,20 @@ namespace BonosAyto.Components.Pages.Usuarios
         {
             if (!EsModoLectura)
             {
+                var (res1, res2) = await UsuarioService.Actualizar(usuario);
                 // Comprobar si el nombre de usuario ya existe
-                if (UsuarioService.UsuarioExiste(usuario?.Usuario, usuario.Id))
+                if (res2 == -2)
+                {
+                    await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
+                    return;
+                }else if (res1 == -2)
                 {
                     await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
                     return; //rompe la ejecucion para que el id autoincremental no sigue contando pese a no tener lugar la insercion por un error
                 }
-                else if (UsuarioService.EmailExiste(usuario?.Email, usuario.Id))
-                {
-                    await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
-                    return;
-                }
 
-                UsuarioService.Actualizar(usuario);
-                Navigate.NavigateTo("/usuarios");
+
+                    Navigate.NavigateTo("/usuarios");
             }
         }
 

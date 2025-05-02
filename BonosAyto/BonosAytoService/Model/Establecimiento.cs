@@ -14,7 +14,7 @@ namespace BonosAytoService.Model
         public string Direccion { get; set; }
         public int CodigoPostal { get; set; }
         public string Telefono { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public int UsuarioMod { get; set; }
         public DateTime FechaMod { get; set; }
     }

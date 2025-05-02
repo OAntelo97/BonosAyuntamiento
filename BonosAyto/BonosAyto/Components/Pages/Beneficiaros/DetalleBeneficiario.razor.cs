@@ -1,4 +1,5 @@
-﻿using BonosAytoService.DTOs;
+using BonosAytoService.DTOs;
+using System.Threading.Tasks;
 using BonosAytoService.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -39,13 +40,10 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private IEnumerable<BonoDTO> listaBonos;
         [Inject]
-        private IJSRuntime JS { get; set; }
-
-
-
-
+        private IJSRuntime JS { get; set; } 
         private string tituloDetalleBeneficiario { get; set; }
-        protected override void OnInitialized()
+
+        protected override async Task OnInitializedAsync()
         {
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var queryParams = QueryHelpers.ParseQuery(uri.Query);

@@ -65,17 +65,12 @@ namespace BonosAyto.Components.Pages.Login
         {
             validationMessageStore.Clear();
 
-            int id = UsuarioService.comprobarUsuario(usuario);
+
+            int id = await UsuarioService.comprobarUsuario(usuario);
+
             if (id != -1) {
-                GlobalVariables.usuario = UsuarioService.Consultar(id);
-                //CookieOptions options = new CookieOptions();
-                //options.Expires = DateTime.Now.AddDays(30);
-                //httpContextAccessor.HttpContext.Response.Cookies.Append("UsId", usuario.Id.ToString(), options);
-                if (recordarme)
-                {
-                    await SetCookie("UsId", GlobalVariables.usuario.Id.ToString(), 30);
-                }
-                Navigate.NavigateTo("/home");
+                GlobalVariables.usuario = await UsuarioService.Consultar(id);
+                Navigate.NavigateTo("/");
             }
             else
             {
