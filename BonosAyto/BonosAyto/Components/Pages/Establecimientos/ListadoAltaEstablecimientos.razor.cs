@@ -32,8 +32,8 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private async Task GuardarEstablecimiento()
         {
            // Si no existe, insertar
-            int nuevoId = EstablecimientoService.Insertar(establecimiento);
-            establecimientos = EstablecimientoService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
+            int nuevoId = await EstablecimientoService.Insertar(establecimiento);
+            establecimientos = await EstablecimientoService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
             establecimiento = new EstablecimientoDTO();
         }
 
@@ -43,12 +43,12 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
 
         /******************LISTADO*****************/
-        private IEnumerable<EstablecimientoDTO> establecimientos;
+        private IEnumerable<EstablecimientoDTO> establecimientos = [];
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
             // Obtener todas las inscripciones usando el servicio y un ienumerable
-            establecimientos = EstablecimientoService.Listar();
+            establecimientos = await EstablecimientoService.Listar();
         }
 
         //protected override async Task OnInitializedAsync()
@@ -68,11 +68,11 @@ namespace BonosAyto.Components.Pages.Establecimientos
         {
             //Navigate.NavigateTo($"/establecimientos/editar/{id}");
         }
-        private void Eliminar(int id)
+        private async void Eliminar(int id)
         {
-            var eliminado = EstablecimientoService.Eliminar(id);
+            await EstablecimientoService.Eliminar(id);
             // Actualizar la lista después de eliminar la inscripción
-            establecimientos = EstablecimientoService.Listar();
+            establecimientos = await EstablecimientoService.Listar();
         }
 
 
@@ -153,7 +153,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
                     {
                         EstablecimientoService.Insertar(b);
                     }
-                    establecimientos = EstablecimientoService.Listar();
+                    establecimientos = await EstablecimientoService.Listar();
 
                     mensajeError = $"Se cargaron {nuevosEstablecimientos.Count} establecimientos correctamente.";
                 }
