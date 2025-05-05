@@ -62,16 +62,22 @@ namespace BonosAytoService.Services
 
 
         /*GRÁFICOS*/
+
+        //Obtiene la lista de nombres de los Establecimientos ordenados por Id
         public async Task<List<string>> ObtenerTodosLosNombresDeEstablecimientos()
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var query = "SELECT Nombre FROM Establecimientos ORDER BY Id";
             return (await connection.QueryAsync<string>(query)).ToList();
         }
-        public async Task<EstablecimientoDatosDTO> ObtenerDatosDeTodosLosEstablecimientos()
+
+
+        //Obtiene los datos de los canjeos TODOS los establecimientos, con la comprobacion de si es total o en el trimestre activo (GRÁFICO GENERAL)
+        public async Task<EstablecimientoDatosDTO> ObtenerDatosDeTodosLosEstablecimientos(bool soloTrimestreActivo)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-
+            var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
+            Console.WriteLine("FECHA DE INNICIOOOOOOOO: "+fechaInicio);
             var query = @"
                 SELECT 
                     'Todos' AS NombreEstablecimiento,
@@ -80,9 +86,23 @@ namespace BonosAytoService.Services
                 FROM Canjeos c
                 JOIN Bonos b ON c.IdBono = b.Id";
 
-            return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query);
+            if (soloTrimestreActivo)
+            {
+                //si es solo en el trimestre activo
+                query += " AND c.FechaCanjeo>=@FechaInicio AND c.FechaCanjeo<=@FechaFin";
+            }
+
+            return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query, new
+            {
+                FechaInicio = fechaInicio,
+                FechaFin = fechaFin
+            });
         }
-        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorDiaSemanaTodos(bool soloTrimestreActual)
+
+
+
+        //Obtiene los datos de los canjeos TODOS los establecimientos, con la comprobacion de si es total o en el trimestre activo y los muestra por días (GRÁFICO DÍAS SEMANA)
+        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorDiaSemanaTodos(bool soloTrimestreActivo)
         {
             var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
 
@@ -95,10 +115,15 @@ namespace BonosAytoService.Services
                     SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte 
                 FROM Canjeos c
                 JOIN Bonos b ON c.IdBono = b.Id
-                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-                WHERE 1=1
-                " + (soloTrimestreActual ? "AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin" : "") + @"
-                GROUP BY ((DATEPART(WEEKDAY, c.FechaCanjeo) + @@DATEFIRST - 2) % 7 + 1)";
+                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id";
+                
+            if (soloTrimestreActivo)
+            {
+                //si es solo en el trimestre activo
+                query += " AND c.FechaCanjeo>=@fechaInicio AND c.FechaCanjeo<=@fechaFin";
+            }
+
+            query += " GROUP BY((DATEPART(WEEKDAY, c.FechaCanjeo) + @@DATEFIRST - 2) % 7 + 1)";
 
 
             var resultados = await connection.QueryAsync<(int DiaSemana, int TotalBonos, double TotalImporte)>(query, new
@@ -113,34 +138,36 @@ namespace BonosAytoService.Services
 
             return diasSemana;
         }
-        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorMesTodos(bool soloTrimestreActual)
+
+
+        //Obtiene los datos de los canjeos TODOS los establecimientos, con la comprobacion de si es total o en el trimestre activo y los muestra por meses (GRÁFICO MENSUAL)
+        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorMesTodos(bool soloTrimestreActivo)
         {
             var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
 
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
 
-            var query = @"
-                SELECT 
-                    MONTH(c.FechaCanjeo) AS Mes,
-                    COUNT(*) AS TotalBonos,
-                    SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
-                FROM Canjeos c
-                JOIN Bonos b ON c.IdBono = b.Id
-                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-                " + (soloTrimestreActual ? "AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin" : "") + @"
-                GROUP BY MONTH(c.FechaCanjeo)";
+            var query = @"SELECT 
+                MONTH(c.FechaCanjeo) AS Mes,
+                COUNT(*) AS TotalBonos,
+                SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
+            FROM Canjeos c
+            JOIN Bonos b ON c.IdBono = b.Id
+            JOIN Establecimientos e ON c.IdEstablecimiento = e.Id";
+
+            if (soloTrimestreActivo)
+            {
+                //si es solo en el trimestre activo
+                query += " AND c.FechaCanjeo>=@fechaInicio AND c.FechaCanjeo<=@fechaFin";
+            }
+
+            query += " GROUP BY MONTH(c.FechaCanjeo) ORDER BY Mes";
 
             var resultados = await connection.QueryAsync<(int Mes, int TotalBonos, double TotalImporte)>(query, new
             {
                 FechaInicio = fechaInicio,
                 FechaFin = fechaFin
             });
-
-            // Verificar los resultados para todos los meses
-            foreach (var r in resultados)
-            {
-                Console.WriteLine($"Mes: {r.Mes}, Bonos: {r.TotalBonos}, Importe: {r.TotalImporte}");
-            }
 
             var meses = Enumerable.Range(1, 12).ToDictionary(m => m, m => (0, 0.0));
             foreach (var r in resultados)
@@ -151,7 +178,7 @@ namespace BonosAytoService.Services
 
 
 
-
+        //Obtiene los datos de los canjeos UN establecimiento seleccionado
         public async Task<EstablecimientoDatosDTO> ObtenerDatosPorEstablecimiento(string nombre)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
@@ -170,6 +197,8 @@ namespace BonosAytoService.Services
             return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query, new { Nombre = nombre });
         }
 
+
+        //Obtiene los datos de los canjeos UN establecimiento seleccionado en el trimestre activo
         public async Task<EstablecimientoDatosDTO> ObtenerDatosUltimoTrimestrePorEstablecimiento(string nombre)
         {
             var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
@@ -185,7 +214,7 @@ namespace BonosAytoService.Services
                 JOIN Bonos b ON c.IdBono = b.Id
                 JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
                 WHERE e.Nombre = @Nombre
-                AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin
+                AND c.FechaCanjeo>=@fechaInicio AND c.FechaCanjeo<=@fechaFin
                 GROUP BY e.Nombre";
 
             return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query, new
@@ -196,20 +225,49 @@ namespace BonosAytoService.Services
             });
         }
 
-        private (DateTime fechaInicio, DateTime fechaFin) ObtenerRangoTrimestreEnCurso()
-        {
-            var fechaActual = DateTime.Now;
-            int mesActual = fechaActual.Month;
-            int trimestreActual = (int)Math.Ceiling(mesActual / 3.0);
-            int mesInicio = (trimestreActual - 1) * 3 + 1;
 
-            var fechaInicio = new DateTime(fechaActual.Year, mesInicio, 1);
-            var fechaFin = fechaInicio.AddMonths(3).AddDays(-1); // Fin del trimestre
+        //Método que obtiene el trimestre activo
+        public (DateTime FechaInicio, DateTime FechaFin) ObtenerRangoTrimestreEnCurso()
+        {
+            // Ejemplo de lógica.
+            var hoy = DateTime.Today;
+            int mes = hoy.Month;
+            int trimestre = 1;
+
+            switch (mes){
+                case 1:
+                case 2:
+                case 3:
+                    trimestre = 1;
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                    trimestre = 2;
+                    break;
+                case 7:
+                case 8:
+                case 9:
+                    trimestre = 3;
+                    break;
+                case 10:
+                case 11:
+                case 12:
+                    trimestre = 4;
+                    break;
+            }
+
+            DateTime fechaInicio = new DateTime(hoy.Year, (trimestre - 1) * 3 + 1, 1);
+            DateTime fechaFin = fechaInicio.AddMonths(3).AddDays(-1);
 
             return (fechaInicio, fechaFin);
         }
 
-        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorDiaSemana(string nombre, bool soloTrimestreActual)
+
+
+
+        //Obtiene los datos de los canjeos de UN establecimiento seleccionado, con la comprobacion de si es total o en el trimestre activo y los muestra por días (GRÁFICO DÍAS SEMANA)
+        public async Task<Dictionary<int, (int Bonos, double Importe)>> ObtenerBonosEImportePorDiaSemana(string nombre, bool soloTrimestreActivo)
         {
             var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
 
@@ -224,9 +282,15 @@ namespace BonosAytoService.Services
                 FROM Canjeos c
                 JOIN Bonos b ON c.IdBono = b.Id
                 JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-                WHERE e.Nombre = @Nombre
-                " + (soloTrimestreActual ? "AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin" : "") + @"
-                GROUP BY ((DATEPART(WEEKDAY, c.FechaCanjeo) + @@DATEFIRST - 2) % 7 + 1)";
+                WHERE e.Nombre = @Nombre";
+
+            if (soloTrimestreActivo)
+            {
+                //si es solo en el trimestre activo
+                query += " AND c.FechaCanjeo>=@fechaInicio AND c.FechaCanjeo<=@fechaFin";
+            }
+
+            query += " GROUP BY((DATEPART(WEEKDAY, c.FechaCanjeo) + @@DATEFIRST - 2) % 7 + 1)";
 
 
             var resultados = await connection.QueryAsync<(int DiaSemana, int TotalBonos, double TotalImporte)>(query, new
@@ -253,16 +317,23 @@ namespace BonosAytoService.Services
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
 
             var query = @"
-                SELECT 
-                    MONTH(c.FechaCanjeo) AS Mes,
-                    COUNT(*) AS TotalBonos,
-                    SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
-                FROM Canjeos c
-                JOIN Bonos b ON c.IdBono = b.Id
-                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-                WHERE e.Nombre = @Nombre
-                " + (soloTrimestreActual ? "AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin" : "") + @"
-                GROUP BY MONTH(c.FechaCanjeo)";
+        SELECT 
+            MONTH(c.FechaCanjeo) AS Mes,
+            COUNT(*) AS TotalBonos,
+            SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
+        FROM Canjeos c
+        JOIN Bonos b ON c.IdBono = b.Id
+        JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+        WHERE e.Nombre = @Nombre
+    ";
+
+            // Si se requiere filtrar por trimestre, añadir la condición correspondiente
+            if (soloTrimestreActual)
+            {
+                query += " AND c.FechaCanjeo>=@fechaInicio AND c.FechaCanjeo<=@fechaFin";
+            }
+
+            query += " GROUP BY MONTH(c.FechaCanjeo)";
 
             var resultados = await connection.QueryAsync<(int Mes, int TotalBonos, double TotalImporte)>(query, new
             {
@@ -271,16 +342,23 @@ namespace BonosAytoService.Services
                 FechaFin = fechaFin
             });
 
+            // Para asegurarnos de que los meses del trimestre estén en el rango
+            if (soloTrimestreActual)
+            {
+                resultados = resultados.Where(r => r.Mes >= fechaInicio.Month && r.Mes <= fechaFin.Month).ToList();
+            }
+
             var meses = Enumerable.Range(1, 12).ToDictionary(m => m, m => (0, 0.0));
             foreach (var r in resultados)
             {
-                Console.WriteLine($"Mes: {r.Mes}, Bonos: {r.TotalBonos}, Importe: {r.TotalImporte}");
                 meses[r.Mes] = (r.TotalBonos, r.TotalImporte);
             }
 
-
             return meses;
         }
+
+
+
 
     }
 }

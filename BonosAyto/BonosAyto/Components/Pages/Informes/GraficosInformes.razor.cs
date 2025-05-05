@@ -15,6 +15,8 @@ namespace BonosAyto.Components.Pages.Informes
         private string establecimientoSeleccionado;
         private string filtroSeleccionado = "Total";
         private string tituloGrafico = String.Empty;
+        private string inputEstablecimiento;
+
 
         // Se actualiza en cada cambio
         private async Task CambiarEstablecimiento(string nombre)
@@ -22,6 +24,28 @@ namespace BonosAyto.Components.Pages.Informes
             establecimientoSeleccionado = nombre;
             await ActualizarGrafico();
         }
+
+        //Comprobar que establecimiento se selecciona (todos o algun nombre del foreach)
+        private void ValidarYSeleccionarEstablecimiento(ChangeEventArgs e)
+        {
+            inputEstablecimiento = e.Value?.ToString();
+
+            if (string.IsNullOrWhiteSpace(inputEstablecimiento) || inputEstablecimiento == "Todos")
+            {
+                CambiarEstablecimiento(null);
+            }
+            else if (nombresEstablecimientos.Contains(inputEstablecimiento))
+            {
+                CambiarEstablecimiento(inputEstablecimiento);
+            }
+            else
+            {
+                // Opción inválida escrita a mano: podrías ignorarla, mostrar mensaje, o limpiar el input
+                CambiarEstablecimiento(null);
+            }
+        }
+
+        
 
         private async Task CambiarFiltro(string filtro)
         {
@@ -47,7 +71,7 @@ namespace BonosAyto.Components.Pages.Informes
 
             if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) || establecimientoSeleccionado == "Todos")
             {
-                item = await EstablecimientoService.ObtenerDatosDeTodosLosEstablecimientos();
+                item = await EstablecimientoService.ObtenerDatosDeTodosLosEstablecimientos(soloTrimestre);
                 tituloGrafico = "Bonos canjeados + Importe de todos los establecimientos";
             }
             else
@@ -93,7 +117,7 @@ namespace BonosAyto.Components.Pages.Informes
 
             await barChart.Update();
 
-            // 🔧 Aquí pasamos los filtros correctos
+
             await ActualizarGraficoDias(establecimientoSeleccionado, soloTrimestre);
             await ActualizarGraficoMensual();
         }
@@ -182,6 +206,12 @@ namespace BonosAyto.Components.Pages.Informes
             if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) || establecimientoSeleccionado == "Todos")
             {
                 datos = await EstablecimientoService.ObtenerBonosEImportePorMesTodos(soloTrimestre);
+                // Iterar sobre el diccionario y mostrar los datos
+                Console.WriteLine("DATOS:");
+                foreach (var item in datos)
+                {
+                    Console.WriteLine($"Mes: {item.Key}, Bonos: {item.Value.Bonos}, Importe: {item.Value.Importe}");
+                }
             }
             else
             {
@@ -192,11 +222,38 @@ namespace BonosAyto.Components.Pages.Informes
             var bonos = new List<double>();
             var importes = new List<double>();
 
-            for (int mes = 1; mes <= 12; mes++)
+            
+            foreach (var mes in datos)
             {
-                var (bonosMes, importeMes) = datos.ContainsKey(mes) ? datos[mes] : (0, 0.0);
-                bonos.Add(bonosMes);
-                importes.Add(importeMes);
+                // Agregar los datos a las listas correspondientes
+                bonos.Add(mes.Value.Bonos);
+                importes.Add(mes.Value.Importe);
+            }
+
+            // Verificar el estado final de los datos antes de actualizar el gráfico
+            Console.WriteLine("Bonos (lista final):");
+            foreach (var bono in bonos)
+            {
+                Console.WriteLine(bono);
+            }
+
+            Console.WriteLine("Importes (lista final):");
+            foreach (var importe in importes)
+            {
+                Console.WriteLine(importe);
+            }
+
+            // Verificar las listas que van al gráfico
+            Console.WriteLine("Bonos (lista final):");
+            foreach (var bono in bonos)
+            {
+                Console.WriteLine(bono);
+            }
+
+            Console.WriteLine("Importes (lista final):");
+            foreach (var importe in importes)
+            {
+                Console.WriteLine(importe);
             }
 
             await barChartMensual.AddLabels(nombresMeses);
@@ -214,6 +271,11 @@ namespace BonosAyto.Components.Pages.Informes
                 Data = importes,
                 BackgroundColor = "rgba(255, 159, 64, 0.6)"
             });
+
+            // Verificar el estado final de los datos antes de actualizar el gráfico
+            Console.WriteLine("Datos antes de actualizar el gráfico:");
+            Console.WriteLine($"Bonos: {string.Join(", ", bonos)}");
+            Console.WriteLine($"Importes: {string.Join(", ", importes)}");
 
             await barChartMensual.Update();
         }

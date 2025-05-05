@@ -5,22 +5,25 @@
 @using BonosAytoService.Services
 @inject EstablecimientoService EstablecimientoService
 
+
 <h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
 
 <div class="d-flex mb-3">
     <!-- Dropdown de establecimiento -->
+
     <div class="selectContainer">
-        <Dropdown>
-            <DropdownToggle Color="Color.Primary">@(@establecimientoSeleccionado ?? "Establecimiento")</DropdownToggle>
-            <DropdownMenu>
-                <DropdownItem @onclick="@(() => CambiarEstablecimiento(null))">Todos</DropdownItem>
-                @foreach (var e in nombresEstablecimientos)
-                {
-                    <DropdownItem @onclick="@(() => CambiarEstablecimiento(e))">@e</DropdownItem>
-                }
-            </DropdownMenu>
-        </Dropdown>
+        <input list="establecimientos" class="form-control" placeholder="Establecimiento" onchange="@ValidarYSeleccionarEstablecimiento" />
+
+        <datalist id="establecimientos">
+            <option value="Todos" />
+            @foreach (var e in nombresEstablecimientos)
+            {
+                <option value="@e" />
+            }
+        </datalist>
+
     </div>
+
 
 
     <!-- Dropdown de filtro de tiempo: Total o trimestre activo-->
