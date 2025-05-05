@@ -50,7 +50,6 @@ namespace BonosAytoService.Services
             var lista = await _dao.ConsultarPorBonos(idBono);
             return _mapper.Map<IEnumerable<CanjeoDTO>>(lista);
         }
-
         public async Task<IEnumerable<CanjeoDTO>> ConsultarPorEstablecimiento(int idEstablcimiento)
         {
             var lista = await _dao.ConsultarPorEstablecimiento(idEstablcimiento);

@@ -123,7 +123,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 TipoServicio = bonoAsig.TipoServicio,
                 FechaInicio = bonoAsig.FechaInicio,
                 FechaCaducidad = bonoAsig.FechaCaducidad,
-                Importe = bonoAsig.Importe + "€",
+                Importe = bonoAsig.Importe,
                 Activados = bonoAsig.Activados,
                 Canjeados = 0,
                 Caducados = 0

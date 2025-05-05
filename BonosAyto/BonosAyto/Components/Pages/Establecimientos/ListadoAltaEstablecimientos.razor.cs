@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
+using BonosAyto.Components.Modales;
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
 using ClosedXML.Excel;
@@ -26,8 +27,12 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private Task<AuthenticationState> AuthStateTask { get; set; }
         private string fichero = "Sin selección";
 
+        public bool Confirmation { get; set; } = false;
 
         private EstablecimientoDTO establecimiento = new EstablecimientoDTO();
+        private AlertaModal Modal { get; set; }
+
+        private int IdElimunar = 0;
 
         private async Task GuardarEstablecimiento()
         {
@@ -68,11 +73,22 @@ namespace BonosAyto.Components.Pages.Establecimientos
         {
             //Navigate.NavigateTo($"/establecimientos/editar/{id}");
         }
-        private async void Eliminar(int id)
+        private async Task Eliminar(int id)
         {
-            await EstablecimientoService.Eliminar(id);
-            // Actualizar la lista después de eliminar la inscripción
-            establecimientos = await EstablecimientoService.Listar();
+            Confirmation = true;
+            //int res =  await EstablecimientoService.Eliminar(id);
+            //if(res == -2)
+            //{
+
+            //}else if(res == -3)
+            //{
+
+            //}else if (res == -1)
+            //{
+
+            //}
+            //// Actualizar la lista después de eliminar la inscripción
+            //establecimientos = await EstablecimientoService.Listar();
         }
 
 

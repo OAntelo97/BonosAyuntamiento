@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using BonosAytoService.Model;
 using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BonosAytoService.DAOs
 {
@@ -51,11 +52,38 @@ namespace BonosAytoService.DAOs
             }
         }
 
-        public async Task<bool> Eliminar(int id)
+        public async Task<int> Eliminar(int id)
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Establecimientos WHERE Id = @Id";
-            return await conection.ExecuteAsync(sql, new { Id = id }) > 0;
+            try
+            {
+                return await conection.ExecuteAsync(sql, new { Id = id });
+            }
+            catch (SqlException ex)
+            {
+                int error1 = -1;
+                if (ex.Number == 547)
+                {
+                    if (ex.Message.Contains("Usuario"))
+                    {
+                        error1 = -2;
+                    }
+                    if (ex.Message.Contains("Canjeos"))
+                    {
+                        error1 = -3;
+                    }
+                }
+                return (error1);
+            }
         }
+
+        public (int, int) ConsultarMetricas(int id)
+        {
+            using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT * FROM Establecimientos WHERE Id = @Id";
+            return conection.QueryFirstOrDefault<(int, int)>(sql, new { Id = id });
+        }
+
     }
 }
