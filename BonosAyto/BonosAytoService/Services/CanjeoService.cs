@@ -29,48 +29,55 @@ namespace BonosAytoService.Services
             _mapper = config.CreateMapper();
         }
 
-        public int Insertar(CanjeoDTO canjeoDTO)
+        public async Task<int> Insertar(CanjeoDTO canjeoDTO)
         {
             var canjeo = _mapper.Map<Canjeo>(canjeoDTO);
             canjeo.FechaMod = DateTime.Now;
             canjeo.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Insertar(canjeo);
+            return await _dao.Insertar(canjeo);
         }
 
 
 
-        public CanjeoDTO? Consultar(int id)
+        public async Task<CanjeoDTO?> Consultar(int id)
         {
-            var canjeo = _dao.Consultar(id);
+            var canjeo = await _dao.Consultar(id);
             return canjeo == null ? null : _mapper.Map<CanjeoDTO>(canjeo);
         }
 
-
-
-        public IEnumerable<CanjeoDTO> Listar()
+        public async Task<IEnumerable<CanjeoDTO>> ConsultarPorBonos(int idBono)
         {
-            var lista = _dao.Listar();
+            var lista = await _dao.ConsultarPorBonos(idBono);
             return _mapper.Map<IEnumerable<CanjeoDTO>>(lista);
         }
 
+        public async Task<IEnumerable<CanjeoDTO>> ConsultarPorEstablecimiento(int idEstablcimiento)
+        {
+            var lista = await _dao.ConsultarPorEstablecimiento(idEstablcimiento);
+            return _mapper.Map<IEnumerable<CanjeoDTO>>(lista);
+        }
 
+        public async Task<IEnumerable<CanjeoDTO>> Listar()
+        {
+            var lista = await _dao.Listar();
+            return _mapper.Map<IEnumerable<CanjeoDTO>>(lista);
+        }
 
-
-        public bool Actualizar(CanjeoDTO canjeoDTO)
+        public async Task<bool> Actualizar(CanjeoDTO canjeoDTO)
         {
             var canjeo = _mapper.Map<Canjeo>(canjeoDTO);
             canjeo.FechaMod = DateTime.Now;
             canjeo.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Actualizar(canjeo);
+            return await _dao.Actualizar(canjeo);
         }
 
 
 
 
 
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            return _dao.Eliminar(id);
+            return await _dao.Eliminar(id);
         }
 
     }

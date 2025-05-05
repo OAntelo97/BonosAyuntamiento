@@ -16,8 +16,8 @@
     deleteCookie: function (name) {
         document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     },
-    authLogin: function (content) {
-        fetch('/api/auth/login', {
+    authLogin: async function (content) {
+        await fetch('/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -25,8 +25,8 @@
             body: content
         })
     },
-    authLogout: function () {
-        fetch('/api/auth/logout', {
+    authLogout: async function () {
+        await fetch('/api/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

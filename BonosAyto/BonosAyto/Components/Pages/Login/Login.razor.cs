@@ -34,7 +34,7 @@ namespace BonosAyto.Components.Pages.Login
             validationMessageStore = new(editContext);
             //HttpContext = httpContextAccessor.HttpContext;
 
-            editContext.OnValidationRequested += (object sender, ValidationRequestedEventArgs e) => { Validaciones(); };
+            editContext.OnValidationRequested += Validaciones;
             //var token = httpContextAccessor.HttpContext.Request.Cookies["UsId"];
             //if (token != null)
             //{
@@ -65,17 +65,12 @@ namespace BonosAyto.Components.Pages.Login
         {
             validationMessageStore.Clear();
 
-            int id = UsuarioService.comprobarUsuario(usuario);
+
+            int id = await UsuarioService.comprobarUsuario(usuario);
+
             if (id != -1) {
-                GlobalVariables.usuario = UsuarioService.Consultar(id);
-                //CookieOptions options = new CookieOptions();
-                //options.Expires = DateTime.Now.AddDays(30);
-                //httpContextAccessor.HttpContext.Response.Cookies.Append("UsId", usuario.Id.ToString(), options);
-                if (recordarme)
-                {
-                    await SetCookie("UsId", GlobalVariables.usuario.Id.ToString(), 30);
-                }
-                Navigate.NavigateTo("/home");
+                GlobalVariables.usuario = await UsuarioService.Consultar(id);
+                Navigate.NavigateTo("/");
             }
             else
             {
@@ -120,11 +115,11 @@ namespace BonosAyto.Components.Pages.Login
         }
         
 
-        private void Validaciones()
+        private async void Validaciones(object sender, ValidationRequestedEventArgs e)
         {
             validationMessageStore.Clear();
 
-            int id = UsuarioService.comprobarUsuario(usuario);
+            int id = await UsuarioService.comprobarUsuario(usuario);
             if (id == -1)
             {
                 validationMessageStore.Add(() => usuario.Pass, "El nombre de usuario o la contraseña no son correctos");
@@ -132,7 +127,7 @@ namespace BonosAyto.Components.Pages.Login
             }
             else
             {
-                GlobalVariables.usuario = UsuarioService.Consultar(id); ;
+                GlobalVariables.usuario = await UsuarioService.Consultar(id); ;
             }
         }
 

@@ -22,37 +22,37 @@ namespace BonosAytoService.Services
             _mapper = config.CreateMapper();
         }
 
-        public int Insertar(EstablecimientoDTO establecimientoDTO)
+        public async Task<int> Insertar(EstablecimientoDTO establecimientoDTO)
         {
             var establecimiento = _mapper.Map<Establecimiento>(establecimientoDTO);
             establecimiento.FechaMod = DateTime.Now;
             establecimiento.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Insertar(establecimiento);
+            return await _dao.Insertar(establecimiento);
         }
 
-        public EstablecimientoDTO? Consultar(int id)
+        public async Task<EstablecimientoDTO?> Consultar(int id)
         {
-            var establecimiento = _dao.Consultar(id);
+            var establecimiento = await _dao.Consultar(id);
             return establecimiento == null ? null : _mapper.Map<EstablecimientoDTO>(establecimiento);
         }
 
-        public IEnumerable<EstablecimientoDTO> Listar()
+        public async Task<IEnumerable<EstablecimientoDTO>> Listar()
         {
-            var lista = _dao.Listar();
+            var lista = await _dao.Listar();
             return _mapper.Map<IEnumerable<EstablecimientoDTO>>(lista);
         }
 
-        public bool Actualizar(EstablecimientoDTO establecimientoDTO)
+        public async Task<bool> Actualizar(EstablecimientoDTO establecimientoDTO)
         {
             var establecimiento = _mapper.Map<Establecimiento>(establecimientoDTO);
             establecimiento.FechaMod = DateTime.Now;
             establecimiento.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Actualizar(establecimiento);
+            return await _dao.Actualizar(establecimiento);
         }
 
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            return _dao.Eliminar(id);
+            return await _dao.Eliminar(id);
         }
     }
 }

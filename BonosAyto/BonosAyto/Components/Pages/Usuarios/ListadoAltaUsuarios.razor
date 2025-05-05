@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="pass" class="form-label">Contraseña</label>
-                                            <InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control" placeholder="Usuario" required />
+                                            <InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control" placeholder="Contraseña" required />
                                         </div>
                                         <div class="mb-3">
                                             <label for="rol" class="form-label">Rol</label>
@@ -64,9 +64,9 @@
                                                 <label for="IdEstablecimiento" class="form-label">Establecimiento</label>
                                                 <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-select">
                                                     <option value="">-- Selecciona --</option>
-                                                    @foreach (var establecimiento in EstablecimientoService.Listar())
+                                                    @foreach (var establecimiento in establecimientos)
                                                     {
-                                                        <option value="@establecimiento.Id">@establecimiento.Id</option>
+                                                        <option value="@establecimiento.Id">@establecimiento.Nombre</option>
                                                     }
                                                 </InputSelect>
                                             </div>
