@@ -1,4 +1,4 @@
-﻿.b-dropdown-menu {
+﻿.selectContainer {
     max-height: 300px; 
-    overflow-y: hidden;
+    overflow-y: scroll;
 }

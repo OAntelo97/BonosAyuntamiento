@@ -9,11 +9,11 @@ namespace BonosAyto.Components.Pages.Informes
     public partial class GraficosInformes
     {
         private BarChart<double> barChart;
-        private BarChart<double> barChartComparativo;
+        private BarChart<double> barChartDias;
         private BarChart<double> barChartMensual;
         private List<string> nombresEstablecimientos = new();
         private string establecimientoSeleccionado;
-        private string filtroSeleccionado = "Todos";
+        private string filtroSeleccionado = "Total";
         private string tituloGrafico = String.Empty;
 
         // Se actualiza en cada cambio
@@ -43,24 +43,24 @@ namespace BonosAyto.Components.Pages.Informes
         {
             EstablecimientoDatosDTO item;
 
+            bool soloTrimestre = filtroSeleccionado != "Total";
+
             if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) || establecimientoSeleccionado == "Todos")
             {
-                // Si se seleccionó "Todos", obtener los datos de todos los establecimientos
                 item = await EstablecimientoService.ObtenerDatosDeTodosLosEstablecimientos();
-                tituloGrafico = "Bonos canjeados + importe de todos los establecimientos";
+                tituloGrafico = "Bonos canjeados + Importe de todos los establecimientos";
             }
             else
             {
-                // Si se seleccionó un establecimiento específico
-                if (filtroSeleccionado == "Todos")
+                if (soloTrimestre)
                 {
-                    item = await EstablecimientoService.ObtenerDatosPorEstablecimiento(establecimientoSeleccionado);
-                    tituloGrafico = "Bonos canjeados + importe por establecimiento";
+                    item = await EstablecimientoService.ObtenerDatosUltimoTrimestrePorEstablecimiento(establecimientoSeleccionado);
+                    tituloGrafico = "Bonos canjeados + Importe en el trimestre activo";
                 }
                 else
                 {
-                    item = await EstablecimientoService.ObtenerDatosUltimoTrimestrePorEstablecimiento(establecimientoSeleccionado);
-                    tituloGrafico = "Bonos canjeados + importe en el trimestre activo";
+                    item = await EstablecimientoService.ObtenerDatosPorEstablecimiento(establecimientoSeleccionado);
+                    tituloGrafico = "Bonos canjeados + Importe por establecimiento";
                 }
             }
 
@@ -75,7 +75,6 @@ namespace BonosAyto.Components.Pages.Informes
                 return;
             }
 
-            // Aquí agregamos los datos al gráfico como lo hacíamos antes
             await barChart.AddLabels(new List<string> { item.NombreEstablecimiento });
 
             await barChart.AddDataSet(new BarChartDataset<double>
@@ -93,41 +92,39 @@ namespace BonosAyto.Components.Pages.Informes
             });
 
             await barChart.Update();
-            await ActualizarGraficoComparativo();
+
+            // 🔧 Aquí pasamos los filtros correctos
+            await ActualizarGraficoDias(establecimientoSeleccionado, soloTrimestre);
             await ActualizarGraficoMensual();
         }
 
 
 
 
-        private async Task ActualizarGraficoComparativo()
-        {
-            if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) && filtroSeleccionado != "Todos")
-                return;
 
-            if (barChartComparativo != null)
+        private async Task ActualizarGraficoDias(string establecimiento, bool soloTrimestre)
+        {
+            if (barChartDias != null)
             {
-                // Limpiamos el gráfico
-                await barChartComparativo.Clear();
+                await barChartDias.Clear();
             }
 
-            bool soloTrimestre = filtroSeleccionado == "Trimestre activo";
+            Dictionary<int, (int Bonos, double Importe)> datos;
 
-            var datos = new Dictionary<int, (int, double)>();
-
-            if (filtroSeleccionado == "Todos")
+            if (string.IsNullOrWhiteSpace(establecimiento) || establecimiento == "Todos")
             {
                 // Obtener datos de todos los establecimientos
                 datos = await EstablecimientoService.ObtenerBonosEImportePorDiaSemanaTodos(soloTrimestre);
             }
             else
             {
-                // Obtener datos para un solo establecimiento
-                datos = await EstablecimientoService.ObtenerBonosEImportePorDiaSemana(establecimientoSeleccionado, soloTrimestre);
+                // Obtener datos para el establecimiento seleccionado
+                datos = await EstablecimientoService.ObtenerBonosEImportePorDiaSemana(establecimiento, soloTrimestre);
             }
 
+            // Orden correcto de días: lunes (2) a domingo (1) en SQL Server (cuando DATEFIRST = 1)
             string[] diasES = new[] { "L", "M", "X", "J", "V", "S", "D" };
-            int[] indicesSQLServer = new[] { 2, 3, 4, 5, 6, 7, 1 };
+            int[] indicesSQLServer = new[] { 1, 2, 3, 4, 5, 6, 7 }; // 1 = lunes, ..., 7 = domingo
 
             var bonos = new List<double>();
             var importes = new List<double>();
@@ -137,33 +134,34 @@ namespace BonosAyto.Components.Pages.Informes
                 var dia = datos.ContainsKey(i) ? datos[i] : (0, 0.0);
                 bonos.Add(dia.Item1);
                 importes.Add(dia.Item2);
+
             }
 
             bool tieneDatos = bonos.Any(b => b > 0) || importes.Any(i => i > 0);
 
             if (!tieneDatos)
             {
-                await barChartComparativo.Update();
+                await barChartDias.Update();
                 return;
             }
 
-            await barChartComparativo.AddLabels(diasES);
+            await barChartDias.AddLabels(diasES);
 
-            await barChartComparativo.AddDataSet(new BarChartDataset<double>
+            await barChartDias.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Bonos Canjeados",
                 Data = bonos,
                 BackgroundColor = "rgba(54, 162, 235, 0.6)"
             });
 
-            await barChartComparativo.AddDataSet(new BarChartDataset<double>
+            await barChartDias.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Importe Total",
                 Data = importes,
                 BackgroundColor = "rgba(255, 206, 86, 0.6)"
             });
 
-            await barChartComparativo.Update();
+            await barChartDias.Update();
         }
 
 
@@ -172,64 +170,54 @@ namespace BonosAyto.Components.Pages.Informes
 
         private async Task ActualizarGraficoMensual()
         {
-            if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) && filtroSeleccionado != "Todos")
+            if (barChartMensual == null)
                 return;
 
-            if (barChartMensual != null)
-                await barChartMensual.Clear();
+            await barChartMensual.Clear();
 
             bool soloTrimestre = filtroSeleccionado == "Trimestre activo";
 
-            var datos = new Dictionary<int, (int, double)>();
+            Dictionary<int, (int Bonos, double Importe)> datos;
 
-            if (filtroSeleccionado == "Todos")
+            if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) || establecimientoSeleccionado == "Todos")
             {
-                // Obtener datos de todos los establecimientos
                 datos = await EstablecimientoService.ObtenerBonosEImportePorMesTodos(soloTrimestre);
             }
             else
             {
-                // Obtener datos para un solo establecimiento
                 datos = await EstablecimientoService.ObtenerBonosEImportePorMes(establecimientoSeleccionado, soloTrimestre);
             }
 
-            var mesesES = new[] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
-
+            string[] nombresMeses = new[] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
             var bonos = new List<double>();
             var importes = new List<double>();
 
-            for (int i = 1; i <= 12; i++)
+            for (int mes = 1; mes <= 12; mes++)
             {
-                var mes = datos.ContainsKey(i) ? datos[i] : (0, 0.0);
-                bonos.Add(mes.Item1);
-                importes.Add(mes.Item2);
+                var (bonosMes, importeMes) = datos.ContainsKey(mes) ? datos[mes] : (0, 0.0);
+                bonos.Add(bonosMes);
+                importes.Add(importeMes);
             }
 
-            bool tieneDatos = bonos.Any(b => b > 0) || importes.Any(i => i > 0);
-            if (!tieneDatos)
-            {
-                await barChartMensual.Update();
-                return;
-            }
-
-            await barChartMensual.AddLabels(mesesES);
+            await barChartMensual.AddLabels(nombresMeses);
 
             await barChartMensual.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Bonos Canjeados",
                 Data = bonos,
-                BackgroundColor = "rgba(75, 192, 192, 0.6)"
+                BackgroundColor = "rgba(153, 102, 255, 0.6)"
             });
 
             await barChartMensual.AddDataSet(new BarChartDataset<double>
             {
                 Label = "Importe Total",
                 Data = importes,
-                BackgroundColor = "rgba(153, 102, 255, 0.6)"
+                BackgroundColor = "rgba(255, 159, 64, 0.6)"
             });
 
             await barChartMensual.Update();
         }
+
 
 
 

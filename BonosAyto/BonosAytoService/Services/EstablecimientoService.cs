@@ -73,12 +73,12 @@ namespace BonosAytoService.Services
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
 
             var query = @"
-        SELECT 
-            'Todos' AS NombreEstablecimiento,
-            COUNT(*) AS BonosCanjeados,
-            SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
-        FROM Canjeos c
-        JOIN Bonos b ON c.IdBono = b.Id";
+                SELECT 
+                    'Todos' AS NombreEstablecimiento,
+                    COUNT(*) AS BonosCanjeados,
+                    SUM(CAST(b.Importe AS decimal(10, 2))) AS ImporteTotal
+                FROM Canjeos c
+                JOIN Bonos b ON c.IdBono = b.Id";
 
             return await connection.QueryFirstOrDefaultAsync<EstablecimientoDatosDTO>(query);
         }
@@ -92,12 +92,14 @@ namespace BonosAytoService.Services
                 SELECT 
                     ((DATEPART(WEEKDAY, c.FechaCanjeo) + @@DATEFIRST - 2) % 7 + 1) AS DiaSemana,
                     COUNT(*) AS TotalBonos,
-                    SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
+                    SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte 
                 FROM Canjeos c
                 JOIN Bonos b ON c.IdBono = b.Id
                 JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+                WHERE 1=1
                 " + (soloTrimestreActual ? "AND b.FechaInicio >= @FechaInicio AND b.FechaCaducidad <= @FechaFin" : "") + @"
                 GROUP BY ((DATEPART(WEEKDAY, c.FechaCanjeo) + @@DATEFIRST - 2) % 7 + 1)";
+
 
             var resultados = await connection.QueryAsync<(int DiaSemana, int TotalBonos, double TotalImporte)>(query, new
             {
@@ -134,12 +136,19 @@ namespace BonosAytoService.Services
                 FechaFin = fechaFin
             });
 
+            // Verificar los resultados para todos los meses
+            foreach (var r in resultados)
+            {
+                Console.WriteLine($"Mes: {r.Mes}, Bonos: {r.TotalBonos}, Importe: {r.TotalImporte}");
+            }
+
             var meses = Enumerable.Range(1, 12).ToDictionary(m => m, m => (0, 0.0));
             foreach (var r in resultados)
                 meses[r.Mes] = (r.TotalBonos, r.TotalImporte);
 
             return meses;
         }
+
 
 
 

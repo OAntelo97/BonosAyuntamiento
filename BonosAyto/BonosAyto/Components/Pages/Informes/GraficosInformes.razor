@@ -9,23 +9,25 @@
 
 <div class="d-flex mb-3">
     <!-- Dropdown de establecimiento -->
-    <Dropdown>
-        <DropdownToggle Color="Color.Primary">@(@establecimientoSeleccionado ?? "Establecimiento")</DropdownToggle>
-        <DropdownMenu>
-            <DropdownItem @onclick="@(() => CambiarEstablecimiento(null))">Todos</DropdownItem>
-            @foreach (var e in nombresEstablecimientos)
-            {
-                <DropdownItem @onclick="@(() => CambiarEstablecimiento(e))">@e</DropdownItem>
-            }
-        </DropdownMenu>
-    </Dropdown>
+    <div class="selectContainer">
+        <Dropdown>
+            <DropdownToggle Color="Color.Primary">@(@establecimientoSeleccionado ?? "Establecimiento")</DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem @onclick="@(() => CambiarEstablecimiento(null))">Todos</DropdownItem>
+                @foreach (var e in nombresEstablecimientos)
+                {
+                    <DropdownItem @onclick="@(() => CambiarEstablecimiento(e))">@e</DropdownItem>
+                }
+            </DropdownMenu>
+        </Dropdown>
+    </div>
 
 
-    <!-- Dropdown de filtro -->
+    <!-- Dropdown de filtro de tiempo: Total o trimestre activo-->
     <Dropdown class="mx-2">
         <DropdownToggle Color="Color.Secondary">@filtroSeleccionado</DropdownToggle>
         <DropdownMenu>
-            <DropdownItem @onclick="@(() => CambiarFiltro("Todos"))">Todos</DropdownItem>
+            <DropdownItem @onclick="@(() => CambiarFiltro("Total"))">Total</DropdownItem>
             <DropdownItem @onclick="@(() => CambiarFiltro("Trimestre activo"))">Trimestre activo</DropdownItem>
         </DropdownMenu>
     </Dropdown>
@@ -41,7 +43,7 @@
 
         <div class="col-md-6 col-sm-12">
             <h5>Bonos Canjeados + Importe por día</h5>
-            <BarChart TItem="double" @ref="barChartComparativo" />
+            <BarChart TItem="double" @ref="barChartDias" />
         </div>
 
         <div class="col-md-6 col-sm-12 mt-4">
