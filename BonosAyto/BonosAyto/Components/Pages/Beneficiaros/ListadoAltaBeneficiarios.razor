@@ -1,146 +1,104 @@
 ﻿@page "/beneficiarios"
 @using BonosAytoService.DTOs
+@using BonosAyto.Components.DataTables
 @inject NavigationManager Navigate
+@using BonosAyto.Components.Templates
+@using BonosAyto.Components.Enums
 
-<style>
-    .nombre-columna {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font:bold;
-    }
 
-</style>
 
-<div class="container-fluid bg-light mb-5">
-    <h1 class="text-center display-6 mb-4">
-        Gestión de Beneficiarios
-    </h1>
-    <div class="card border border-2 shadow p-4 css-min-vh-75">
-        <ul class="nav nav-tabs mb-3" id="tabsBeneficiarios" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="lista-tab" data-bs-toggle="tab" data-bs-target="#lista" type="button"
-                role="tab" aria-controls="lista" aria-selected="true">
-                    <i class="bi bi-card-checklist me-1"></i> Alta beneficiarios
-                </button>
-            </li>
-        </ul>
-        <div class="card-body">
-            <div class="tab-content" id="tabsBeneficiariosContent">
-                <div class="tab-pane fade show active" id="lista" role="tabpanel" aria-labelledby="lista-tab">
-                    <div class="row">
-                        <!-- Formulario -->
-                        <div class="col-md-4">
-                            <div class="card border border-2 shadow h-100">
-                                <div class="card-header bg-primary text-white text-center">
-                                    <h5 class="my-1">Agregar beneficiario</h5>
-                                </div>
-                                <div class="card-body">
-                                    <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
-                                        <DataAnnotationsValidator />
-                                        <ValidationSummary />
+<PlantillaListadoAlta tipo="PageType.Beneficiarios"> 
+    <renderAlta>
+        <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-                                        <label for="nombre">Nombre</label>
-                                        <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" />
+            <label class="form-label" for="nombre">Nombre</label>
+            <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" placeholder="Usuario" />
 
-                                        <label for="apellido1" class="mt-3">Primer Apellido</label>
-                                        <InputText id="apellido1" @bind-Value="modeloAlta.PrimerApellido" class="form-control" />
+            <label for="apellido1" class="mt-3 form-label">Primer Apellido</label>
+            <InputText id="apellido1" @bind-Value="modeloAlta.PrimerApellido" class="form-control" placeholder="Primer apellido" />
 
-                                        <label for="apellido2" class="mt-3">Segundo Apellido</label>
-                                        <InputText id="apellido2" @bind-Value="modeloAlta.SegundoApellido" class="form-control" />
+            <label for="apellido2" class="mt-3 form-label">Segundo Apellido</label>
+            <InputText id="apellido2" @bind-Value="modeloAlta.SegundoApellido" class="form-control" placeholder="Segundo apellido" />
 
-                                        <label for="dni" class="mt-3">DNI</label>
-                                        <InputText id="dni" @bind-Value="modeloAlta.DNI" class="form-control" />
+            <label for="dni" class="mt-3 form-label">DNI</label>
+            <InputText id="dni" @bind-Value="modeloAlta.DNI" class="form-control" placeholder="11111111A" />
 
-                                        <label for="direccion" class="mt-3">Dirección</label>
-                                        <InputText id="direccion" @bind-Value="modeloAlta.Direccion" class="form-control" />
+            <label for="direccion" class="mt-3 form-label">Dirección</label>
+            <InputText id="direccion" @bind-Value="modeloAlta.Direccion" class="form-control" placeholder="Dirección" />
 
-                                        <label for="cp" class="mt-3">Código Postal</label>
-                                        <InputNumber id="cp" @bind-Value="modeloAlta.CodigoPostal" class="form-control" />
+            <label for="cp" class="mt-3 form-label">Código Postal</label>
+            <InputNumber id="cp" @bind-Value="modeloAlta.CodigoPostal" class="form-control" />
 
-                                        <label for="tel" class="mt-3">Teléfono</label>
-                                        <InputText id="tel" @bind-Value="modeloAlta.Telefono" class="form-control" />
+            <label for="tel" class="mt-3 form-label">Teléfono</label>
+            <InputText id="tel" @bind-Value="modeloAlta.Telefono" class="form-control" placeholder="000000000" />
 
-                                        <label for="email" class="mt-3">Correo Electrónico</label>
-                                        <InputText id="email" @bind-Value="modeloAlta.Email" class="form-control" />
-                                        <div class="text-end">
-                                            <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0">Agregar</button>
-                                        </div>
-                                    </EditForm>
-
-                                    <hr />
-                                    <div class="card-header bg-primary text-white text-center mb-3">
-                                        <h5 class="my-1">Carga masiva de beneficiarios/as</h5>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2 bg-light p-1 overflow-hidden">
-                                        <label class="btn btn-light bg-white rounded-0">
-                                            Seleccionar archivo
-                                            <InputFile OnChange="SeleccionarFichero" accept=".xlsx" class="d-none" />
-                                        </label>
-                                        <span>@(fichero ?? "Sin elección")</span>
-                                    </div>
-                                    @foreach (string mensaje in mensajeError)
-                                    {
-                                        <div class="text-danger mt-2">@mensaje</div>
-                                    }
-
-                                    <a class="mt-2" href="files/PlantillaBeneficiarios.xlsx" download>Descargar plantilla Excel</a>
-
-                                    <div class="text-end mb-3">
-                                        <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0" @onclick="CargarExcel">Cargar Excel</button>
-                                    </div>
-                               </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card border border-2 shadow h-100">
-                                <div class="card-header bg-secondary text-white">
-                                    <h5 class="my-1 text-center">Beneficiarios registrados</h5>
-                                </div>
-                                <div class="card-body">
-                                    <DataTables>
-                                        <table class="table table-hover align-middle">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th class="nombre-columna text-truncate">Nombre</th>
-                                                    <th>Telefono</th>
-                                                    <th>Email</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var ben in listaBeneficiarios)
-                                                {
-                                                    <tr>
-                                                        <td class="nombre-columna text-truncate">@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
-                                                        <td>@ben.Telefono</td>
-                                                        <td>@ben.Email</td>
-
-                                                        <td class="text-center">
-                                                            <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(ben.Id))">
-                                                                <i class="bi bi-search" title="Ver detalles"></i>
-                                                            </button>
-                                                            <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Modificar(ben.Id))">
-                                                                <i class="bi bi-pencil d-inline-block"  style="transform:scaleX(-1);" title="Editar campos"></i>
-                                                            </button>
-                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Borrar(ben.Id))">
-                                                                <i class="bi bi-trash" title="Eliminar usuario"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </DataTables>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <label for="email" class="mt-3 form-label">Correo Electrónico</label>
+            <InputText id="email" @bind-Value="modeloAlta.Email" class="form-control" placeholder="Correo electrónico" />
+            <div class="text-end">
+                <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0">Agregar</button>
             </div>
-        </div>       
-    </div>
-</div>
+        </EditForm>
+
+        <hr />
+        <div class="card-header bg-primary text-white text-center mb-3">
+            <h5 class="my-1">Carga masiva de beneficiarios/as</h5>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 bg-light p-1 overflow-hidden">
+            <label class="btn btn-light bg-white rounded-0 form-label">
+                Seleccionar archivo
+                <InputFile OnChange="SeleccionarFichero" accept=".xlsx" class="d-none" />
+            </label>
+            <span>@(fichero ?? "Sin elección")</span>
+        </div>
+        @if (mensajeError != null)
+        {
+            <div class="text-danger mt-2">@mensajeError</div>
+        }
+
+        <a class="mt-2" href="files/PlantillaBeneficiarios.xlsx" download>Descargar plantilla Excel</a>
+
+        <div class="text-end mb-3">
+            <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0" @onclick="CargarExcel">Cargar Excel</button>
+        </div>
+    </renderAlta>                  
+    <renderListado>
+        <DataTables>
+            <table class="table table-hover align-middle" id="tablaListado">
+                <thead class="table-light">
+                    <tr>
+                        <th class="nombre-columna text-truncate">Nombre</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th class=" text-center acciones-columna">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ben in listaBeneficiarios)
+                    {
+                        <tr>
+                            <td class="nombre-columna text-truncate">@($"{ben.Nombre} {ben.PrimerApellido} {ben.SegundoApellido}")</td>
+                            <td>@ben.Telefono</td>
+                            <td>@ben.Email</td>
+
+                            <td class="text-center acciones-columna">
+                                <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(ben.Id))">
+                                    <i class="bi bi-search" title="Ver detalles"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Modificar(ben.Id))">
+                                    <i class="bi bi-pencil d-inline-block pen" title="Editar campos"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Borrar(ben.Id))">
+                                    <i class="bi bi-trash" title="Eliminar usuario"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </DataTables>
+
+    </renderListado>
+</PlantillaListadoAlta>
