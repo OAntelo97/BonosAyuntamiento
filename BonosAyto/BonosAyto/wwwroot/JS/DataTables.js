@@ -1,15 +1,11 @@
-﻿document.addEventListener(onload, start());
-
-var tabla;
+﻿document.addEventListener(onload, start()); 
 
 function start() {
-    tabla = new DataTable('#tablaListado');
-}
-
-function InitializeDataTableWithLanguage(tableId, languageSettings) {
-    $(document).ready(function () {
-        $(tableId).DataTable({
-            "language": languageSettings
-        });
+    var tabla = new DataTable('#tablaListado', {
+        language: {
+            url: "idiomas/en-ES.json"
+        }
     });
 }
+
+
