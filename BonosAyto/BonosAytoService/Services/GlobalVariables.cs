@@ -9,6 +9,6 @@ namespace BonosAytoService.Services
 {
     public static class GlobalVariables
     {
-        public static UsuarioDTO usuario { get; set; }
+        public static UsuarioDTO usuario { get; set; } = new();
     }
 }

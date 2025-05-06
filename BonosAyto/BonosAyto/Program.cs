@@ -3,8 +3,8 @@ using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Charts;
 using BonosAyto.Components;
-using BonosAytoService;
 using BonosAytoService.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +14,17 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstablecimientoService>();
-
-ConexionBD.Inicilizar("Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "UsId";
+        options.LoginPath = "/login";
+        options.Cookie.MaxAge = TimeSpan.FromDays(30);
+    });
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddControllers();
 
 // Blazorise + ChartJs
 builder.Services
@@ -28,7 +37,9 @@ builder.Services
 
 var app = builder.Build();
 
-// Configuración del HTTP pipeline.
+
+
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -38,6 +49,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

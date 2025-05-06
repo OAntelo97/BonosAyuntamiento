@@ -11,50 +11,78 @@ namespace BonosAytoService.DAOs
 {
     public class CanjeoDAO
     {
-        public int Insertar(Canjeo canjeo)
+        public async Task<int> Insertar(Canjeo canjeo)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "INSERT INTO Canjeos(Id, IdBono, IdEstablecimiento, FechaCanjeo, OpExitosa, DescripcionError, UsuarioMod, FechaMod) VALUES " +
-                "(@Id, @IdBono, @IdEstablecimiento, @FechaCanjeo, @OpExitosa, @DescripcionError, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-            int valorAsignado = connection.QuerySingle<int>(sql, canjeo);
-            return valorAsignado;
+            var sql = "INSERT INTO Canjeos(IdBono, IdEstablecimiento, FechaCanjeo, OpExitosa, DescripcionError, UsuarioMod, FechaMod) VALUES " +
+                "(@IdBono, @IdEstablecimiento, @FechaCanjeo, @OpExitosa, @DescripcionError, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            try
+            {
+                int valorAsignado = await connection.QuerySingleAsync<int>(sql, canjeo);
+                return valorAsignado;
+            }
+            catch (SqlException ex)
+            {
+                return -1;
+            }
+            
         }
 
 
 
-        public Canjeo? Consultar(int id)
+        public async Task<Canjeo?> Consultar(int id)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT * FROM Canjeos WHERE Id=@Id";
-            return connection.QueryFirstOrDefault<Canjeo>(sql, new { Id = id });
+            var sql = "SELECT Id, IdBono, IdEstablecimiento, FechaCanjeo, OpExitosa, DescripcionError, UsuarioMod, FechaMod FROM Canjeos WHERE Id=@Id";
+            return await connection.QueryFirstOrDefaultAsync<Canjeo>(sql, new { Id = id });
+        }
+
+        public async Task<IEnumerable<Canjeo>> ConsultarPorBonos(int idBono)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, IdBono, IdEstablecimiento, FechaCanjeo, OpExitosa, DescripcionError, UsuarioMod, FechaMod FROM Canjeos WHERE IdBono=@IdBono";
+            return await connection.QueryAsync<Canjeo>(sql, new { IdBono = idBono });
+        }
+
+        public async Task<IEnumerable<Canjeo>> ConsultarPorEstablecimiento(int idEstablcimiento)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, IdBono, IdEstablecimiento, FechaCanjeo, OpExitosa, DescripcionError, UsuarioMod, FechaMod FROM Canjeos WHERE IdEstablecimiento=@IdEstablecimiento";
+            return await connection.QueryAsync<Canjeo>(sql, new { IdEstablecimiento = idEstablcimiento });
+        }
+
+        public async Task<IEnumerable<Canjeo>> Listar()
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, IdBono, IdEstablecimiento, FechaCanjeo, OpExitosa, DescripcionError, UsuarioMod, FechaMod FROM Canjeos ORDER BY Id ASC";
+            return await connection.QueryAsync<Canjeo>(sql);
         }
 
 
 
-        public IEnumerable<Canjeo> Listar()
+        public async Task<bool> Actualizar(Canjeo canjeo)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT * FROM Canjeos ORDER BY Id ASC";
-            return connection.Query<Canjeo>(sql);
-        }
-
-
-
-        public bool Actualizar(Canjeo canjeo)
-        {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "UPDATE Canjeos SET Id=@Id, IdBono=@IdBono, IdEstablecimiento=@IdEstablecimiento, FechaCanjeo=@FechaCanjeo, OpExitosa=@OpExitosa," +
+            var sql = "UPDATE Canjeos SET IdBono=@IdBono, IdEstablecimiento=@IdEstablecimiento, FechaCanjeo=@FechaCanjeo, OpExitosa=@OpExitosa," +
                 " DescripcionError=@DescripcionError, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE ID=@Id";
-            return connection.Execute(sql, canjeo) > 0;
+            try
+            {
+                return await connection.ExecuteAsync(sql, canjeo) > 0;
+            }
+            catch (SqlException ex)
+            {
+                return false;
+            }
+            
         }
 
 
 
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Canjeos WHERE Id=@id";
-            return connection.Execute(sql, new { Id = id }) > 0;
+            return await connection.ExecuteAsync(sql, new { Id = id }) > 0;
         }
     }
 }

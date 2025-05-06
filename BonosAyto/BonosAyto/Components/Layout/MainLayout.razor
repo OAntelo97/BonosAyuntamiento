@@ -1,29 +1,43 @@
-﻿@inherits LayoutComponentBase
-@using Blazorise
-
-<!--ThemeProvider activa el motor de blazorise-->
-
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
+@using BonosAytoService.Services
+@inherits LayoutComponentBase
+@inject NavigationManager Navigate
+@attribute [Authorize(Roles = "S")]
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+ 
+    <main>
+        <div class="top-row px-4">
+            <div class="dorpdown">
+                <a class="text-white bg-secondary rounded-circle p-3" href="#" role="button" id="info-contries" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-fill fs-5"></i>
+                </a>
+                
+                <div class="dropdown-menu shadow rounded p-3 dropdown-usuario w-100" aria-labelledby="nfo-contries">
+                    <div class="d-flex">
+                        <div class="me-3">
+                            <img class="m-auto img-usuario" src="favicon.png" alt="Alternate Text" />
+                        </div>
+                        <div>
+                            <p class="mb-1">@(GlobalVariables.usuario != null ? GlobalVariables.usuario.Usuario : "Usuario:----")</p>
+                            <p class="text-secondary">@(GlobalVariables.usuario != null && GlobalVariables.usuario.Email != null ? GlobalVariables.usuario.Email : "Email:----")</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <button class="btn btn-primary w-100" @onclick="DeleteCookie">Log out</button>
+                </div>
+            </div>
         </div>
 
-        <main>
-            <div class="top-row px-4">
-                <button class="btn btn-secondary rounded-circle">
-                    <i class="bi bi-person-fill fs-5"></i>
-                </button>
-            </div>
-
-            <article class="content px-4">
-                @Body
-            </article>
-        </main>
-    </div>
-
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+ 
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
