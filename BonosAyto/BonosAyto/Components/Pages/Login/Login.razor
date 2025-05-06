@@ -1,25 +1,27 @@
 ﻿@layout LoginLayout
+@page "/"
 @page "/login"
+
 
 @inject NavigationManager Navigate
 @using BonosAyto.Components.Layout
+
 
 <div class="card">
 	<div class="card-body text-center">
 		<img class="m-auto" src="favicon.png" alt="Alternate Text" />
 		<h4 class="text-center">Acceso</h4>
-		<EditForm EditContext="editContext">
+		<EditForm EditContext="editContext" OnValidSubmit="Authenticate">
 			<DataAnnotationsValidator />
 			
 
 			<InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mt-4" placeholder="Usuario" required/>
-			<InputText id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contrasena" required />
-			<Microsoft.AspNetCore.Components.Forms.ValidationSummary />
-
+			<InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contrasena" required />
+			<ValidationSummary />
 			<div class="mt-4 form-check text-start">
 				<label for="disponible" class="form-check-label">Recordarme</label>
 
-				<input type="checkbox" class="form-check-input" />
+				<input type="checkbox" class="form-check-input" @bind="recordarme"/>
 			</div>
 			<button type="submit" class="btn btn-secondary mt-2 w-100">Acceder</button>
 			<a href="#" class="d-block text-secondary text-center mt-2">Recordar contrasena</a>

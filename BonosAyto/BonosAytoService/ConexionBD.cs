@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace BonosAytoService
 {
     public static class ConexionBD
     {
-        private static string _configuration;
-
-        public static void Inicilizar(String conexion)
-        {
-            _configuration = conexion;
-        }
-
         public static string CadenaDeConexion()
         {
-            return _configuration;
+            string rootExeProject = Directory.GetCurrentDirectory();
+
+            if (rootExeProject.Contains("BonosAytoTest")) rootExeProject = Directory.GetParent(rootExeProject)?.Parent?.Parent?.FullName!;
+
+            string rootBonosAytoService = Path.GetFullPath(Path.Combine(rootExeProject, @"..", "BonosAytoService"));
+
+            var builder = new ConfigurationBuilder()
+                            .SetBasePath(rootBonosAytoService)
+                            .AddJsonFile("configuration.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            return configuration.GetConnectionString("Connection")!;
         }
     }
 }

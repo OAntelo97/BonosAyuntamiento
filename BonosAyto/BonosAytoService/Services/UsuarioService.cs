@@ -28,63 +28,54 @@ namespace BonosAytoService.Services
 
         }
 
-        private const string conn = "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=pruebaHugo;Trusted_Connection=True; TrustServerCertificate=True;";
-
-        public int Insertar(UsuarioDTO user)
+        public async Task<(int, int?)> Insertar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
+            umap.FechaMod = DateTime.Now;
             umap.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Insertar(umap);
+            return await _dao.Insertar(umap);
         }
 
-        public UsuarioDTO? Consultar(int id)
+        public async Task<UsuarioDTO?> Consultar(int id)
         {
-            var user = _dao.Consultar(id);
+            var user = await _dao.Consultar(id);
             return user == null ? null : _mapper.Map<UsuarioDTO>(user);
         }
 
-        public int comprobarUsuario(UsuarioDTO user)
+        public async Task<IEnumerable<UsuarioDTO>> ConsultarPorEstablecimiento(int idEstablecimiento)
         {
-            var umap = _mapper.Map<Usuarios>(user);
-            return _dao.comprobarUsuario(umap);
-        }
-
-
-        public IEnumerable<UsuarioDTO> Listar()
-        {
-            var lista = _dao.Listar();
+            var lista = await _dao.ConsultarPorEstablecimiento(idEstablecimiento);
             return lista.Select(_mapper.Map<UsuarioDTO>);
         }
 
-        public bool Actualizar(UsuarioDTO user)
+        public async Task<int> comprobarUsuario(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
+            return await _dao.comprobarUsuario(umap);
+        }
+
+
+        public async Task<IEnumerable<UsuarioDTO>> Listar()
+        {
+            var lista = await _dao.Listar();
+            return lista.Select(_mapper.Map<UsuarioDTO>);
+        }
+
+        public async Task<(int, int?)> Actualizar(UsuarioDTO user)
+        {
+            var umap = _mapper.Map<Usuarios>(user);
+            if (GlobalVariables.usuario == null)
+            {
+                throw new Exception("El usuario actual no está logueado");
+            }
+            umap.FechaMod = DateTime.Now;
             umap.UsuarioMod = GlobalVariables.usuario.Id;
-            return _dao.Actualizar(umap);
+            return await _dao.Actualizar(umap);
 
         }
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            return _dao.Eliminar(id);
-        }
-
-        public bool UsuarioExiste(string user)
-        {
-            using var conection = new SqlConnection(conn);
-            var sql = "SELECT * FROM dbo.Usuarios WHERE Usuario = @Usuario;";
-
-            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Usuario = user });
-
-            return usuario != null;
-        }
-        public bool EmailExiste(string email)
-        {
-            using var conection = new SqlConnection(conn);
-            var sql = "SELECT * FROM dbo.Usuarios WHERE Email = @Email;";
-
-            var usuario = conection.QueryFirstOrDefault<Usuarios>(sql, new { Email = email });
-
-            return usuario != null;
+            return await _dao.Eliminar(id);
         }
     }
 }

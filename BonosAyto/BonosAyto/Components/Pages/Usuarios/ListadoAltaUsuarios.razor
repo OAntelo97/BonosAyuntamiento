@@ -4,101 +4,128 @@
 @using BonosAytoService.DTOs
 @using BonosAyto.Components.DataTables
 
+<div class="container-fluid bg-light mb-5">
+    <h1 class="text-center display-6 mb-4">
+        Gestión de Usuarios
+    </h1>
+    <div class="card border border-2 shadow p-4 css-min-vh-75">
+        <ul class="nav nav-tabs mb-3" id="tabsUsuarios" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="lista-tab" data-bs-toggle="tab" data-bs-target="#lista" type="button"
+                        role="tab" aria-controls="lista" aria-selected="true">
+                    <i class="bi bi-card-checklist me-1"></i> Alta usuarios
+                </button>
+            </li>
+            @* <li class="nav-item" role="presentation">
+                <button class="nav-link" id="lista-tab1" data-bs-toggle="tab" data-bs-target="#lista1" type="button"
+                        role="tab" aria-controls="lista1" aria-selected="true">
+                    <i class="bi bi-list-columns-reverse me-1"></i> Tab2
+                </button>
+            </li> *@
+        </ul>
+        <div class="card-body">
+            <div class="tab-content" id="tabsUsuariosContent">
+                <div class="tab-pane fade show active" id="lista" role="tabpanel" aria-labelledby="lista-tab">
+                    <div class="row">
+                        <!-- Formulario -->
+                        <div class="col-md-4">
+                            <div class="card border border-2 shadow h-100">
+                                <div class="card-header bg-primary text-white text-center">
+                                    <h5 class="my-1">Agregar usuario</h5>
+                                </div>
+                                <div class="card-body">
+                                    <EditForm Model="usuario" OnValidSubmit="@GuardarUsuario">
+                                        <DataAnnotationsValidator />
+                                        <div class="mb-3">
+                                            <label for="usuario" class="form-label">Usuario</label>
+                                            <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="pass" class="form-label">Contraseña</label>
+                                            <InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control" placeholder="Contraseña" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="rol" class="form-label">Rol</label>
+                                            <InputSelect id="rol" @bind-Value="usuario.Rol" class="form-select" required>
+                                                <option value="" selected>-- Selecciona un Rol --</option>
+                                                <option value="G">Gestión</option>
+                                                <option value="C">Control</option>
+                                                <option value="S">Servicio</option>
+                                            </InputSelect>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <InputText id="email" @bind-Value="usuario.Email" class="form-control" placeholder="Email" />
+                                            <ValidationMessage For="@(() => usuario.Email)" />
+                                        </div>
+                                        @if (usuario?.Rol == 'S')
+                                        {
+                                            <div class="mb-3">
+                                                <label for="IdEstablecimiento" class="form-label">Establecimiento</label>
+                                                <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-select">
+                                                    <option value="">-- Selecciona --</option>
+                                                    @foreach (var establecimiento in establecimientos)
+                                                    {
+                                                        <option value="@establecimiento.Id">@establecimiento.Nombre</option>
+                                                    }
+                                                </InputSelect>
+                                            </div>
+                                        }
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary">Guardar usuario</button>
+                                        </div>
+                                    </EditForm>
+                                </div>
+                            </div>
+                        </div>
 
-<h1 class="w-100 text-center my-4">Listado y Alta de Usuarios</h1>
-
-<div class="container">
-    <div class="row">
-
-        <div class="col-4 border border-dark">
-
-            <h6 class="mb-3 mt-2 text-center">Formulario: Agregar Usuario</h6>
-
-            <EditForm Model="usuario" OnValidSubmit="@GuardarUsuario">
-                <DataAnnotationsValidator />
-
-                <!-- Usuario -->
-                <label for="usuario">Usuario</label>
-                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required/>
-
-                <!-- Contraseña -->
-                <label for="pass">Pass</label>
-                <InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mb-2" required />
-
-                <!-- Rol -->
-                <label for="rol">Rol</label>
-                <InputSelect id="rol" @bind-Value="usuario.Rol" class="form-control mb-2" required>
-                    <option value="" selected>-- Selecciona un Rol --</option>
-                    <option value="G">Gestión</option>
-                    <option value="C">Control</option>
-                    <option value="S">Servicio</option>
-                </InputSelect>
-
-                <!-- Email -->
-                <label for="email">Email</label>
-                <InputText id="email" @bind-Value="usuario.Email" class="form-control mb-2" />
-                <ValidationMessage For="@(() => usuario.Email)" />
-
-                <!-- Id del establecimiento -->
-                @if (usuario?.Rol == 'S')
-                {
-                    <label for="IdEstablecimiento">IdEstablecimiento</label>
-                    <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-control mb-2">
-                        <option value="" selected>-- Selecciona un Id de Establecimiento --</option>
-                        @foreach (var establecimiento in EstablecimientoService.Listar())
-                        {
-                            <option value="@establecimiento.Id">@establecimiento.Id</option>
-                        }
-                    </InputSelect>
-                }
-
-
-                <div class="mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-secondary">Guardar usuario</button>
+                        <!-- Tabla de usuarios -->
+                        <div class="col-md-8">
+                            <div class="card border border-2 shadow h-100">
+                                <div class="card-header bg-secondary text-white">
+                                    <h5 class="my-1 text-center">Usuarios registrados</h5>
+                                </div>
+                                <div class="card-body">
+                                    <DataTables>
+                                        <table class="table table-hover align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Email</th>
+                                                    <th class="text-center">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var usuario in usuarios)
+                                                {
+                                                    <tr>
+                                                        <td>@usuario.Usuario</td>
+                                                        <td>@usuario.Email</td>
+                                                        <td class="text-center">
+                                                            <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(usuario.Id))">
+                                                                <i class="bi bi-search" title="Ver detalles" ></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(usuario.Id))">
+                                                                <i class="bi bi-pencil" title="Editar campos"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Eliminar(usuario.Id))">
+                                                                <i class="bi bi-trash" title="Eliminar usuario"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </DataTables>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </EditForm>
-		</div>
-
-        <div class="col-1"></div>
-
-        <div class="col-7 border border-dark">
-            <!-- Tbla de listados-->
-            <DataTables>
-                <table class="table" id="tablaListado">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var usuario in usuarios)
-                        {
-                            <tr>
-                                <td>@usuario.Id</td>
-                                <td>@usuario.Usuario</td>
-                                <td>@usuario.Email</td>
-                                <td>
-                                    <button class="btn btn-sm" @onclick="@(() => VerDetalle(usuario.Id))">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                    <button class="btn btn-sm" @onclick="@(() => Editar(usuario.Id))">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm" @onclick="@(() => Eliminar(usuario.Id))">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </DataTables>
-
-		</div>
-
-	</div>
+               @*  <div class="tab-pane fade" id="lista1" role="tabpanel" aria-labelledby="lista-tab1">
+                    Tab2
+                </div> *@
+            </div>
+        </div>
+    </div>
 </div>
-

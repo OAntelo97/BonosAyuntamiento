@@ -1,0 +1,8 @@
+﻿{
+  "ConnectionStrings": {
+    "Connection": "SERVER=PC-OSCAR-ANTELO;DATABASE=AytoCoruna;Integrated Security=False;User Id=sa;Password=ADMIN0;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True"
+  }
+}
+
+
+

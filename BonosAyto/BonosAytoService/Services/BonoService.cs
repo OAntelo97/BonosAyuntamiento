@@ -29,39 +29,53 @@ namespace BonosAytoService.Services
             _mapper = config.CreateMapper();
         }
 
-        public int Insertar(BonoDTO bonoDTO)
+        public async Task<int> Insertar(BonoDTO bonoDTO)
         {
             var bono = _mapper.Map<Bono>(bonoDTO);
-            return _dao.Insertar(bono);
+            bono.FechaMod = DateTime.Now;
+            bono.UsuarioMod = GlobalVariables.usuario.Id;
+            return await _dao.Insertar(bono);
         }
 
 
 
-        public BonoDTO? Consultar(int id)
+        public async Task<BonoDTO?> Consultar(int id)
         {
-            var bono = _dao.Consultar(id);
+            var bono = await _dao.Consultar(id);
             return bono == null ? null : _mapper.Map<BonoDTO>(bono);
         }
 
-
-
-        public IEnumerable<BonoDTO> Listar()
+        public async Task<IEnumerable<BonoDTO>> ConsultarPorBeneficiario(int idBeneficiario)
         {
-            var lista = _dao.Listar();
+            var lista = await _dao.ConsultarPorBeneficiario(idBeneficiario);
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
         }
 
-
-        public bool Actualizar(BonoDTO bonoDTO)
+        public async Task<IEnumerable<BonoDTO>> Listar()
         {
-            var bono = _mapper.Map<Bono>(bonoDTO);
-            return _dao.Actualizar(bono);
+            var lista = await _dao.Listar();
+            return _mapper.Map<IEnumerable<BonoDTO>>(lista);
+        }
+        public async Task<IEnumerable<BonoDTO>> ListarFiltT(int Id)
+        {
+            var lista = (await _dao.ListarFiltT(Id)).OrderBy(b => b.FechaInicio);
+            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
+            return mapped;
         }
 
 
-        public bool Eliminar(int id)
+        public async Task<bool> Actualizar(BonoDTO bonoDTO)
         {
-            return _dao.Eliminar(id);
+            var bono = _mapper.Map<Bono>(bonoDTO);
+            bono.FechaMod = DateTime.Now;
+            bono.UsuarioMod = GlobalVariables.usuario.Id;
+            return await _dao.Actualizar(bono);
+        }
+
+
+        public async Task<bool> Eliminar(int id)
+        {
+            return await _dao.Eliminar(id);
         }
 
     }

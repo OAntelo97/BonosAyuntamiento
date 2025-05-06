@@ -7,81 +7,109 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BonosAytoService.DAOs
 {
     public class UsuarioDAO
     {
-        private const string conn = "Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;";
-
-        public int Insertar(Usuarios user)
+        public async Task<(int, int?)> Insertar(Usuarios user)
         {
-            using var connection = new SqlConnection(conn);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "INSERT INTO Usuarios (Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod)  VALUES (@Usuario, @Pass, @Rol, @Email, @IdEstablecimiento, @UsuarioMod, @FechaMod);  SELECT CAST(SCOPE_IDENTITY() AS INT);";
             user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
 
-            var parameters = new
+            try
             {
-                user.Usuario,
-                user.Pass,
-                user.Rol,
-                user.Email,
-                user.IdEstablecimiento,
-                user.UsuarioMod,
-                FechaMod = DateTime.Now
-            };
-            return connection.Execute(sql, parameters);
+                return (await connection.ExecuteAsync(sql, user), null);
+            }
+            catch (SqlException ex){
+                int error1 = -1;
+                int? error2 = null;
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    if (ex.Message.Contains("Usuario"))
+                    {
+                        error1 = -2;
+                    }
+                    if (ex.Message.Contains("Email"))
+                    {
+                        error2 = -2;
+                    }
+                }
+                return (error1, error2);
+            }
+            
         }
 
-        public Usuarios? Consultar(int id)
+        public async Task<Usuarios?> Consultar(int id)
         {
-
-            using var connection = new SqlConnection(conn);
-            var sql = "SELECT * FROM Usuarios WHERE Id=@Id;";
-            return connection.QueryFirstOrDefault<Usuarios>(sql, new { Id = id });
-
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios WHERE Id=@Id;";
+            return await connection.QueryFirstOrDefaultAsync<Usuarios>(sql, new { Id = id });
         }
 
-        public int comprobarUsuario(Usuarios user)
+        public async Task<IEnumerable<Usuarios>> ConsultarPorEstablecimiento(int idEstablecimiento)
         {
-            using var conection = new SqlConnection(conn);
-            var sql = "SELECT * FROM Usuarios WHERE Usuario=@Usuario AND Pass = @Pass ;";
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios WHERE IdEstablecimiento=@IdEstablecimiento;";
+            return await connection.QueryAsync<Usuarios>(sql, new { IdEstablecimiento = idEstablecimiento });
+        }
+
+        public async Task<int> comprobarUsuario(Usuarios user)
+        {
+            using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios WHERE Usuario = @Usuario AND Pass = @Pass ;";
             user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
-            Usuarios usuario = conection.QueryFirstOrDefault<Usuarios>(sql, user);
+            Usuarios? usuario = await conection.QueryFirstOrDefaultAsync<Usuarios>(sql, user);
             return usuario != null ? usuario.Id : -1;
         }
 
-        public IEnumerable<Usuarios> Listar()
+        public async Task<IEnumerable<Usuarios>> Listar()
         {
-            using var connection = new SqlConnection(conn);
-            var sql = "SELECT * FROM Usuarios";
-            return connection.Query<Usuarios>(sql);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios";
+            return await connection.QueryAsync<Usuarios>(sql);
         }
 
-        public bool Actualizar(Usuarios user)
+        public async Task<(int, int?)> Actualizar(Usuarios user)
         {
-            using var connection = new SqlConnection(conn);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "UPDATE Usuarios SET Usuario=@Usuario, Pass=@Pass, Rol=@Rol, Email=@Email, IdEstablecimiento=@IdEstablecimiento, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE Id=@Id;";
-            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
-            var parameters = new
+            
+            try
             {
-                user.Id,
-                user.Usuario,
-                user.Pass,
-                user.Rol,
-                user.Email,
-                user.IdEstablecimiento,
-                user.UsuarioMod,
-                FechaMod = DateTime.Now
-            };
-            return connection.Execute(sql, parameters) > 0;
+                return (await connection.ExecuteAsync(sql, user) > 0? 0:-1, null);
+            }
+            catch (SqlException ex)
+            {
+                int error1 = -1;
+                int? error2 = null;
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    
+
+                    if (ex.Message.Contains("Usuario"))
+                    {
+                        error1 = -2;
+                    }
+                    if (ex.Message.Contains("Email"))
+                    {
+                        error2 = -2;
+                    }
+
+                    
+                }
+                return (error1, error2);
+            }
+            
 
         }
-        public bool Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            using var connection = new SqlConnection(conn);
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Usuarios WHERE Id=@id;";
-            return connection.Execute(sql, new { Id = id }) > 0;
+            return await connection.ExecuteAsync(sql, new { Id = id }) > 0;
         }
     }
 }
