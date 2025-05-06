@@ -1,7 +1,7 @@
 ﻿{
-    "ConnectionStrings": {
-        "Connection": "Server=DESKTOP-LCFMU2M\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True;TrustServerCertificate=True;"
-    }
+  "ConnectionStrings": {
+    "Connection": "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
 }
 
 
