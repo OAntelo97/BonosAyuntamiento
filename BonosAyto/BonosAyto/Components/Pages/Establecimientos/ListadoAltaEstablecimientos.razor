@@ -5,8 +5,8 @@
 @using BonosAyto.Components.Enums
 @* @attribute [Authorize] *@
 
-<ListadoAltaTemplate tipo="PageType.Establecimientos">
-    <renderAlta>
+<ListadoAltaTemplate Tipo="PageType.Establecimientos">
+    <RenderAltaFragment>
         <EditForm Model="establecimiento" OnValidSubmit="@GuardarEstablecimiento">
             <DataAnnotationsValidator />
 
@@ -58,9 +58,9 @@
             <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0" @onclick="CargarExcel">Cargar Excel</button>
         </div>
 
-    </renderAlta>
+    </RenderAltaFragment>
 
-    <renderListado>
+    <RenderListadoFragment>
           <DataTables>
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
@@ -96,7 +96,7 @@
                 </table>
             </DataTables>
 
-    </renderListado>
+    </RenderListadoFragment>
 
 </ListadoAltaTemplate>
 

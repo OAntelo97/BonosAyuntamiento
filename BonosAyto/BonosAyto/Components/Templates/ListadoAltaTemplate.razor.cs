@@ -11,44 +11,40 @@ namespace BonosAyto.Components.Templates
 {
     public partial class ListadoAltaTemplate
     {
+        public string Titulo { get; set; }
+        public string Pestaña { get; set; }
+        public string Alta { get; set; }
+        public string Listado { get; set; }
         [Parameter]
-        public string? titulo { get; set; }
+        public RenderFragment RenderAltaFragment { get; set; }
         [Parameter]
-        public string? pestaña { get; set; }
+        public RenderFragment RenderListadoFragment { get; set; }
         [Parameter]
-        public string? alta { get; set; }
-        [Parameter]
-        public string? listado { get; set; }
-        [Parameter]
-        public RenderFragment? renderAlta { get; set; }
-        [Parameter]
-        public RenderFragment? renderListado { get; set; }
-        [Parameter]
-        public PageType tipo { get; set; }
+        public PageType Tipo { get; set; }
 
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
 
-            switch (tipo)
+            switch (Tipo)
             {
                 case PageType.Usuarios:
-                    titulo = "Gestión de Usuarios";
-                    pestaña = "Alta de Usuarios";
-                    alta = "Nuevo Usuario";
-                    listado = "Listado de Usuarios";
+                    Titulo = "Gestión de Usuarios";
+                    Pestaña = "Alta de Usuarios";
+                    Alta = "Nuevo Usuario";
+                    Listado = "Listado de Usuarios";
                     break;
                 case PageType.Beneficiarios:
-                    titulo = "Gestión de Beneficiarios";
-                    pestaña = "Alta de Beneficiarios";
-                    alta = "Nuevo Beneficiario";
-                    listado = "Listado de Beneficiarios";
+                    Titulo = "Gestión de Beneficiarios";
+                    Pestaña = "Alta de Beneficiarios";
+                    Alta = "Nuevo Beneficiario";
+                    Listado = "Listado de Beneficiarios";
                     break;
                 case PageType.Establecimientos:
-                    titulo = "Gestión de Establecimientos";
-                    pestaña = "Alta de Establecimientos";
-                    alta = "Nuevo Establecimiento";
-                    listado = "Listado de Establecimientos";
+                    Titulo = "Gestión de Establecimientos";
+                    Pestaña = "Alta de Establecimientos";
+                    Alta = "Nuevo Establecimiento";
+                    Listado = "Listado de Establecimientos";
                     break;
             }
         }

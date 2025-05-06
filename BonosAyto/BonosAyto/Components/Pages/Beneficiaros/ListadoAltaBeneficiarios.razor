@@ -7,8 +7,8 @@
 
 
 
-<ListadoAltaTemplate tipo="PageType.Beneficiarios"> 
-    <renderAlta>
+<ListadoAltaTemplate Tipo="PageType.Beneficiarios"> 
+    <RenderAltaFragment>
         <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -68,8 +68,8 @@
         <div class="text-end mb-3">
             <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0" @onclick="CargarExcel">Cargar Excel</button>
         </div>
-    </renderAlta>                  
-    <renderListado>
+    </RenderAltaFragment>                  
+    <RenderListadoFragment>
         <DataTables>
             <table class="table table-hover align-middle" id="tablaListado">
                 <thead class="table-light">
@@ -105,5 +105,5 @@
             </table>
         </DataTables>
 
-    </renderListado>
+    </RenderListadoFragment>
 </ListadoAltaTemplate>
