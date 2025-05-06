@@ -14,14 +14,25 @@ namespace BonosAytoService.DAOs
             
             try
             {
-                int valorAsignado = await conection.QuerySingleAsync<int>(sql, establecimiento);
-                return valorAsignado;
+                return await conection.QuerySingleAsync<int>(sql, establecimiento);
             }
             catch (SqlException ex)
             {
-                return -1;
+                int error1 = -1;
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    if (ex.Message.Contains("NIF"))
+                    {
+                        error1 = -2;
+                    }
+                    if (ex.Message.Contains("Email"))
+                    {
+                        error1 = -3;
+                    }
+                }
+                return error1;
             }
-            
+
         }
 
         public async Task<Establecimiento?> Consultar(int id)
@@ -38,17 +49,30 @@ namespace BonosAytoService.DAOs
             return await conection.QueryAsync<Establecimiento>(sql);
         }
 
-        public async Task<bool> Actualizar(Establecimiento establecimiento)
+        public async Task<int> Actualizar(Establecimiento establecimiento)
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "UPDATE Establecimientos SET Nombre = @Nombre, NIF = @NIF, Direccion = @Direccion, CodigoPostal = @CodigoPostal,  Telefono = @Telefono , Email = @Email, UsuarioMod = @UsuarioMod, FechaMod = @FechaMod  WHERE Id = @Id";
+
             try
             {
-                return await conection.ExecuteAsync(sql, establecimiento) > 0;
+                return await conection.ExecuteAsync(sql, establecimiento);
             }
             catch (SqlException ex)
             {
-                return false;
+                int error1 = -1;
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    if (ex.Message.Contains("NIF"))
+                    {
+                        error1 = -2;
+                    }
+                    if (ex.Message.Contains("Email"))
+                    {
+                        error1 = -3;
+                    }
+                }
+                return error1;
             }
         }
 

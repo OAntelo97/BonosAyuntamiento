@@ -50,7 +50,7 @@ namespace BonosAytoService.Services
             return _mapper.Map<IEnumerable<EstablecimientoDTO>>(lista);
         }
 
-        public async Task<bool> Actualizar(EstablecimientoDTO establecimientoDTO)
+        public async Task<int> Actualizar(EstablecimientoDTO establecimientoDTO)
         {
             var establecimiento = _mapper.Map<Establecimiento>(establecimientoDTO);
             establecimiento.FechaMod = DateTime.Now;

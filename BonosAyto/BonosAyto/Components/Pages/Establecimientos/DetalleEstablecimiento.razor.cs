@@ -17,11 +17,11 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private IEnumerable<BenCanjBonEst> canjeoasEstablecimiento = [];
         [Parameter]
         public int Id { get; set; }
+        [Parameter] 
+        public string? Modo { get; set; } = "ver";
 
         [Inject]
         private NavigationManager Navigation { get; set; }
-        [Parameter]
-        public bool edit { get; set; }
         EditContext bonoContext;
         ValidationMessageStore messageStore;
 
@@ -31,6 +31,10 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
         private (int nCanjeos, float importeT) metricas = (0,0);
 
+        private bool EsModoLectura => Modo?.ToLower() != "editar";
+
+        private string tituloError = "";
+        private string MensajeErrorEliminar = "";
 
 
 
@@ -45,10 +49,28 @@ namespace BonosAyto.Components.Pages.Establecimientos
             canjeoasEstablecimiento = await establecimientoService.ConsulatarCanjeos(Id);
             titulo();
         }
-        private void ModificarEstablecimiento()         //modificar establecimientos           
+        private async Task ModificarEstablecimiento()         //modificar establecimientos           
         {
-            establecimientoService.Actualizar(detalleE);
-            titulo();
+            int res = await establecimientoService.Actualizar(detalleE);
+            if (res <= 0)
+            {
+                tituloError = "insertar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un usuario con este NIF";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un usuario con este correo. Por favor, intriduzca otro correo";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+                return;
+            }
+            VerDetalleEditar("ver", detalleE.Id);
         }
 
         private void titulo()
@@ -56,13 +78,19 @@ namespace BonosAyto.Components.Pages.Establecimientos
             tituloDetalleEstablecimiento = $"Información de {detalleE.Nombre}";
         }
 
-        private void AutoCaducidad()
+        private void VerDetalleEditar(string modo, int id)
         {
-            bonoAsig.FechaCaducidad = bonoAsig.FechaInicio.AddMonths(3);
+            Navigate.NavigateTo($"/establecimientos/{modo}/{id}");
         }
 
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
+        }
+
+
         //botones accion
-        private void VerDetalle(int id)
+        private void VerDetalleCanjeo(int id)
         {
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
         }
@@ -70,6 +98,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
         {
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
         }
+        
 
         private async Task Borrar(int id)
         {

@@ -28,6 +28,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private Task<AuthenticationState> AuthStateTask { get; set; }
         private string fichero = "Sin selección";
 
+        private string tituloError = "";
         private string MensajeErrorEliminar = "";
 
         private EstablecimientoDTO establecimiento = new EstablecimientoDTO();
@@ -38,6 +39,40 @@ namespace BonosAyto.Components.Pages.Establecimientos
         {
            // Si no existe, insertar
             int nuevoId = await EstablecimientoService.Insertar(establecimiento);
+            tituloError = "insertar";
+            if (nuevoId <= 0)
+            {
+                tituloError = "insertar";
+                switch (nuevoId)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un usuario con este NIF";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un usuario con este correo. Por favor, intriduzca otro correo";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+                return;
+            }
+            if (nuevoId == -3)
+            {
+                await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
+                return; //rompe la ejecucion para no recargar la lista innecesariamnete
+            }
+            else if (nuevoId == -2)
+            {
+                await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
+                return;
+            }
+            else if (nuevoId == -1)
+            {
+                await JS.InvokeVoidAsync("alert", "A ocurido un fallo inesperado");
+                return;
+            }
             establecimientos = await EstablecimientoService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
             establecimiento = new EstablecimientoDTO();
         }
@@ -67,11 +102,11 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
         private void VerDetalle(int id)
         {
-            Navigate.NavigateTo($"/establecimientos/detalleestablecimiento/{id}");
+            Navigate.NavigateTo($"/establecimientos/ver/{id}");
         }
         private void Editar(int id)
         {
-            Navigate.NavigateTo($"/establecimientos/detalleestablecimiento/{id}");
+            Navigate.NavigateTo($"/establecimientos/editar/{id}");
         }
         private async Task Eliminar(int id)
         {
@@ -79,6 +114,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
             int res = await EstablecimientoService.Eliminar(id);
             if (res <=0)
             {
+                tituloError = "eliminar";
                 switch (res)
                 {
                     case -2:

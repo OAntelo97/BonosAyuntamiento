@@ -2,7 +2,7 @@
 @using BonosAytoService.DTOs
 @inject NavigationManager Navigate
 @using BonosAyto.Components.DataTables
-@using BonosAyto.Components.Modales
+
 @* @attribute [Authorize] *@
 <div class="container-fluid bg-light mb-5">
     <h1 class="text-center display-6 mb-4">
@@ -145,7 +145,7 @@
     <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
         <Titulo>Atención</Titulo>
         <Texto>
-            Error al intentar eliminar el establecimiento
+            Error al intentar @tituloError el establecimiento
         </Texto>
         <Descripcion>
             @MensajeErrorEliminar
