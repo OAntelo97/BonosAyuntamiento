@@ -1,7 +1,9 @@
 ﻿document.addEventListener(onload, start());
 
-var tabla;
-
 function start() {
-    tabla = new DataTable('#tablaListado');
+    var tabla = new DataTable('#tablaListado', {
+        language: {
+            url: "idiomas/en-ES.json"
+        }
+    });
 }
