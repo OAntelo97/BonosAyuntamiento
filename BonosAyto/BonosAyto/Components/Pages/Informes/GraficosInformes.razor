@@ -16,10 +16,7 @@
     <!-- Dropdown de establecimiento -->
 
     <div class="selectContainer">
-        <input list="establecimientos"
-               class="form-control"
-               placeholder="Establecimiento"
-               @bind="InputEstablecimiento" />
+        <input list="establecimientos" class="form-control" placeholder="Establecimiento" onchange="@ValidarYSeleccionarEstablecimiento" />
 
 
         <datalist id="establecimientos">

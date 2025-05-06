@@ -81,16 +81,16 @@ namespace BonosAyto.Components.Pages.Informes
         //    await ActualizarGrafico();
         //}
 
-        //protected override async Task OnAfterRenderAsync(bool firstRender)
-        //{
-        //    if (firstRender)
-        //    {
-        //        var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
-        //        nombresEstablecimientos = datos;
-        //        establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
-        //        await ActualizarGrafico();
-        //    }
-        //}
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
+                nombresEstablecimientos = datos;
+                establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
+                await ActualizarGrafico();
+            }
+        }
 
         private async Task ActualizarGrafico()
         {
