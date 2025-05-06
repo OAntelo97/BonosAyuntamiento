@@ -84,5 +84,9 @@ namespace BonosAytoService.Services
 
             return res;
         }
+        public async Task<(int,float)> ConsultarMetricas(int id)
+        {
+            return await _dao.ConsultarMetricas(id);
+        }
     }
 }

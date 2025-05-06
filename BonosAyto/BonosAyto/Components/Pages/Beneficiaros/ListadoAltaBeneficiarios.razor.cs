@@ -26,7 +26,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         private IJSRuntime JS { get; set; }
         private string searchbar = "";
         private string fichero = "Sin selección";
-
+        private int IdElimunar = 0;
+        private string MensajeErrorEliminar = "";
         private void FiltrarBeneficiarios() //filtrar lista
         {
             
@@ -119,9 +120,27 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         }
         private async Task Borrar(int Id)
         {
-            await beneficiarioService.Eliminar(Id);
+            int res = await beneficiarioService.Eliminar(Id);
+            if (res <= 0)
+            {
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Se ha producido un error debido a que está intentado borrar un beneficiario el cual tiene asignados uno o más bonos. " +
+                            "Por favor, asegúrese de que este beneficiario no tenga relación con ningún bono antes de borrarlo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+            }
             listaBeneficiarios = await beneficiarioService.Listar();
             FiltrarBeneficiarios();
+        }
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
 
         private async Task CargarExcel() //cargar datos de excel

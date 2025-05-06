@@ -37,6 +37,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         public bool edit { get; set; }
         EditContext bonoContext;
         ValidationMessageStore messageStore;
+        private int IdElimunar = 0;
+        private string MensajeErrorEliminar = "";
 
         private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
@@ -171,12 +173,27 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private async Task Borrar(int id)
         {
-            bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");
-            if (confirmed)
+            int res = await bonoService.Eliminar(id);
+            if (res <= 0)
             {
-                await bonoService.Eliminar(id);
-                listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Se ha producido un error debido a que está intentado borrar un bono del cual ya se realizó uno o más canjeos. " +
+                            "Por favor, asegúrese de que este bono no tenga relación con ningún canjeo antes de borrarlo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
             }
+            listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
+        }
+
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
     }
 }

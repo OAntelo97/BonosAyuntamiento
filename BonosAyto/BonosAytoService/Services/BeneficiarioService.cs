@@ -55,7 +55,7 @@ namespace BonosAytoService.Services
             return await _dao.Actualizar(bmap);
 
         }
-        public async Task<bool> Eliminar(int id)
+        public async Task<int> Eliminar(int id)
         {
             return await _dao.Eliminar(id);
         }

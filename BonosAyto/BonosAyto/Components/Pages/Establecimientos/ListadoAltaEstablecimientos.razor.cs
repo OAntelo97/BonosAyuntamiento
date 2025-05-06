@@ -4,6 +4,7 @@ using BonosAyto.Components.Modales;
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -27,10 +28,9 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private Task<AuthenticationState> AuthStateTask { get; set; }
         private string fichero = "Sin selección";
 
-        public bool Confirmation { get; set; } = false;
+        private string MensajeErrorEliminar = "";
 
         private EstablecimientoDTO establecimiento = new EstablecimientoDTO();
-        private AlertaModal Modal { get; set; }
 
         private int IdElimunar = 0;
 
@@ -67,31 +67,43 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
         private void VerDetalle(int id)
         {
-            //Navigate.NavigateTo($"/establecimientos/ver/{id}");
+            Navigate.NavigateTo($"/establecimientos/detalleestablecimiento/{id}");
         }
         private void Editar(int id)
         {
-            //Navigate.NavigateTo($"/establecimientos/editar/{id}");
+            Navigate.NavigateTo($"/establecimientos/detalleestablecimiento/{id}");
         }
         private async Task Eliminar(int id)
         {
-            Confirmation = true;
-            //int res =  await EstablecimientoService.Eliminar(id);
-            //if(res == -2)
-            //{
-
-            //}else if(res == -3)
-            //{
-
-            //}else if (res == -1)
-            //{
-
-            //}
-            //// Actualizar la lista después de eliminar la inscripción
-            //establecimientos = await EstablecimientoService.Listar();
+            
+            int res = await EstablecimientoService.Eliminar(id);
+            if (res <=0)
+            {
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Se ha producido un error debido a que está intentado borrar un establecimiento el cual esta asignado a un usuario. " +
+                            "Por favor, asegúrese de que este establecimiento no tenga relación con ningún usuario antes de borrarlo.";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Se ha producido un error debido a que está intentado borrar un establecimiento en el cual se realizaron canjeos de bonos. " +
+                            "Por favor, asegúrese de que este establecimiento no tenga relación con ningún canjeo antes de borrarlo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+            }
+            
+            // Actualizar la lista después de eliminar la inscripción
+            establecimientos = await EstablecimientoService.Listar();
         }
-
-
+        
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
+        }
 
         private string mensajeError = null;
         private IBrowserFile fExcel = null;

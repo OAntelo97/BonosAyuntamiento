@@ -29,12 +29,15 @@ namespace BonosAyto.Components.Pages.Establecimientos
         [Inject]
         private IJSRuntime JS { get; set; }
 
+        private (int nCanjeos, float importeT) metricas = (0,0);
+
 
 
 
         private string tituloDetalleEstablecimiento { get; set; }
         protected override async Task OnInitializedAsync()
         {
+            metricas = await establecimientoService.ConsultarMetricas(Id);
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var queryParams = QueryHelpers.ParseQuery(uri.Query);
             detalleE = await establecimientoService.Consultar(Id);

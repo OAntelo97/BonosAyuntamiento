@@ -3,6 +3,7 @@
 @using BonosAyto.Components.Pages.Usuarios
 @using BonosAytoService.DTOs
 @using BonosAyto.Components.DataTables
+@using BonosAyto.Components.Modales
 
 <div class="container-fluid bg-light mb-5">
     <h1 class="text-center display-6 mb-4">
@@ -108,7 +109,7 @@
                                                             <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(usuario.Id))">
                                                                 <i class="bi bi-pencil" title="Editar campos"></i>
                                                             </button>
-                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Eliminar(usuario.Id))">
+                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = usuario.Id;AbrirModal("AlertaEliminar");})">
                                                                 <i class="bi bi-trash" title="Eliminar usuario"></i>
                                                             </button>
                                                         </td>
@@ -128,4 +129,16 @@
             </div>
         </div>
     </div>
+    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Está seguro que quiere eliminar este usuario?
+        </Texto>
+        <Descripcion>
+            Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+        </Descripcion>
+        <botonAceptar>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
+        </botonAceptar>
+    </AlertaModal>
 </div>

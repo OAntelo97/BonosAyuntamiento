@@ -2,6 +2,7 @@
 @using BonosAytoService.DTOs
 @using BonosAyto.Components.DataTables
 @inject NavigationManager Navigate
+@using BonosAyto.Components.Modales
 
 
 
@@ -163,7 +164,7 @@
                                             <td>
                                                 <i class="bi bi-search me-1" @onclick="() => VerDetalle(bon.Id)"></i>
                                                 <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => Modificar(bon.Id)" style="transform: scaleX(-1);"></i>
-                                                <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
+                                                <i class="bi bi-trash me-1" @onclick=@(() => {IdElimunar = bon.Id;AbrirModal("AlertaEliminar");})></i>
                                             </td>
                                         </tr>
                                     }
@@ -177,5 +178,26 @@
             </div>
         </div>
     </div>
+    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Está seguro que quiere eliminar este usuario?
+        </Texto>
+        <Descripcion>
+            Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+        </Descripcion>
+        <botonAceptar>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Borrar(IdElimunar))">Confirmar</button>
+        </botonAceptar>
+    </AlertaModal>
+    <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Error al intentar eliminar el beneficiario
+        </Texto>
+        <Descripcion>
+            @MensajeErrorEliminar
+        </Descripcion>
+    </AlertaModal>
 
 </div>

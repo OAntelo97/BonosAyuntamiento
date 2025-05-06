@@ -69,7 +69,7 @@ namespace BonosAytoService.DAOs
                     {
                         error1 = -2;
                     }
-                    if (ex.Message.Contains("Canjeos"))
+                    else if (ex.Message.Contains("Canjeos"))
                     {
                         error1 = -3;
                     }
@@ -78,11 +78,11 @@ namespace BonosAytoService.DAOs
             }
         }
 
-        public (int, int) ConsultarMetricas(int id)
+        public async Task<(int, float)> ConsultarMetricas(int id)
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT * FROM Establecimientos WHERE Id = @Id";
-            return conection.QueryFirstOrDefault<(int, int)>(sql, new { Id = id });
+            var sql = "select count(c.Id), Sum(b.Importe) from Bonos as b JOIN Canjeos as c on c.IdBono = b.Id Where c.IdEstablecimiento = @Id";
+            return await conection.QueryFirstOrDefaultAsync<(int, float)>(sql, new { Id = id });
         }
 
     }

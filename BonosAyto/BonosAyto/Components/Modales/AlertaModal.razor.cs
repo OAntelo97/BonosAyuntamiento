@@ -3,27 +3,20 @@
 namespace BonosAyto.Components.Modales
 {
     public partial class AlertaModal
-    {   
+    {
+        [Parameter]
+        public string modalId { get; set; }
+        [Parameter]
+        public string color { get; set; }
+        [Parameter]
+        public string icono { get; set; }
         [Parameter]
         public RenderFragment? Titulo { get; set; }
         [Parameter]
-        public RenderFragment? Contenido { get; set; }
+        public RenderFragment? Texto { get; set; }
+        [Parameter]
+        public RenderFragment? Descripcion { get; set; }
         [Parameter]
         public RenderFragment? botonAceptar { get; set; }
-
-        public string modalClass { get; set; }
-        private bool showBackdrop = false;
-
-        public void Open()
-        {
-            modalClass = "show d-block";
-            showBackdrop = true;
-        }
-
-        public void Close()
-        {
-            modalClass = "d-none";
-            showBackdrop = false;
-        }
     }
 }

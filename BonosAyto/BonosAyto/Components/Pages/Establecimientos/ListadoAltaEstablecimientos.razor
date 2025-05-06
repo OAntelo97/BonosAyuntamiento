@@ -1,6 +1,7 @@
 ﻿@page "/establecimientos"
 @using BonosAytoService.DTOs
 @inject NavigationManager Navigate
+@using BonosAyto.Components.DataTables
 @using BonosAyto.Components.Modales
 @* @attribute [Authorize] *@
 <div class="container-fluid bg-light mb-5">
@@ -112,7 +113,7 @@
                                                             <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(est.Id))">
                                                                 <i class="bi bi-pencil d-inline-block"  style="transform:scaleX(-1);" title="Editar campos"></i>
                                                             </button>
-                                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Eliminar" @onclick="@(()=> {IdElimunar = est.Id;Modal.Open();})">
+                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(()=> {IdElimunar = est.Id;AbrirModal("AlertaEliminar");})">
                                                                 <i class="bi bi-trash" title="Eliminar usuario"></i>
                                                             </button>
                                                         </td>
@@ -129,42 +130,25 @@
             </div>
         </div>       
     </div>
-    <Modal>
-
-    </Modal>
-    <AlertaModal @ref="Modal" >
+    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
         <Titulo>Atención</Titulo>
-        <Contenido>
-            <div class="d-flex align-items-center text-warning ">
-                <i class="bi bi-exclamation-circle fs-1"></i><h4 class="ms-2 mb-0">Esta seguro que quiere eliminar este establecimiento?</h4>
-            </div>
-            <p class="text-warning">Una vez se elimine el establecimiento, no se podran revertir los cambios</p>
-        </Contenido>
+        <Texto>
+            Está seguro que quiere eliminar este establecimiento?
+        </Texto>
+        <Descripcion>
+            Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+        </Descripcion>
         <botonAceptar>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
         </botonAceptar>
     </AlertaModal>
-    @if (Confirmation)
-    {
-        <AlertaModal Id="Eliminarr">
-            <Titulo>Atención</Titulo>
-            <Contenido>
-                <div class="d-flex align-items-center text-warning ">
-                    <i class="bi bi-exclamation-circle fs-1"></i><h4 class="ms-2 mb-0">Esta seguro que quiere eliminar este establecimiento?</h4>
-                </div>
-                <p class="text-warning">Una vez se elimine el establecimiento, no se podran revertir los cambios</p>
-            </Contenido>
-            <botonAceptar>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
-            </botonAceptar>
-        </AlertaModal>
-    }
-    @* <div class="container mt-5"> *@
-    @*     <!-- Botón para abrir el modal --> *@
-    @*     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal"> *@
-    @*         Abrir Modal *@
-    @*     </button> *@
-
-    @*     <Prueba></Prueba> *@
-    @* </div> *@
+    <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Error al intentar eliminar el establecimiento
+        </Texto>
+        <Descripcion>
+            @MensajeErrorEliminar
+        </Descripcion>
+    </AlertaModal>
 </div>

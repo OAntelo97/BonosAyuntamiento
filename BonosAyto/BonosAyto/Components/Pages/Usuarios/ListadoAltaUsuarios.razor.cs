@@ -20,6 +20,8 @@ namespace BonosAyto.Components.Pages.Usuarios
 
         private UsuarioDTO usuario = new UsuarioDTO();
 
+        private int IdElimunar = 0;
+
         private IEnumerable<EstablecimientoDTO> establecimientos {  get; set; }
 
         private async Task GuardarUsuario()
@@ -79,6 +81,11 @@ namespace BonosAyto.Components.Pages.Usuarios
             var eliminado = await UsuarioService.Eliminar(id);
             // Actualizar la lista después de eliminar la inscripción
             usuarios = await UsuarioService.Listar();
+        }
+
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
 
 

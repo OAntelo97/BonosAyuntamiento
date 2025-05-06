@@ -18,7 +18,7 @@
             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Datos</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Bonos</button>
+            <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Canjeos</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -59,11 +59,33 @@
         
         <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <!--bonos-->
-
-
             <div class="container mt-3 w-100">
-                <div class="mb-2">
-                    <h1>Graficas</h1>
+                <div class="mb-5">
+                    <div class="row gy-4">
+                        <div class="col-lg-6 col-sm-6 cartas text-info">
+                            <div class="card rounded shadow border-0 border-bottom border-info border-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <i class="bi bi-people me-2 rounded vehicilos estilo-amarillo fs-1"></i>
+                                    </div>
+                                    <h4 class="card-text mb-0 text-center">Número de bonos canjeados</h4>
+                                    <h5 class="card-title mb-0 me-2 text-center">@metricas.nCanjeos</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 cartas text-primary">
+                            <div class="card rounded shadow border-0 border-bottom border-primary border-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        
+                                        <i class="bi bi-box-seam me-2 rounded vehicilos estilo-amarillo fs-1"></i>
+                                    </div>
+                                    <h4 class="card-text mb-0 text-center">Importe acumulado</h4>
+                                    <h5 class="card-title mb-0 me-2 text-center">@($"{metricas.importeT:F2}") €</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <table class="table table-hover align-middle">
@@ -74,7 +96,7 @@
                                 <th>Importe</th>
                                 <th>Tipo servicio</th>
                                 <th>Fecha canjeo</th>
-                                <th>Acciones</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

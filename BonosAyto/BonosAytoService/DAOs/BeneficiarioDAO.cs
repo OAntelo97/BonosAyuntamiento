@@ -92,11 +92,26 @@ namespace BonosAytoService.DAOs
             }
             
         }
-        public async Task<bool> Eliminar(int id)
+        public async Task<int> Eliminar(int id)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Beneficiarios WHERE Id=@id;";
-            return await connection.ExecuteAsync(sql, new { Id = id }) > 0;
+            try
+            {
+                return await connection.ExecuteAsync(sql, new { Id = id });
+            }
+            catch (SqlException ex)
+            {
+                int error1 = -1;
+                if (ex.Number == 547)
+                {
+                    if (ex.Message.Contains("Bonos"))
+                    {
+                        error1 = -2;
+                    }
+                }
+                return (error1);
+            }
         }
     }
 }

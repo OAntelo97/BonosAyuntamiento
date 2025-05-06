@@ -1,6 +1,7 @@
 ﻿@page "/beneficiarios"
 @using BonosAytoService.DTOs
 @inject NavigationManager Navigate
+@using BonosAyto.Components.Modales
 
 <style>
     .nombre-columna {
@@ -126,7 +127,7 @@
                                                             <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Modificar(ben.Id))">
                                                                 <i class="bi bi-pencil d-inline-block"  style="transform:scaleX(-1);" title="Editar campos"></i>
                                                             </button>
-                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Borrar(ben.Id))">
+                                                            <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = ben.Id;AbrirModal("AlertaEliminar");})">
                                                                 <i class="bi bi-trash" title="Eliminar usuario"></i>
                                                             </button>
                                                         </td>
@@ -143,4 +144,25 @@
             </div>
         </div>       
     </div>
+    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Está seguro que quiere eliminar este usuario?
+        </Texto>
+        <Descripcion>
+            Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+        </Descripcion>
+        <botonAceptar>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Borrar(IdElimunar))">Confirmar</button>
+        </botonAceptar>
+    </AlertaModal>
+    <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Error al intentar eliminar el beneficiario
+        </Texto>
+        <Descripcion>
+            @MensajeErrorEliminar
+        </Descripcion>
+    </AlertaModal>
 </div>

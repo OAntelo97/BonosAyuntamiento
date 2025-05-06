@@ -73,7 +73,7 @@ namespace BonosAytoService.Services
         }
 
 
-        public async Task<bool> Eliminar(int id)
+        public async Task<int> Eliminar(int id)
         {
             return await _dao.Eliminar(id);
         }
