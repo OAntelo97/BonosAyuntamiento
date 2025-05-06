@@ -14,14 +14,35 @@ namespace BonosAyto.Components.Pages.Informes
         private string tituloGrafico = String.Empty;
         private List<string> nombresEstablecimientos = new();
         private string inputEstablecimiento;
+        private bool _debeActualizarGrafico = false;
+
 
 
 
         [CascadingParameter] public FiltrosInforme Filtros { get; set; }
-        protected override async Task OnParametersSetAsync()
+        protected override Task OnParametersSetAsync()
         {
-            await ActualizarGrafico();
+            _debeActualizarGrafico = true;
+            return Task.CompletedTask;
         }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
+                nombresEstablecimientos = datos;
+                establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
+                _debeActualizarGrafico = true; // forzar actualización tras primer render
+            }
+
+            if (_debeActualizarGrafico)
+            {
+                _debeActualizarGrafico = false;
+                await ActualizarGrafico();
+            }
+        }
+
+
 
 
 
@@ -60,16 +81,16 @@ namespace BonosAyto.Components.Pages.Informes
         //    await ActualizarGrafico();
         //}
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
-                nombresEstablecimientos = datos;
-                establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
-                await ActualizarGrafico();
-            }
-        }
+        //protected override async Task OnAfterRenderAsync(bool firstRender)
+        //{
+        //    if (firstRender)
+        //    {
+        //        var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
+        //        nombresEstablecimientos = datos;
+        //        establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
+        //        await ActualizarGrafico();
+        //    }
+        //}
 
         private async Task ActualizarGrafico()
         {

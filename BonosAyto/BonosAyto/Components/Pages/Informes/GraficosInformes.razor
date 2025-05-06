@@ -16,7 +16,11 @@
     <!-- Dropdown de establecimiento -->
 
     <div class="selectContainer">
-        <input list="establecimientos" class="form-control" placeholder="Establecimiento" onchange="@ValidarYSeleccionarEstablecimiento" />
+        <input list="establecimientos"
+               class="form-control"
+               placeholder="Establecimiento"
+               @bind="InputEstablecimiento" />
+
 
         <datalist id="establecimientos">
             <option value="Todos" />
@@ -45,6 +49,7 @@
 
         <CascadingValue Value="filtros">
             <GraficoTotal />
+
             <GraficoDiario />
             <GraficoMensual />
         </CascadingValue>

@@ -39,6 +39,17 @@ namespace BonosAyto.Components.Pages.Informes
         }
 
 
+        public string InputEstablecimiento
+        {
+            get => inputEstablecimiento;
+            set
+            {
+                inputEstablecimiento = value;
+                ValidarYSeleccionarEstablecimiento(inputEstablecimiento);
+            }
+        }
+
+
 
         /*******************************************************************************************************/
 
@@ -56,26 +67,24 @@ namespace BonosAyto.Components.Pages.Informes
 
 
         //Comprobar que establecimiento se selecciona (todos o algun nombre del foreach)
-        private void ValidarYSeleccionarEstablecimiento(ChangeEventArgs e)
+        private async void ValidarYSeleccionarEstablecimiento(string nombre)
         {
-            inputEstablecimiento = e.Value?.ToString();
-
-            if (string.IsNullOrWhiteSpace(inputEstablecimiento) || inputEstablecimiento == "Todos")
+            if (string.IsNullOrWhiteSpace(nombre) || nombre == "Todos")
             {
-                CambiarEstablecimiento(null);
+                await CambiarEstablecimiento(null);
             }
-            else if (nombresEstablecimientos.Contains(inputEstablecimiento))
+            else if (nombresEstablecimientos.Contains(nombre))
             {
-                CambiarEstablecimiento(inputEstablecimiento);
+                await CambiarEstablecimiento(nombre);
             }
             else
             {
-                // Opción inválida escrita a mano: podrías ignorarla, mostrar mensaje, o limpiar el input
-                CambiarEstablecimiento(null);
+                await CambiarEstablecimiento(null);
             }
         }
 
-        
+
+
 
         //private async Task CambiarFiltro(string filtro)
         //{
