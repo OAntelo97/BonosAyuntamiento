@@ -29,7 +29,7 @@
                     <div class="border border-dark my-3 me-3 p-3">
                         <EditForm Model="detalleValid" class="w-50 mx-auto" OnValidSubmit="@ModificarBeneficiario">
                             <DataAnnotationsValidator />
-                            <ValidationSummary />
+                            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
                             <label for="nombre">Nombre</label>
                             <InputText id="nombre" disabled="@(!edit)" @bind-Value="detalleValid.Nombre" class="form-control" />
@@ -79,7 +79,7 @@
 
                         <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono">
                             <DataAnnotationsValidator />
-                            <ValidationSummary />
+                            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
                             <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select">
                                 <!--cambiar valores-->
