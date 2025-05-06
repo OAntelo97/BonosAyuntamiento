@@ -317,15 +317,15 @@ namespace BonosAytoService.Services
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
 
             var query = @"
-        SELECT 
-            MONTH(c.FechaCanjeo) AS Mes,
-            COUNT(*) AS TotalBonos,
-            SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
-        FROM Canjeos c
-        JOIN Bonos b ON c.IdBono = b.Id
-        JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
-        WHERE e.Nombre = @Nombre
-    ";
+                SELECT 
+                    MONTH(c.FechaCanjeo) AS Mes,
+                    COUNT(*) AS TotalBonos,
+                    SUM(CAST(b.Importe AS decimal(10, 2))) AS TotalImporte
+                FROM Canjeos c
+                JOIN Bonos b ON c.IdBono = b.Id
+                JOIN Establecimientos e ON c.IdEstablecimiento = e.Id
+                WHERE e.Nombre = @Nombre
+            ";
 
             // Si se requiere filtrar por trimestre, añadir la condición correspondiente
             if (soloTrimestreActual)

@@ -230,31 +230,7 @@ namespace BonosAyto.Components.Pages.Informes
                 importes.Add(mes.Value.Importe);
             }
 
-            // Verificar el estado final de los datos antes de actualizar el gráfico
-            Console.WriteLine("Bonos (lista final):");
-            foreach (var bono in bonos)
-            {
-                Console.WriteLine(bono);
-            }
-
-            Console.WriteLine("Importes (lista final):");
-            foreach (var importe in importes)
-            {
-                Console.WriteLine(importe);
-            }
-
-            // Verificar las listas que van al gráfico
-            Console.WriteLine("Bonos (lista final):");
-            foreach (var bono in bonos)
-            {
-                Console.WriteLine(bono);
-            }
-
-            Console.WriteLine("Importes (lista final):");
-            foreach (var importe in importes)
-            {
-                Console.WriteLine(importe);
-            }
+            
 
             await barChartMensual.AddLabels(nombresMeses);
 
@@ -276,6 +252,13 @@ namespace BonosAyto.Components.Pages.Informes
             Console.WriteLine("Datos antes de actualizar el gráfico:");
             Console.WriteLine($"Bonos: {string.Join(", ", bonos)}");
             Console.WriteLine($"Importes: {string.Join(", ", importes)}");
+
+            if (bonos.Count != 12 || importes.Count != 12)
+            {
+                Console.WriteLine("Error: Los datos no tienen 12 elementos.");
+                return;
+            }
+
 
             await barChartMensual.Update();
         }
