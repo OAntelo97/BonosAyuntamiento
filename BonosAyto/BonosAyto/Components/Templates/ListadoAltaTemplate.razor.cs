@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace BonosAyto.Components.Templates
 {
-    public partial class PlantillaListadoAlta
+    public partial class ListadoAltaTemplate
     {
         [Parameter]
         public string? titulo { get; set; }

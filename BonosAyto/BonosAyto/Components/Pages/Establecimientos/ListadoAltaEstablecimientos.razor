@@ -5,7 +5,7 @@
 @using BonosAyto.Components.Enums
 @* @attribute [Authorize] *@
 
-<PlantillaListadoAlta tipo="PageType.Establecimientos">
+<ListadoAltaTemplate tipo="PageType.Establecimientos">
     <renderAlta>
         <EditForm Model="establecimiento" OnValidSubmit="@GuardarEstablecimiento">
             <DataAnnotationsValidator />
@@ -98,5 +98,5 @@
 
     </renderListado>
 
-</PlantillaListadoAlta>
+</ListadoAltaTemplate>
 
