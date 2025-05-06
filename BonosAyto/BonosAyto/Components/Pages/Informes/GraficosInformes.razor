@@ -7,6 +7,10 @@
 
 
 <h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
+<GraficoDiario></GraficoDiario>
+<GraficoMensual></GraficoMensual>
+
+
 
 <div class="d-flex mb-3">
     <!-- Dropdown de establecimiento -->
@@ -38,21 +42,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <h5>@tituloGrafico</h5>
-            <BarChart TItem="double" @ref="barChart" />
-        </div>
 
+        <CascadingValue Value="filtros">
+            <GraficoTotal />
+            <GraficoDiario />
+            <GraficoMensual />
+        </CascadingValue>
 
-        <div class="col-md-6 col-sm-12">
-            <h5>Bonos Canjeados + Importe por día</h5>
-            <BarChart TItem="double" @ref="barChartDias" />
-        </div>
-
-        <div class="col-md-6 col-sm-12 mt-4">
-            <h5>Bonos Canjeados + Importe por Mes</h5>
-            <BarChart TItem="double" @ref="barChartMensual" />
-        </div>
 
     </div>
 </div>

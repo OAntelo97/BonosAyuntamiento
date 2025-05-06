@@ -11,7 +11,7 @@
     <RenderAltaFragment>
         <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
             <DataAnnotationsValidator />
-            <ValidationSummary />
+            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
             <label class="form-label" for="nombre">Nombre</label>
             <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" placeholder="Nombre" />

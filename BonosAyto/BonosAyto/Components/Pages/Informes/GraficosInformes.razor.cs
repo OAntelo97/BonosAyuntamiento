@@ -18,12 +18,42 @@ namespace BonosAyto.Components.Pages.Informes
         private string inputEstablecimiento;
 
 
-        // Se actualiza en cada cambio
+        /****************************** ¡NUEVO! - PARA LOS COMPONENTES HIJO ************************************/
+        private FiltrosInforme filtros = new();
+        public class FiltrosInforme
+        {
+            public string EstablecimientoSeleccionado { get; set; }
+            public string FiltroSeleccionado { get; set; } = "Total";
+        }
+
         private async Task CambiarEstablecimiento(string nombre)
         {
-            establecimientoSeleccionado = nombre;
+            filtros.EstablecimientoSeleccionado = nombre;
             await ActualizarGrafico();
         }
+
+        private async Task CambiarFiltro(string filtro)
+        {
+            filtros.FiltroSeleccionado = filtro;
+            await ActualizarGrafico();
+        }
+
+
+
+        /*******************************************************************************************************/
+
+
+
+
+
+        //// Se actualiza en cada cambio
+        //private async Task CambiarEstablecimiento(string nombre)
+        //{
+        //    establecimientoSeleccionado = nombre;
+        //    await ActualizarGrafico();
+        //}
+
+
 
         //Comprobar que establecimiento se selecciona (todos o algun nombre del foreach)
         private void ValidarYSeleccionarEstablecimiento(ChangeEventArgs e)
@@ -47,11 +77,11 @@ namespace BonosAyto.Components.Pages.Informes
 
         
 
-        private async Task CambiarFiltro(string filtro)
-        {
-            filtroSeleccionado = filtro;
-            await ActualizarGrafico();
-        }
+        //private async Task CambiarFiltro(string filtro)
+        //{
+        //    filtroSeleccionado = filtro;
+        //    await ActualizarGrafico();
+        //}
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
