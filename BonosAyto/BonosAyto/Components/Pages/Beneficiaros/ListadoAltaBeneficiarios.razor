@@ -14,7 +14,7 @@
             <ValidationSummary />
 
             <label class="form-label" for="nombre">Nombre</label>
-            <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" placeholder="Usuario" />
+            <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" placeholder="Nombre" />
 
             <label for="apellido1" class="mt-3 form-label">Primer Apellido</label>
             <InputText id="apellido1" @bind-Value="modeloAlta.PrimerApellido" class="form-control" placeholder="Primer apellido" />
@@ -53,9 +53,14 @@
             </label>
             <span>@(fichero ?? "Sin elección")</span>
         </div>
-        @if (mensajeError != null)
+        @if (mensajeError != null && mensajeError.Any())
         {
-            <div class="text-danger mt-2">@mensajeError</div>
+            <ul class="text-danger mt-2">
+                @foreach (var error in mensajeError)
+                {
+                    <li>@error</li>
+                }
+            </ul>
         }
 
         <a class="mt-2" href="files/PlantillaBeneficiarios.xlsx" download>Descargar plantilla Excel</a>
@@ -91,7 +96,7 @@
                                     <i class="bi bi-pencil d-inline-block pen" title="Editar campos"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Borrar(ben.Id))">
-                                    <i class="bi bi-trash" title="Eliminar usuario"></i>
+                                    <i class="bi bi-trash" title="Eliminar beneficiario"></i>
                                 </button>
                             </td>
                         </tr>

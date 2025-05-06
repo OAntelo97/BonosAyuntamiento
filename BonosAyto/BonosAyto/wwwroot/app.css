@@ -62,17 +62,17 @@ h5 {
     min-height: 75vh;
 }
 
+.acciones-columna {
+    width: 24vh;
+    display: inline-block;
+}
+
 .nombre-columna {
-    max-width: 200px;
+    max-width: 80px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     font: bold;
-}
-
-.acciones-columna {
-    min-width: 60px;
-    display: inline-block;
 }
 
 .pen {

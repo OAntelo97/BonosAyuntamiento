@@ -58,7 +58,7 @@
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Nombre</th>
+                        <th class="nombre-columna">Nombre</th>
                         <th>Email</th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -67,7 +67,7 @@
                     @foreach (var usuario in usuarios)
                     {
                         <tr>
-                            <td>@usuario.Usuario</td>
+                            <td class="nombre-columna">@usuario.Usuario</td>
                             <td>@usuario.Email</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(usuario.Id))">
