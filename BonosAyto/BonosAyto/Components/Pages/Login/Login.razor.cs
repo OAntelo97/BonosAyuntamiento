@@ -49,15 +49,15 @@ namespace BonosAyto.Components.Pages.Login
             //    Navigate.NavigateTo("/home");
             //}
 
-            var user = new UsuarioDTO
-            {
-                Usuario = "Pablo",
-                Pass = "1234",
-                Rol = 'G',
-                Email = "pablo.c@galsoft.es"
-            };
+            //var user = new UsuarioDTO
+            //{
+            //    Usuario = "Pablo",
+            //    Pass = "1234",
+            //    Rol = 'G',
+            //    Email = "pablo.c@galsoft.es"
+            //};
 
-            UsuarioService.Insertar(user);
+            //UsuarioService.Insertar(user);
         }
 
 
