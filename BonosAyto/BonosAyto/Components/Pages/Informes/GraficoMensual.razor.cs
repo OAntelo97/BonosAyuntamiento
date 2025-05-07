@@ -12,6 +12,7 @@ namespace BonosAyto.Components.Pages.Informes
         private string tituloGrafico = String.Empty;
         private List<string> nombresEstablecimientos = new();
         private bool _debeActualizarGrafico = false;
+        private string mensajeAviso = string.Empty;
         [CascadingParameter] public FiltrosInforme Filtros { get; set; }
 
 
@@ -87,12 +88,26 @@ namespace BonosAyto.Components.Pages.Informes
             var bonos = new List<double>();
             var importes = new List<double>();
 
-
+ 
             foreach (var mes in datos)
             {
                 // Agregar los datos a las listas correspondientes
                 bonos.Add(mes.Value.Bonos);
                 importes.Add(mes.Value.Importe);
+            }
+
+
+
+            // Validación: Si no hay datos, muestra un mensaje de alert y esconde el grafico vacio
+            if (bonos.Sum() == 0 && importes.Sum() == 0)
+            {
+                mensajeAviso = "No existen datos para el establecimiento seleccionado.";
+                await InvokeAsync(StateHasChanged);
+                return;
+            }
+            else
+            {
+                mensajeAviso = string.Empty;
             }
 
 
@@ -125,7 +140,7 @@ namespace BonosAyto.Components.Pages.Informes
             }
 
 
-            await barChartMensual.Update();
+                await barChartMensual.Update();
         }
     }
 }
