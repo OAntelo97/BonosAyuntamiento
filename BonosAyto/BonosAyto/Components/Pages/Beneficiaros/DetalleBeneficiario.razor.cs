@@ -39,6 +39,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         ValidationMessageStore messageStore;
         private int IdElimunar = 0;
         private string MensajeErrorEliminar = "";
+        private string tituloError = "";
 
         private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
@@ -92,7 +93,28 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             detalleB.CodigoPostal = detalleValid.CodigoPostal;
             detalleB.Telefono = detalleValid.Telefono;
 
-            await beneficiarioService.Actualizar(detalleB);
+            int res = await beneficiarioService.Actualizar(detalleB);
+
+            // Comprobar si el DNI o Email del beneficiario ya existe
+            if (res <= 0)
+            {
+                tituloError = "actualizar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un beneficiario con este DNI.";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un beneficiario con este correo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+                return;
+            }
+
             titulo();
         }
 
@@ -176,6 +198,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             int res = await bonoService.Eliminar(id);
             if (res <= 0)
             {
+                tituloError = "eliminar";
                 switch (res)
                 {
                     case -2:

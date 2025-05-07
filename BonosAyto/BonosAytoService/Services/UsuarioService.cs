@@ -28,7 +28,7 @@ namespace BonosAytoService.Services
 
         }
 
-        public async Task<(int, int?)> Insertar(UsuarioDTO user)
+        public async Task<int> Insertar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
             umap.FechaMod = DateTime.Now;
@@ -61,13 +61,9 @@ namespace BonosAytoService.Services
             return lista.Select(_mapper.Map<UsuarioDTO>);
         }
 
-        public async Task<(int, int?)> Actualizar(UsuarioDTO user)
+        public async Task<int> Actualizar(UsuarioDTO user)
         {
             var umap = _mapper.Map<Usuarios>(user);
-            if (GlobalVariables.usuario == null)
-            {
-                throw new Exception("El usuario actual no está logueado");
-            }
             umap.FechaMod = DateTime.Now;
             umap.UsuarioMod = GlobalVariables.usuario.Id;
             return await _dao.Actualizar(umap);

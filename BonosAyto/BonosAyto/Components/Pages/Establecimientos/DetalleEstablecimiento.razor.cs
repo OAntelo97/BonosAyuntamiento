@@ -13,6 +13,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private EstablecimientoDTO detalleE = new EstablecimientoDTO();
         public AsignarBono bonoAsig;
         private EstablecimientoService establecimientoService = new EstablecimientoService();
+        private CanjeoService CanjeoService { get; set; } = new CanjeoService();
         private BonoService bonoService = new BonoService();
         private IEnumerable<BenCanjBonEst> canjeoasEstablecimiento = [];
         [Parameter]
@@ -30,8 +31,9 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private IJSRuntime JS { get; set; }
 
         private (int nCanjeos, float importeT) metricas = (0,0);
-
         private bool EsModoLectura => Modo?.ToLower() != "editar";
+
+        private int IdElimunar = 0;
 
         private string tituloError = "";
         private string MensajeErrorEliminar = "";
@@ -54,7 +56,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
             int res = await establecimientoService.Actualizar(detalleE);
             if (res <= 0)
             {
-                tituloError = "insertar";
+                tituloError = "actualizar";
                 switch (res)
                 {
                     case -2:
@@ -78,8 +80,9 @@ namespace BonosAyto.Components.Pages.Establecimientos
             tituloDetalleEstablecimiento = $"Información de {detalleE.Nombre}";
         }
 
-        private void VerDetalleEditar(string modo, int id)
+        private async Task VerDetalleEditar(string modo, int id)
         {
+            detalleE = await establecimientoService.Consultar(Id);
             Navigate.NavigateTo($"/establecimientos/{modo}/{id}");
         }
 
@@ -100,14 +103,26 @@ namespace BonosAyto.Components.Pages.Establecimientos
         }
         
 
-        private async Task Borrar(int id)
+        private async Task Eliminar(int id)
         {
-            //bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");
-            //if (confirmed)
-            //{
-            //    bonoService.Eliminar(id);
-            //    listaBonos = bonoService.Listar(Id);
-            //}
+            await CanjeoService.Eliminar(id);
+
+            metricas = await establecimientoService.ConsultarMetricas(Id);
+            canjeoasEstablecimiento = await establecimientoService.ConsulatarCanjeos(Id);
+        }
+
+        private string mostraTipoServicio(char tipo)
+        {
+            string res = "";
+            switch (tipo) {
+                case 'R':
+                    res = "Restaurante";
+                    break;
+                default:
+                    res = "-";
+                    break;
+            }
+            return res;
         }
     }
 }

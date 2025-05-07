@@ -27,7 +27,7 @@ namespace BonosAytoService.Services
         }
 
         
-        public async Task<(int, int?)> Insertar(BeneficiarioDTO ben)
+        public async Task<int> Insertar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
             bmap.FechaMod = DateTime.Now;
@@ -47,7 +47,7 @@ namespace BonosAytoService.Services
             return lista.Select(_mapper.Map<BeneficiarioDTO>);
         }
 
-        public async Task<(int, int?)> Actualizar(BeneficiarioDTO ben)
+        public async Task<int> Actualizar(BeneficiarioDTO ben)
         {
             var bmap = _mapper.Map<Beneficiario>(ben);
             bmap.FechaMod = DateTime.Now;

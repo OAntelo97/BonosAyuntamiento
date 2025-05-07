@@ -36,22 +36,22 @@
                             <ValidationSummary />
 
                             <label for="nombre">Nombre</label>
-                            <InputText id="nombre" disabled="@(EsModoLectura)" @bind-Value="detalleE.Nombre" class="form-control" />
+                            <InputText id="nombre" disabled="@(EsModoLectura)" @bind-Value="detalleE.Nombre" placeholder="Nombre" class="form-control" />
 
                             <label for="dni" class="mt-3">NIF</label>
-                            <InputText id="dni" disabled="@(EsModoLectura)" @bind-Value="detalleE.NIF" class="form-control" />
+                            <InputText id="dni" disabled="@(EsModoLectura)" @bind-Value="detalleE.NIF" placeholder="D1111111" class="form-control" />
 
                             <label for="direccion" class="mt-3">Dirección</label>
-                            <InputText id="direccion" disabled="@(EsModoLectura)" @bind-Value="detalleE.Direccion" class="form-control" />
+                            <InputText id="direccion" disabled="@(EsModoLectura)" @bind-Value="detalleE.Direccion" placeholder="Direción" class="form-control" />
 
                             <label for="cp" class="mt-3">Código Postal</label>
-                            <InputNumber id="cp" disabled="@(EsModoLectura)" @bind-Value="detalleE.CodigoPostal" class="form-control" />
+                            <InputNumber id="cp" disabled="@(EsModoLectura)" @bind-Value="detalleE.CodigoPostal" placeholder="11111" class="form-control" />
 
                             <label for="tel" class="mt-3">Teléfono</label>
-                            <InputText id="tel" disabled="@(EsModoLectura)" @bind-Value="detalleE.Telefono" class="form-control" />
+                            <InputText id="tel" disabled="@(EsModoLectura)" @bind-Value="detalleE.Telefono" placeholder="000000000" class="form-control" />
 
                             <label for="email" class="mt-3">Correo Electrónico</label>
-                            <InputText id="email" disabled="@(EsModoLectura)" @bind-Value="detalleE.Email" class="form-control" />
+                            <InputText id="email" disabled="@(EsModoLectura)" @bind-Value="detalleE.Email" placeholder="Correo Electrónico" class="form-control" />
                             <div class="text-end">
                                 <button type="submit" disabled="@(EsModoLectura)" class="btn btn-dark mt-4 align-content-end rounded-0">Actualizar</button>
                             </div>
@@ -91,14 +91,14 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th class="nombre-columna text-truncate">Establecimiento</th>
                                 <th>beneficiario</th>
-                                <th>Importe</th>
-                                <th>Tipo servicio</th>
+                                <th class="text-center">Importe</th>
+                                <th class="text-center">Tipo servicio</th>
                                 <th>Fecha canjeo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
@@ -109,8 +109,8 @@
                                 <tr>
                                     <td class="nombre-columna text-truncate">@canj.establecimiento.Nombre</td>
                                     <td>@canj.beneficiario.Nombre</td>
-                                    <td>@canj.bono.Importe</td>
-                                    <td>@canj.bono.TipoServicio</td>
+                                    <td class="text-center">@($"{canj.bono.Importe:F2}") €</td>
+                                    <td class="text-center">@mostraTipoServicio(canj.bono.TipoServicio)</td>
                                     <td>@canj.canjeo.FechaCanjeo</td>
 
                                     <td class="text-center">
@@ -120,7 +120,7 @@
                                         <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Modificar(canj.canjeo.Id))">
                                             <i class="bi bi-pencil d-inline-block" style="transform:scaleX(-1);" title="Editar campos"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Borrar(canj.canjeo.Id))">
+                                        <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = canj.canjeo.Id;AbrirModal("AlertaEliminar");})">
                                             <i class="bi bi-trash" title="Eliminar usuario"></i>
                                         </button>
                                     </td>
@@ -132,6 +132,18 @@
             </div>
         </div> 
     </div>
+    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Está seguro que quiere eliminar este canjeo?
+        </Texto>
+        <Descripcion>
+            Una vez que se elimine el canjeo, no se podrán revertir los cambios.
+        </Descripcion>
+        <botonAceptar>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
+        </botonAceptar>
+    </AlertaModal>
     <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
         <Titulo>Atención</Titulo>
         <Texto>

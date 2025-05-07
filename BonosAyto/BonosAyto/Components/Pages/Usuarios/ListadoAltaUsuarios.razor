@@ -141,4 +141,13 @@
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
         </botonAceptar>
     </AlertaModal>
+    <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+        <Titulo>Atención</Titulo>
+        <Texto>
+            Error al intentar @tituloError el usuario
+        </Texto>
+        <Descripcion>
+            @MensajeErrorEliminar
+        </Descripcion>
+    </AlertaModal>
 </div>

@@ -46,31 +46,16 @@ namespace BonosAyto.Components.Pages.Establecimientos
                 switch (nuevoId)
                 {
                     case -2:
-                        MensajeErrorEliminar = "Ya existe un usuario con este NIF";
+                        MensajeErrorEliminar = "Ya existe un usuario con este NIF.";
                         break;
                     case -3:
-                        MensajeErrorEliminar = "Ya existe un usuario con este correo. Por favor, intriduzca otro correo";
+                        MensajeErrorEliminar = "Ya existe un usuario con este correo.";
                         break;
                     default:
                         MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
                         break;
                 }
                 AbrirModal("EliminarError");
-                return;
-            }
-            if (nuevoId == -3)
-            {
-                await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
-                return; //rompe la ejecucion para no recargar la lista innecesariamnete
-            }
-            else if (nuevoId == -2)
-            {
-                await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
-                return;
-            }
-            else if (nuevoId == -1)
-            {
-                await JS.InvokeVoidAsync("alert", "A ocurido un fallo inesperado");
                 return;
             }
             establecimientos = await EstablecimientoService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
@@ -90,14 +75,6 @@ namespace BonosAyto.Components.Pages.Establecimientos
             // Obtener todas las inscripciones usando el servicio y un ienumerable
             establecimientos = await EstablecimientoService.Listar();
         }
-
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    var authState = await AuthStateTask;
-
-        //    GlobalVariables.usuario = UsuarioService.Consultar(Int32.Parse(authState.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value));
-        //}
-
 
 
         private void VerDetalle(int id)
@@ -141,7 +118,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
             await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
 
-        private string mensajeError = null;
+        private List<string> mensajeError = [];
         private IBrowserFile fExcel = null;
         private void SeleccionarFichero(InputFileChangeEventArgs e)  //seleccionar fichero, solo permite xlsx
         {
@@ -149,17 +126,17 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
             if (file != null)
             {
+                mensajeError = [];
                 if (file.Name.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
                 {
                     fichero = file.Name;
                     fExcel = file;
-                    mensajeError = null;
                 }
                 else
                 {
                     fichero = null;
                     fExcel = null;
-                    mensajeError = "Por favor selecciona un archivo Excel .xlsx";
+                    mensajeError.Add("Por favor selecciona un archivo Excel .xlsx");
                 }
             }
         }
@@ -213,22 +190,51 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
                         currentRow++;
                     }
+                    List<string> NIFErrors = [];
+                    List<string> EmailErrors = [];
+                    int numEstablecimientos = nuevosEstablecimientos.Count();
                     foreach (var b in nuevosEstablecimientos) //insertar
                     {
-                        EstablecimientoService.Insertar(b);
+                        int res = await EstablecimientoService.Insertar(b);
+                        // Comprobar si el nombre de usuario ya
+                        if (res < -1)
+                        {
+                            if (res == -2)
+                            {
+                                NIFErrors.Add(b.NIF);
+                            }
+                            if (res == -3)
+                            {
+                                EmailErrors.Add(b.Email);
+
+                            }
+                            numEstablecimientos--;
+                        }
                     }
                     establecimientos = await EstablecimientoService.Listar();
 
-                    mensajeError = $"Se cargaron {nuevosEstablecimientos.Count} establecimientos correctamente.";
+                    mensajeError.Add($"Se cargaron {numEstablecimientos} establecimientos correctamente.");
+                    if (NIFErrors.Count + EmailErrors.Count > 0)
+                    {
+                        mensajeError.Add($"Hubo {NIFErrors.Count + EmailErrors.Count} establecimientos que fallaron al insertarse.");
+                        if (NIFErrors.Count > 0)
+                        {
+                            mensajeError.Add($"{NIFErrors.Count} establecimientos tienen un NIF que ya se encuentra en la base de datos: {string.Join(", ", NIFErrors)}");
+                        }
+                        if (EmailErrors.Count > 0)
+                        {
+                            mensajeError.Add($"{EmailErrors.Count} establecimientos tienen un Email que ya se encuentra en la base de datos: {string.Join(", ", EmailErrors)}");
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    mensajeError = $"Error al procesar el archivo, establecimientos ya registrados";
+                    mensajeError.Add($"Error al procesar el archivo, establecimientos ya registrados");
                 }
             }
             else
             {
-                mensajeError = "Por favor, selecciona un archivo Excel antes de cargar.";
+                mensajeError.Add("Por favor, selecciona un archivo Excel antes de cargar.");
             }
         }
     }

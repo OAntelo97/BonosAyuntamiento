@@ -26,6 +26,9 @@ namespace BonosAyto.Components.Pages.Usuarios
         private string nombreEstablecimiento = string.Empty; //variable donde guardar el nombre del establecimiento con cierto Id para verlo en el form
 
         private IEnumerable<EstablecimientoDTO> establecimientos { get; set; }
+
+        private string tituloError = "";
+        private string MensajeErrorEliminar = "";
         protected override async Task OnInitializedAsync()
         {
             // Cargar el usuario desde la base de datos
@@ -46,20 +49,29 @@ namespace BonosAyto.Components.Pages.Usuarios
         {
             if (!EsModoLectura)
             {
-                var (res1, res2) = await UsuarioService.Actualizar(usuario);
+                int res = await UsuarioService.Actualizar(usuario);
                 // Comprobar si el nombre de usuario ya existe
-                if (res2 == -2)
+                if (res <= 0)
                 {
-                    await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
+                    tituloError = "actualizar";
+                    switch (res)
+                    {
+                        case -2:
+                            MensajeErrorEliminar = "Ya existe un usuario con este nombre. Por favor, intriduzca otro nombre";
+                            break;
+                        case -3:
+                            MensajeErrorEliminar = "Ya existe un usuario con este correo.";
+                            break;
+                        default:
+                            MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                            break;
+                    }
+                    AbrirModal("EliminarError");
                     return;
-                }else if (res1 == -2)
-                {
-                    await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
-                    return; //rompe la ejecucion para que el id autoincremental no sigue contando pese a no tener lugar la insercion por un error
                 }
 
 
-                    Navigate.NavigateTo("/usuarios");
+                Navigate.NavigateTo("/usuarios");
             }
         }
 
@@ -75,6 +87,10 @@ namespace BonosAyto.Components.Pages.Usuarios
         {
             Navigate.NavigateTo("/usuarios");
         }
-        
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
+        }
+
     }
 }
