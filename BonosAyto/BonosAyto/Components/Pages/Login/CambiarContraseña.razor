@@ -1,0 +1,43 @@
+﻿@layout LoginLayout
+@page "/login/CambiarContrasena"
+
+@inject NavigationManager Navigate
+@using BonosAyto.Components.Layout
+
+<HeadContent>
+	<link href="CSS/EstilosLogin.css" rel="stylesheet" />
+</HeadContent>
+
+<div class="card">
+	<div class="card-body text-center">
+		<h4 class="text-center">Cambiar contraseña</h4>
+		<EditForm EditContext="editContext" OnValidSubmit="Authenticate">
+			<DataAnnotationsValidator />
+
+			<div class="form-floating mt-4">
+				<InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+				<label for="floatingInput">Usuario</label>
+			</div>
+			<div class="form-floating">
+				<InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contraseña anterior" required />
+				<label for="floatingPassword">Contraseña anterior</label>
+			</div>
+			<div class="form-floating">
+				<input type="password" id="newPass" @bind-value="nuevaContrasena.contrasena" class="form-control mt-3" placeholder="Contraseña nueva" required />
+				<label for="floatingPassword">Contraseña nueva</label>
+			</div>
+			<div class="form-floating mb-2">
+				<input type="password" id="newPassConfirm" @bind-value="nuevaContrasena.repetido" class="form-control mt-3" placeholder="Repetir nueva contraseña" required />
+				<label for="floatingPassword">Repetir nueva contraseña</label>
+			</div>
+			
+			
+			
+			
+			<Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+
+			<button type="submit" class="btn btn-secondary mt-2 w-100">Cambiar contraseña</button>
+			<a href="/login" class="d-block text-secondary text-center mt-2">Acceder</a>
+		</EditForm>
+	</div>
+</div>

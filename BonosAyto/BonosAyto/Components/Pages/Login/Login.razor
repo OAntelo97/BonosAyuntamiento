@@ -6,6 +6,9 @@
 @inject NavigationManager Navigate
 @using BonosAyto.Components.Layout
 
+<HeadContent>
+	<link href="CSS/EstilosLogin.css" rel="stylesheet" />
+</HeadContent>
 
 <div class="card">
 	<div class="card-body text-center">
@@ -16,7 +19,7 @@
 			
 
 			<InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mt-4" placeholder="Usuario" required/>
-			<InputText id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contrasena" required />
+			<InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contrasena" required />
 			<Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
 			<div class="mt-4 form-check text-start">
@@ -26,7 +29,7 @@
 			</div>
 			<button type="submit" class="btn btn-secondary mt-2 w-100">Acceder</button>
 			<a href="#" class="d-block text-secondary text-center mt-2">Recordar contrasena</a>
-			<a href="#" class="d-block text-secondary text-center mt-1">Cambiar contrasena</a>
+			<a href="/login/CambiarContrasena" class="d-block text-secondary text-center mt-1">Cambiar contrasena</a>
 		</EditForm>
 	</div>
 </div>

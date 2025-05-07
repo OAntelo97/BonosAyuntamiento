@@ -69,6 +69,13 @@ namespace BonosAytoService.Services
             return await _dao.Actualizar(umap);
 
         }
+
+        public async Task<bool> ActualizarContrasena(UsuarioDTO user)
+        {
+            var umap = _mapper.Map<Usuarios>(user);
+            return await _dao.ActualizarContrasena(umap);
+        }
+
         public async Task<bool> Eliminar(int id)
         {
             return await _dao.Eliminar(id);

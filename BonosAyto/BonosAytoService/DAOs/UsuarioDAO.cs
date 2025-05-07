@@ -99,6 +99,15 @@ namespace BonosAytoService.DAOs
             
 
         }
+
+        public async Task<bool> ActualizarContrasena(Usuarios user)
+        {
+            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "UPDATE Usuarios SET Pass=@Pass WHERE Id=@Id;";
+            user.Pass = HashUtil.ObtenerHashSHA256(user.Pass);
+            return await connection.ExecuteAsync(sql, user) > 0 ;
+        }
+
         public async Task<bool> Eliminar(int id)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
