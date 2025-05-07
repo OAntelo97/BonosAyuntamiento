@@ -1,5 +1,8 @@
-﻿<h3>GraficoMensual</h3>
+﻿@using BonosAytoService.Services
+@inject EstablecimientoService EstablecimientoService
 
-@code {
 
-}
+<div class="col-md-6 col-sm-12">
+    <h5>@tituloGrafico</h5>
+    <BarChart TItem="double" @ref="barChartMensual" />
+</div>

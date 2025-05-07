@@ -9,17 +9,13 @@ namespace BonosAyto.Components.Pages.Informes
     public partial class GraficoTotal
     {
         private BarChart<double> barChart;
-        private string filtroSeleccionado = "Total";
         private string establecimientoSeleccionado;
         private string tituloGrafico = String.Empty;
         private List<string> nombresEstablecimientos = new();
-        private string inputEstablecimiento;
         private bool _debeActualizarGrafico = false;
-
-
-
-
         [CascadingParameter] public FiltrosInforme Filtros { get; set; }
+
+
         protected override Task OnParametersSetAsync()
         {
             _debeActualizarGrafico = true;
@@ -43,81 +39,42 @@ namespace BonosAyto.Components.Pages.Informes
         }
 
 
-
-
-
-
-        private async Task CambiarEstablecimiento(string nombre)
-        {
-            establecimientoSeleccionado = nombre;
-            await ActualizarGrafico();
-        }
-
-        ////Comprobar que establecimiento se selecciona (todos o algun nombre del foreach)
-        //private void ValidarYSeleccionarEstablecimiento(ChangeEventArgs e)
-        //{
-        //    inputEstablecimiento = e.Value?.ToString();
-
-        //    if (string.IsNullOrWhiteSpace(inputEstablecimiento) || inputEstablecimiento == "Todos")
-        //    {
-        //        CambiarEstablecimiento(null);
-        //    }
-        //    else if (nombresEstablecimientos.Contains(inputEstablecimiento))
-        //    {
-        //        CambiarEstablecimiento(inputEstablecimiento);
-        //    }
-        //    else
-        //    {
-        //        // Opción inválida escrita a mano: podrías ignorarla, mostrar mensaje, o limpiar el input
-        //        CambiarEstablecimiento(null);
-        //    }
-        //}
-
-
-
-        //private async Task CambiarFiltro(string filtro)
-        //{
-        //    filtroSeleccionado = filtro;
-        //    await ActualizarGrafico();
-        //}
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                var datos = await EstablecimientoService.ObtenerTodosLosNombresDeEstablecimientos();
-                nombresEstablecimientos = datos;
-                establecimientoSeleccionado = nombresEstablecimientos.FirstOrDefault();
-                await ActualizarGrafico();
-            }
-        }
-
         private async Task ActualizarGrafico()
         {
             string establecimiento = Filtros.EstablecimientoSeleccionado;
             bool soloTrimestre = Filtros.FiltroSeleccionado != "Total";
-            // ... resto del código igual
-
             EstablecimientoDatosDTO item;
 
-            if (string.IsNullOrWhiteSpace(establecimientoSeleccionado) || establecimientoSeleccionado == "Todos")
+            if (string.IsNullOrWhiteSpace(establecimiento) || establecimiento == "Todos")
             {
                 item = await EstablecimientoService.ObtenerDatosDeTodosLosEstablecimientos(soloTrimestre);
-                tituloGrafico = "Bonos canjeados + Importe de todos los establecimientos";
+                if (soloTrimestre)
+                {
+                    tituloGrafico = "Bonos canjeados + Importe en el trimestre activo";
+                    await InvokeAsync(StateHasChanged); // 'obliga a renderizarse de nuevo', para que se cambien los titulos
+                }
+                else
+                {
+                    tituloGrafico = "Bonos canjeados + Importe total";
+                    await InvokeAsync(StateHasChanged); 
+                }
             }
             else
             {
                 if (soloTrimestre)
                 {
-                    item = await EstablecimientoService.ObtenerDatosUltimoTrimestrePorEstablecimiento(establecimientoSeleccionado);
+                    item = await EstablecimientoService.ObtenerDatosUltimoTrimestrePorEstablecimiento(establecimiento);
                     tituloGrafico = "Bonos canjeados + Importe en el trimestre activo";
+                    await InvokeAsync(StateHasChanged); 
                 }
                 else
                 {
-                    item = await EstablecimientoService.ObtenerDatosPorEstablecimiento(establecimientoSeleccionado);
-                    tituloGrafico = "Bonos canjeados + Importe por establecimiento";
+                    item = await EstablecimientoService.ObtenerDatosPorEstablecimiento(establecimiento);
+                    tituloGrafico = "Bonos canjeados + Importe total";
+                    await InvokeAsync(StateHasChanged);
                 }
             }
+
 
             if (barChart == null)
                 return;

@@ -7,18 +7,10 @@
 
 
 <h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
-<GraficoDiario></GraficoDiario>
-<GraficoMensual></GraficoMensual>
-
-
 
 <div class="d-flex mb-3">
-    <!-- Dropdown de establecimiento -->
-
     <div class="selectContainer">
-        <input list="establecimientos" class="form-control" placeholder="Establecimiento" onchange="@ValidarYSeleccionarEstablecimiento" />
-
-
+        <input list="establecimientos" class="form-control" placeholder="Establecimiento" @onchange="@ValidarYSeleccionarEstablecimiento" />
         <datalist id="establecimientos">
             <option value="Todos" />
             @foreach (var e in nombresEstablecimientos)
@@ -26,14 +18,10 @@
                 <option value="@e" />
             }
         </datalist>
-
     </div>
 
-
-
-    <!-- Dropdown de filtro de tiempo: Total o trimestre activo-->
     <Dropdown class="mx-2">
-        <DropdownToggle Color="Color.Secondary">@filtroSeleccionado</DropdownToggle>
+        <DropdownToggle Color="Color.Secondary">@filtros.FiltroSeleccionado</DropdownToggle>
         <DropdownMenu>
             <DropdownItem @onclick="@(() => CambiarFiltro("Total"))">Total</DropdownItem>
             <DropdownItem @onclick="@(() => CambiarFiltro("Trimestre activo"))">Trimestre activo</DropdownItem>
@@ -43,16 +31,13 @@
 
 <div class="container">
     <div class="row">
-
         <CascadingValue Value="filtros">
             <GraficoTotal />
-
             <GraficoDiario />
             <GraficoMensual />
         </CascadingValue>
-
-
     </div>
 </div>
+
 
 
