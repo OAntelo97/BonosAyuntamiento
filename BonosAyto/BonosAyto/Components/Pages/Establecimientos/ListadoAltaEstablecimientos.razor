@@ -3,6 +3,7 @@
 @inject NavigationManager Navigate
 @using BonosAyto.Components.Templates
 @using BonosAyto.Components.Enums
+@using BonosAyto.Components.DataTables
 @* @attribute [Authorize] *@
 
 <ListadoAltaTemplate Tipo="PageType.Establecimientos">
@@ -62,7 +63,7 @@
 
     <RenderListadoFragment>
           <DataTables>
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle" id="tablaListado">
                     <thead class="table-light">
                         <tr>
                             <th class="nombre-columna text-truncate">Nombre</th>
@@ -94,29 +95,29 @@
                         }
                     </tbody>
                 </table>
-            </DataTables>
+           </DataTables>
 
     </RenderListadoFragment>
-    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
-        <Titulo>Atención</Titulo>
-        <Texto>
-            Está seguro que quiere eliminar este establecimiento?
-        </Texto>
-        <Descripcion>
-            Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
-        </Descripcion>
-        <botonAceptar>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
-        </botonAceptar>
-    </AlertaModal>
-    <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
-        <Titulo>Atención</Titulo>
-        <Texto>
-            Error al intentar @tituloError el establecimiento
-        </Texto>
-        <Descripcion>
-            @MensajeErrorEliminar
-        </Descripcion>
-    </AlertaModal>
 </ListadoAltaTemplate>
+<AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Está seguro que quiere eliminar este establecimiento?
+    </Texto>
+    <Descripcion>
+        Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+    </Descripcion>
+    <botonAceptar>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
+    </botonAceptar>
+</AlertaModal>
+<AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Error al intentar @tituloError el establecimiento
+    </Texto>
+    <Descripcion>
+        @MensajeErrorEliminar
+    </Descripcion>
+</AlertaModal>
 

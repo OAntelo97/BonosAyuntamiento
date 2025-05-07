@@ -12,7 +12,7 @@
     <RenderAltaFragment>
         <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
             <DataAnnotationsValidator />
-            <ValidationSummary />
+            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
             <label class="form-label" for="nombre">Nombre</label>
             <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" placeholder="Nombre" />
@@ -107,25 +107,25 @@
         </DataTables>
 
     </RenderListadoFragment>
-    <AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
-        <Titulo>Atención</Titulo>
-        <Texto>
-            Está seguro que quiere eliminar este usuario?
-        </Texto>
-        <Descripcion>
-            Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
-        </Descripcion>
-        <botonAceptar>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Borrar(IdElimunar))">Confirmar</button>
-        </botonAceptar>
-    </AlertaModal>
-    <AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
-        <Titulo>Atención</Titulo>
-        <Texto>
-            Error al intentar @tituloError el beneficiario
-        </Texto>
-        <Descripcion>
-            @MensajeErrorEliminar
-        </Descripcion>
-    </AlertaModal>
 </ListadoAltaTemplate>
+<AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Está seguro que quiere eliminar este usuario?
+    </Texto>
+    <Descripcion>
+        Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+    </Descripcion>
+    <botonAceptar>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Borrar(IdElimunar))">Confirmar</button>
+    </botonAceptar>
+</AlertaModal>
+<AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Error al intentar @tituloError el beneficiario
+    </Texto>
+    <Descripcion>
+        @MensajeErrorEliminar
+    </Descripcion>
+</AlertaModal>

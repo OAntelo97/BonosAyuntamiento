@@ -95,11 +95,11 @@ namespace BonosAyto.Components.Pages.Establecimientos
         //botones accion
         private void VerDetalleCanjeo(int id)
         {
-            Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
+            //Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
         }
         private void Modificar(int id)
         {
-            Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
+            //Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
         }
         
 
