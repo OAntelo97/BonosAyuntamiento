@@ -37,6 +37,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         public bool edit { get; set; }
         EditContext bonoContext;
         ValidationMessageStore messageStore;
+        private int IdElimunar = 0;
+        private string MensajeErrorEliminar = "";
+        private string tituloError = "";
 
         private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
@@ -90,7 +93,28 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             detalleB.CodigoPostal = detalleValid.CodigoPostal;
             detalleB.Telefono = detalleValid.Telefono;
 
-            await beneficiarioService.Actualizar(detalleB);
+            int res = await beneficiarioService.Actualizar(detalleB);
+
+            // Comprobar si el DNI o Email del beneficiario ya existe
+            if (res <= 0)
+            {
+                tituloError = "actualizar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un beneficiario con este DNI.";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un beneficiario con este correo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+                return;
+            }
+
             titulo();
         }
 
@@ -123,7 +147,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 TipoServicio = bonoAsig.TipoServicio,
                 FechaInicio = bonoAsig.FechaInicio,
                 FechaCaducidad = bonoAsig.FechaCaducidad,
-                Importe = bonoAsig.Importe + "€",
+                Importe = bonoAsig.Importe,
                 Activados = bonoAsig.Activados,
                 Canjeados = 0,
                 Caducados = 0
@@ -171,12 +195,28 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private async Task Borrar(int id)
         {
-            bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");
-            if (confirmed)
+            int res = await bonoService.Eliminar(id);
+            if (res <= 0)
             {
-                await bonoService.Eliminar(id);
-                listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
+                tituloError = "eliminar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Se ha producido un error debido a que está intentado borrar un bono del cual ya se realizó uno o más canjeos. " +
+                            "Por favor, asegúrese de que este bono no tenga relación con ningún canjeo antes de borrarlo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
             }
+            listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
+        }
+
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
     }
 }

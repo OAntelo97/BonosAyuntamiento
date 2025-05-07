@@ -13,6 +13,9 @@ namespace BonosAytoService.Services
     {
         private readonly EstablecimientoDAO _dao;
         private readonly IMapper _mapper;
+        private readonly CanjeoService canjeoService;
+        private readonly BonoService bonoService;
+        private readonly BeneficiarioService beneficiarioService;
 
         public EstablecimientoService()
         {
@@ -24,6 +27,10 @@ namespace BonosAytoService.Services
             );
 
             _mapper = config.CreateMapper();
+
+            canjeoService = new CanjeoService();
+            bonoService = new BonoService();
+            beneficiarioService = new BeneficiarioService();
         }
 
         public async Task<int> Insertar(EstablecimientoDTO establecimientoDTO)
@@ -46,7 +53,7 @@ namespace BonosAytoService.Services
             return _mapper.Map<IEnumerable<EstablecimientoDTO>>(lista);
         }
 
-        public async Task<bool> Actualizar(EstablecimientoDTO establecimientoDTO)
+        public async Task<int> Actualizar(EstablecimientoDTO establecimientoDTO)
         {
             var establecimiento = _mapper.Map<Establecimiento>(establecimientoDTO);
             establecimiento.FechaMod = DateTime.Now;
@@ -54,11 +61,36 @@ namespace BonosAytoService.Services
             return await _dao.Actualizar(establecimiento);
         }
 
-        public async Task<bool> Eliminar(int id)
+        public async Task<int> Eliminar(int id)
         {
             return await _dao.Eliminar(id);
         }
 
+        public async Task<IEnumerable<BenCanjBonEst>> ConsulatarCanjeos(int id)
+        {
+            EstablecimientoDTO establecimiento = await Consultar(id);
+            IEnumerable<CanjeoDTO> canjeos = await canjeoService.ConsultarPorEstablecimiento(establecimiento.Id);
+            List<BenCanjBonEst> res = [];
+            foreach (var canjeo in canjeos)
+            {
+                BonoDTO bono = await bonoService.Consultar(canjeo.IdBono);
+                BeneficiarioDTO beneficiario = await beneficiarioService.Consultar(bono.IdBeneficiario);
+                BenCanjBonEst benCanjBonEst = new BenCanjBonEst
+                {
+                    establecimiento= establecimiento,
+                    canjeo= canjeo,
+                    bono = bono,
+                    beneficiario  = beneficiario
+                };
+                res.Add(benCanjBonEst);
+            }
+
+            return res;
+        }
+        public async Task<(int,float)> ConsultarMetricas(int id)
+        {
+            return await _dao.ConsultarMetricas(id);
+        }
 
 
         /*GRÁFICOS*/

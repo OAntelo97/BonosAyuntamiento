@@ -2,6 +2,7 @@
 @using BonosAytoService.DTOs
 @using BonosAyto.Components.DataTables
 @inject NavigationManager Navigate
+@using BonosAyto.Components.Modales
 @using BonosAyto.Components.Templates
 @using BonosAyto.Components.Enums
 
@@ -11,7 +12,7 @@
     <RenderAltaFragment>
         <EditForm Model="modeloAlta" OnValidSubmit="@AltaBeneficiario">
             <DataAnnotationsValidator />
-            <ValidationSummary />
+            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
             <label class="form-label" for="nombre">Nombre</label>
             <InputText id="nombre" @bind-Value="modeloAlta.Nombre" class="form-control" placeholder="Nombre" />
@@ -95,7 +96,7 @@
                                 <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Modificar(ben.Id))">
                                     <i class="bi bi-pencil d-inline-block pen" title="Editar campos"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Borrar(ben.Id))">
+                                <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = ben.Id;AbrirModal("AlertaEliminar");})">
                                     <i class="bi bi-trash" title="Eliminar beneficiario"></i>
                                 </button>
                             </td>
@@ -107,3 +108,24 @@
 
     </RenderListadoFragment>
 </ListadoAltaTemplate>
+<AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Está seguro que quiere eliminar este usuario?
+    </Texto>
+    <Descripcion>
+        Una vez que se elimine el establecimiento, no se podrán revertir los cambios.
+    </Descripcion>
+    <botonAceptar>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Borrar(IdElimunar))">Confirmar</button>
+    </botonAceptar>
+</AlertaModal>
+<AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Error al intentar @tituloError el beneficiario
+    </Texto>
+    <Descripcion>
+        @MensajeErrorEliminar
+    </Descripcion>
+</AlertaModal>

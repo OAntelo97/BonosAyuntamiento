@@ -26,7 +26,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         private IJSRuntime JS { get; set; }
         private string searchbar = "";
         private string fichero = "Sin selección";
-
+        private int IdElimunar = 0;
+        private string MensajeErrorEliminar = ""; 
+        private string tituloError = "";
         private void FiltrarBeneficiarios() //filtrar lista
         {
             
@@ -67,16 +69,24 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 UsuarioMod = 0                                //Cambiar UsuarioMod
             };
             ;
-            var (res1, res2) = await beneficiarioService.Insertar(ben);
-            // Comprobar si el nombre de usuario ya existe
-            if (res2 == -2)
+            int res = await beneficiarioService.Insertar(ben);
+            // Comprobar si el DNI o Email del beneficiario ya existe
+            if (res <= 0)
             {
-                await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
-                return; //rompe la ejecucion para no recargar la lista innecesariamnete
-            }
-            else if (res1 == -2)
-            {
-                await JS.InvokeVoidAsync("alert", "Ese DNI ya está registrado");
+                tituloError = "insertar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un beneficiario con este DNI.";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un beneficiario con este correo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
                 return;
             }
             listaBeneficiarios = await beneficiarioService.Listar();
@@ -119,9 +129,28 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         }
         private async Task Borrar(int Id)
         {
-            await beneficiarioService.Eliminar(Id);
+            int res = await beneficiarioService.Eliminar(Id);
+            if (res <= 0)
+            {
+                tituloError = "eliminar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Se ha producido un error debido a que está intentado borrar un beneficiario el cual tiene asignados uno o más bonos. " +
+                            "Por favor, asegúrese de que este beneficiario no tenga relación con ningún bono antes de borrarlo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
+            }
             listaBeneficiarios = await beneficiarioService.Listar();
             FiltrarBeneficiarios();
+        }
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
 
         private async Task CargarExcel() //cargar datos de excel
@@ -190,15 +219,15 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                     int numBeneficiarios = nuevosBeneficiarios.Count();
                     foreach (var b in nuevosBeneficiarios) //insertar
                     {
-                        var (res1, res2) = await beneficiarioService.Insertar(b);
+                        int res = await beneficiarioService.Insertar(b);
                         // Comprobar si el nombre de usuario ya
-                        if (res1 == -2 || res2==-2)
+                        if (res <-1)
                         {
-                            if (res1 == -2)
+                            if (res == -2)
                             {
                                 DNIErrors.Add(b.DNI);
                             }
-                            if (res2 == -2)
+                            if (res == -3)
                             {
                                 EmailErrors.Add(b.Email);
                                 

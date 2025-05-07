@@ -58,8 +58,6 @@ namespace BonosAytoService.DAOs
             return await connection.QueryAsync<Canjeo>(sql);
         }
 
-
-
         public async Task<bool> Actualizar(Canjeo canjeo)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());

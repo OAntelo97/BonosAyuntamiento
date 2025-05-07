@@ -13,7 +13,7 @@ namespace BonosAytoService.DTOs
         public char TipoServicio { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaCaducidad { get; set; }
-        public string Importe { get; set; }
+        public float Importe { get; set; }
         public int Activados { get; set; }
         public int Canjeados { get; set; }
         public int Caducados { get; set; }

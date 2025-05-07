@@ -55,7 +55,7 @@
 
     <RenderListadoFragment>
         <DataTables>
-            <table class="table table-hover align-middle">
+            <table class="table table-hover align-middle" id="tablaListado">
                 <thead class="table-light">
                     <tr>
                         <th class="nombre-columna">Nombre</th>
@@ -76,7 +76,7 @@
                                 <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(usuario.Id))">
                                     <i class="bi bi-pencil" title="Editar campos"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" @onclick="@(() => Eliminar(usuario.Id))">
+                                <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = usuario.Id;AbrirModal("AlertaEliminar");})">
                                     <i class="bi bi-trash" title="Eliminar usuario"></i>
                                 </button>
                             </td>
@@ -87,3 +87,24 @@
         </DataTables>
     </RenderListadoFragment>
 </ListadoAltaTemplate>
+<AlertaModal modalId="AlertaEliminar" color="warning" icono="exclamation-circle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Está seguro que quiere eliminar este usuario?
+    </Texto>
+    <Descripcion>
+        Una vez que se elimine el usuario, no se podrán revertir los cambios.
+    </Descripcion>
+    <botonAceptar>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@(async ()=> await Eliminar(IdElimunar))">Confirmar</button>
+    </botonAceptar>
+</AlertaModal>
+<AlertaModal modalId="EliminarError" color="danger" icono="exclamation-triangle">
+    <Titulo>Atención</Titulo>
+    <Texto>
+        Error al intentar @tituloError el usuario
+    </Texto>
+    <Descripcion>
+        @MensajeErrorEliminar
+    </Descripcion>
+</AlertaModal>

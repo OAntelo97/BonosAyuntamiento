@@ -20,28 +20,36 @@ namespace BonosAyto.Components.Pages.Usuarios
 
         private UsuarioDTO usuario = new UsuarioDTO();
 
+        private int IdElimunar = 0;
+
         private IEnumerable<EstablecimientoDTO> establecimientos {  get; set; }
+
+        private string tituloError = "";
+        private string MensajeErrorEliminar = "";
 
         private async Task GuardarUsuario()
         {
-            var (res1, res2) = await UsuarioService.Insertar(usuario);
-            // Comprobar si el nombre de usuario ya existe
-            if (res2 == -2)
+            int res = await UsuarioService.Insertar(usuario);
+            if (res <= 0)
             {
-                await JS.InvokeVoidAsync("alert", "Ese correo ya está registrado. Escribe otro");
-                return; //rompe la ejecucion para no recargar la lista innecesariamnete
-            }
-            else if (res1 == -2)
-            {
-                await JS.InvokeVoidAsync("alert", "Ese usuario ya está registrado. Escribe otro");
-                return; 
-            }else if(res1 == -1)
-            {
-                await JS.InvokeVoidAsync("alert", "A ocurido un fallo inesperado");
+                tituloError = "insertar";
+                switch (res)
+                {
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un usuario con este nombre. Por favor, intriduzca otro nombre";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un usuario con este correo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
+                }
+                AbrirModal("EliminarError");
                 return;
             }
 
-                usuarios = await UsuarioService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
+            usuarios = await UsuarioService.Listar(); //asi se recarga la lista despues de insertar para que los nuevos registros se muestren en la tabla tmb, y no solo cuando se haga f5
 
             Navigate.NavigateTo("/usuarios");
         }
@@ -79,6 +87,11 @@ namespace BonosAyto.Components.Pages.Usuarios
             var eliminado = await UsuarioService.Eliminar(id);
             // Actualizar la lista después de eliminar la inscripción
             usuarios = await UsuarioService.Listar();
+        }
+
+        private async Task AbrirModal(string modalId)
+        {
+            await JS.InvokeVoidAsync("MODAL.AbrirModal", modalId);
         }
 
 
