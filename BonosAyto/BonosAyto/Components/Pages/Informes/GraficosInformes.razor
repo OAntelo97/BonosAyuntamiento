@@ -1,0 +1,60 @@
+﻿@page "/informe1"
+
+@using Blazorise
+@using Blazorise.Charts
+@using BonosAytoService.Services
+@inject EstablecimientoService EstablecimientoService
+
+
+<h3 class="w-100 text-center">GRÁFICOS INFORMES</h3>
+
+<div class="d-flex mb-3">
+    <!-- Dropdown de establecimiento -->
+
+    <div class="selectContainer">
+        <input list="establecimientos" class="form-control" placeholder="Establecimiento" onchange="@ValidarYSeleccionarEstablecimiento" />
+
+        <datalist id="establecimientos">
+            <option value="Todos" />
+            @foreach (var e in nombresEstablecimientos)
+            {
+                <option value="@e" />
+            }
+        </datalist>
+
+    </div>
+
+
+
+    <!-- Dropdown de filtro de tiempo: Total o trimestre activo-->
+    <Dropdown class="mx-2">
+        <DropdownToggle Color="Color.Secondary">@filtroSeleccionado</DropdownToggle>
+        <DropdownMenu>
+            <DropdownItem @onclick="@(() => CambiarFiltro("Total"))">Total</DropdownItem>
+            <DropdownItem @onclick="@(() => CambiarFiltro("Trimestre activo"))">Trimestre activo</DropdownItem>
+        </DropdownMenu>
+    </Dropdown>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h5>@tituloGrafico</h5>
+            <BarChart TItem="double" @ref="barChart" />
+        </div>
+
+
+        <div class="col-md-6 col-sm-12">
+            <h5>Bonos Canjeados + Importe por día</h5>
+            <BarChart TItem="double" @ref="barChartDias" />
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-4">
+            <h5>Bonos Canjeados + Importe por Mes</h5>
+            <BarChart TItem="double" @ref="barChartMensual" />
+        </div>
+
+    </div>
+</div>
+
+

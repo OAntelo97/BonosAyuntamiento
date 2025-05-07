@@ -6,8 +6,12 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-	<ItemGroup>
+  	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="14.0.0" />
+		<PackageReference Include="Blazorise" Version="1.7.6" />
+		<PackageReference Include="Blazorise.Bootstrap5" Version="1.7.6" />
+		<PackageReference Include="Blazorise.Charts" Version="1.7.6" />
+		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.7.6" />
 		<PackageReference Include="Dapper" Version="2.1.66" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
