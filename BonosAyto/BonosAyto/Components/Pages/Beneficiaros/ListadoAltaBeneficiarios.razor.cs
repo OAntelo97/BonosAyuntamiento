@@ -10,6 +10,7 @@ using ClosedXML.Excel;
 using System.Threading.Tasks;
 using BonosAytoService.Model;
 using Microsoft.JSInterop;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 
 namespace BonosAyto.Components.Pages.Beneficiaros
@@ -111,11 +112,11 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         //botones accion
         private void VerDetalle(int Id)
         {
-            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}");
+            Navigate.NavigateTo($"/beneficiarios/ver/{Id}");
         }
         private void Modificar(int Id)
         {
-            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}");
+            Navigate.NavigateTo($"/beneficiarios/editar/{Id}");
         }
         private async Task Borrar(int Id)
         {

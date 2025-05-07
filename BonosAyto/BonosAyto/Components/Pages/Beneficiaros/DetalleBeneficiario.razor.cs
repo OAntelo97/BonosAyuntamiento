@@ -37,6 +37,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         public bool edit { get; set; }
         EditContext bonoContext;
         ValidationMessageStore messageStore;
+        [Parameter] public string? Modo { get; set; }
+        private bool EsModoLectura => Modo?.ToLower() != "editar";
 
         private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
@@ -91,7 +93,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             detalleB.Telefono = detalleValid.Telefono;
 
             await beneficiarioService.Actualizar(detalleB);
-            titulo();
+            Navigate.NavigateTo("/beneficiarios");
         }
 
         private void titulo()
@@ -143,12 +145,28 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             }
         }
 
+        /*
+        private void VerDetalle()
+        {
+            Navigate.NavigateTo($"/beneficiarios/ver/{Id}");
+        }
+        private void Editar()
+        {
+            Navigate.NavigateTo($"/beneficiairos/editar/{Id}");
+        }
+        */
+        private void VolverAtras()
+        {
+            Navigate.NavigateTo("/beneficiarios");
+        }
+
+
         //botones accion
-        private void VerDetalle(int id)
+        private void VerDetalleBono(int id)
         {
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
         }
-        private void Modificar(int id)
+        private void ModificarBono(int id)
         {
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
         }

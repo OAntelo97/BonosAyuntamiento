@@ -1,5 +1,104 @@
 ﻿@page "/usuarios/{Modo?}/{Id:int}/"
 @inject NavigationManager Navigate
+@using BonosAyto.Components.Pages.Usuarios
+@using BonosAytoService.DTOs
+@using BonosAyto.Components.DataTables
+@using BonosAyto.Components.Templates
+@using BonosAyto.Components.Enums
+
+
+
+
+<DetallesTemplate Tipo="PageType.Usuarios">
+    <FormFragment>
+
+        <EditForm Model="usuario" class="w-50 mx-auto" OnValidSubmit="GuardarCambios">
+            <DataAnnotationsValidator />
+
+            @if (!EsModoLectura)
+            {
+                <!-- Usuario -->
+                <label for="usuario">Usuario</label>
+                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required />
+
+                <!-- Rol, en el form de la vista se muestran los nombres pero a la bd se envia la inicial: 'G', 'S', 'C' -->
+                <label for="rol">Rol</label>
+                <InputSelect id="rol" @bind-Value="usuario.Rol" class="form-control mb-2" required>
+                    <option value="" selected>-- Selecciona un Rol --</option>
+                    <option value="G">Gestión</option>
+                    <option value="C">Control</option>
+                    <option value="S">Servicio</option>
+                </InputSelect>
+
+                <!-- Email -->
+                <label for="email">Email</label>
+                <InputText id="email" @bind-Value="usuario.Email" class="form-control mb-2" />
+                <ValidationMessage For="@(() => usuario.Email)" />
+
+                <!-- Id del establecimiento, en el form de la vista se muestra el nombre pero a la bd se envia el Id-->
+                @if (usuario?.Rol == 'S')
+                {
+                    <label for="IdEstablecimiento">Establecimiento</label>
+                    <InputSelect id="IdEstablecimiento" @bind-Value="usuario.IdEstablecimiento" class="form-control mb-2">
+                        <option value="" selected>-- Selecciona un Establecimiento --</option>
+                        @foreach (var establecimiento in establecimientos)
+                        {
+                            <option value="@establecimiento.Id">@establecimiento.Nombre</option>
+                        }
+                    </InputSelect>
+                }
+
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="submit" class="btn btn-secondary">Actualizar</button>
+                </div>
+            }
+            else
+            {
+                <!-- Usuario -->
+                <label for="usuario">Usuario</label>
+                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" disabled />
+
+                <!-- Rol, en el form de la vista se muestran los nombres pero a la bd se envia la inicial: 'G', 'S', 'C' -->
+                <label for="rol">Rol</label>
+                @if (usuario.Rol == 'G')
+                {
+                    <input id="rol" value="Gestión" class="form-control mb-2" disabled />
+                }
+                else @if (usuario.Rol == 'C')
+                {
+                    <input id="rol" value="Control" class="form-control mb-2" disabled />
+                }
+                else
+                {
+                    <input id="rol" value="Servicio" class="form-control mb-2" disabled />
+                }
+
+
+                <!-- Email -->
+                <label for="email">Email</label>
+                <InputText id="email" @bind-Value="usuario.Email" class="form-control mb-2" disabled />
+                <ValidationMessage For="@(() => usuario.Email)" />
+
+                <!-- Id del establecimiento, en el form de la vista se muestra el nombre pero a la bd se envia el Id-->
+                @if (usuario?.Rol == 'S')
+                {
+                    <label for="nombreEstablecimiento">Establecimiento</label>
+                    <input id="nombreEstablecimiento" value="@nombreEstablecimiento" class="form-control mb-2" disabled />
+                }
+
+
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-secondary" @onclick="@(() => VolverAtras())">Volver</button>
+                </div>
+            }
+        </EditForm>
+
+    </FormFragment>
+
+
+</DetallesTemplate>
+
+<!--
 
 <h1 class="w-100 text-center d-flex justify-content-center align-items-center gap-2">
     @if (EsModoLectura)
@@ -18,8 +117,10 @@
     }
 </h1>
 
+-->
  
 
+<!--
 
 <ul class="nav border-dark mb-3">
     <li class="nav-item border-bottom border-dark">
@@ -27,17 +128,14 @@
     </li>
  
 </ul>
-<!--FORM DE DETALLE-->
 <EditForm Model="usuario" OnValidSubmit="GuardarCambios">
     <DataAnnotationsValidator />
 
     @if (!EsModoLectura)
     {
-        <!-- Usuario -->
         <label for="usuario">Usuario</label>
         <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required/>
 
-        <!-- Rol, en el form de la vista se muestran los nombres pero a la bd se envia la inicial: 'G', 'S', 'C' -->
         <label for="rol">Rol</label>
         <InputSelect id="rol" @bind-Value="usuario.Rol" class="form-control mb-2" required>
             <option value="" selected>-- Selecciona un Rol --</option>
@@ -46,12 +144,10 @@
             <option value="S">Servicio</option>
         </InputSelect>
 
-        <!-- Email -->
         <label for="email">Email</label>
         <InputText id="email" @bind-Value="usuario.Email" class="form-control mb-2" />
         <ValidationMessage For="@(() => usuario.Email)" />
 
-        <!-- Id del establecimiento, en el form de la vista se muestra el nombre pero a la bd se envia el Id-->
         @if (usuario?.Rol == 'S')
         {
             <label for="IdEstablecimiento">Establecimiento</label>
@@ -70,11 +166,9 @@
     }
     else
     {
-        <!-- Usuario -->
         <label for="usuario">Usuario</label>
         <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2"  disabled/>
 
-        <!-- Rol, en el form de la vista se muestran los nombres pero a la bd se envia la inicial: 'G', 'S', 'C' -->
         <label for="rol">Rol</label>
         @if (usuario.Rol == 'G')
         {
@@ -88,12 +182,10 @@
         }
 
 
-        <!-- Email -->
         <label for="email">Email</label>
         <InputText id="email" @bind-Value="usuario.Email" class="form-control mb-2" disabled />
         <ValidationMessage For="@(() => usuario.Email)" />
-
-        <!-- Id del establecimiento, en el form de la vista se muestra el nombre pero a la bd se envia el Id-->
+        
         @if (usuario?.Rol == 'S')
         {
             <label for="nombreEstablecimiento">Establecimiento</label>
@@ -107,3 +199,5 @@
     }
 </EditForm> 
 
+
+-->

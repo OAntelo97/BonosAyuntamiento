@@ -9,7 +9,7 @@ namespace BonosAyto.Components.Pages.Usuarios
     public partial class DetalleUsuarios
     {
         [Parameter] public int Id { get; set; }
-        [Parameter] public string? Modo { get; set; } = "ver"; // "ver" ou "editar"
+        [Parameter] public string? Modo { get; set; }
 
         [Inject]
         private UsuarioService UsuarioService { get; set; }
@@ -63,14 +63,17 @@ namespace BonosAyto.Components.Pages.Usuarios
             }
         }
 
-        private void VerDetalle(int id)
+        /*
+
+        private void VerDetalle()
         {
-            Navigate.NavigateTo($"/usuarios/ver/{id}");
+            Navigate.NavigateTo($"/usuarios/ver/{Id}");
         }
-        private void Editar(int id)
+        private void Editar()
         {
-            Navigate.NavigateTo($"/usuarios/editar/{id}");
+            Navigate.NavigateTo($"/usuarios/editar/{Id}");
         }
+        */
         private void VolverAtras()
         {
             Navigate.NavigateTo("/usuarios");

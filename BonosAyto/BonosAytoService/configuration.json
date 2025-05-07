@@ -1,6 +1,6 @@
 ﻿{
   "ConnectionStrings": {
-    "Connection": "SERVER=PC-OSCAR-ANTELO;DATABASE=AytoCoruna;Integrated Security=False;User Id=sa;Password=ADMIN0;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True"
+    "Connection": "Server=DESKTOP-B5B66KI\\SQLEXPRESS;Database=AytoCoruna;Trusted_Connection=True; TrustServerCertificate=True;"
   }
 }
 

@@ -7,11 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\Pages\Establecimientos\DetalleEstablecimiento.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BonosAytoService\BonosAytoService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Pages\Establecimientos\DetalleEstablecimiento.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\Pages\Establecimientos\DetalleEstablecimiento.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\Pages\Establecimientos\DetalleEstablecimiento.razor" />
   </ItemGroup>
 
 </Project>
