@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BonosAytoService.Model;
+using BonosAytoService.Models;
 using BonosAytoService.Services;
 using Dapper;
 using Microsoft.Data.SqlClient;

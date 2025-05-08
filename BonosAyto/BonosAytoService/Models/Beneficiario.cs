@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BonosAytoService.Model
+namespace BonosAytoService.Models
 {
-    public class Establecimiento
+    public class Beneficiario
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string NIF { get; set; }
+        public string PrimerApellido { get; set; }
+        public string? SegundoApellido { get; set; }
+        public string DNI { get; set; }
         public string? Direccion { get; set; }
         public int? CodigoPostal { get; set; }
         public string? Telefono { get; set; }

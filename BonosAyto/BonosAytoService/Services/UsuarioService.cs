@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BonosAytoService.DAOs;
 using BonosAytoService.DTOs;
-using BonosAytoService.Model;
+using BonosAytoService.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;

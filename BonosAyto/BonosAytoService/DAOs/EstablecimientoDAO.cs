@@ -1,7 +1,7 @@
 ﻿using Dapper;
-using BonosAytoService.Model;
 using Microsoft.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using BonosAytoService.Models;
 
 namespace BonosAytoService.DAOs
 {

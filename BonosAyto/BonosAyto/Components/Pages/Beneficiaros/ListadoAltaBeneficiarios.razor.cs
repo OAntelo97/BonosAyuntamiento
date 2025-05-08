@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel;
 using ClosedXML.Excel;
 using System.Threading.Tasks;
-using BonosAytoService.Model;
+using BonosAytoService.Models;
 using Microsoft.JSInterop;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.JSInterop;
-using BonosAytoService.Model;
 
 
 

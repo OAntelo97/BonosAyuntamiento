@@ -1,5 +1,5 @@
 ﻿using BonosAytoService.DTOs;
-using BonosAytoService.Model;
+using BonosAytoService.Models;
 using BonosAytoService.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BonosAytoService.DAOs;
 using BonosAytoService.DTOs;
-using BonosAytoService.Model;
+using BonosAytoService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

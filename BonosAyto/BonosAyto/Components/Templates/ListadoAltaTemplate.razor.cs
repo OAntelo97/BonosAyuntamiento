@@ -1,11 +1,5 @@
-﻿using BonosAyto.Components.Enums;
-using BonosAytoService.DTOs;
-using BonosAytoService.Model;
-using BonosAytoService.Services;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.WebUtilities;
+﻿using Microsoft.AspNetCore.Components;
+using static BonosAytoService.Models.Enums.Enums;
 
 namespace BonosAyto.Components.Templates
 {

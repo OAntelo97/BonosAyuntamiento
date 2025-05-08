@@ -1,4 +1,4 @@
-﻿using BonosAytoService.Model;
+﻿using BonosAytoService.Models;
 using BonosAytoService.Services;
 using BonosAytoService.Utils;
 using Dapper;

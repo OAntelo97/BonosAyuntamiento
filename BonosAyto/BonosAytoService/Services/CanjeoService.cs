@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BonosAytoService.DAOs;
 using BonosAytoService.DTOs;
-using BonosAytoService.Model;
+using BonosAytoService.Models;
 
 namespace BonosAytoService.Services
 {
