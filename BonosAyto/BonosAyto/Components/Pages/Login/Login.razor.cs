@@ -25,7 +25,6 @@ namespace BonosAyto.Components.Pages.Login
         EditContext editContext;
         ValidationMessageStore validationMessageStore;
 
-
         protected override async void OnInitialized()
         {
             UsuarioService = new UsuarioService();
@@ -34,7 +33,7 @@ namespace BonosAyto.Components.Pages.Login
             validationMessageStore = new(editContext);
             //HttpContext = httpContextAccessor.HttpContext;
 
-            editContext.OnValidationRequested += Validaciones;
+            editContext.OnValidationRequested += (object sender, ValidationRequestedEventArgs e) => { validationMessageStore.Clear(); };
             //var token = httpContextAccessor.HttpContext.Request.Cookies["UsId"];
             //if (token != null)
             //{
@@ -109,13 +108,16 @@ namespace BonosAyto.Components.Pages.Login
                 Usuario = GlobalVariables.usuario.Usuario,
                 Rol = GlobalVariables.usuario.Rol
             };
-            await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
-            
-            Navigate.NavigateTo("/home");
+            //var client = ClientFactory.CreateClient("LoginApi");
+            //var response = await client.PostAsJsonAsync("api/auth/login", usuarioLogin);
+            var respuesta = await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
+            StateHasChanged();
+
+            Navigate.NavigateTo("/home", forceLoad: true);
         }
         
 
-        private async void Validaciones(object sender, ValidationRequestedEventArgs e)
+        private async Task Validaciones()
         {
             validationMessageStore.Clear();
 
@@ -127,7 +129,8 @@ namespace BonosAyto.Components.Pages.Login
             }
             else
             {
-                GlobalVariables.usuario = await UsuarioService.Consultar(id); ;
+                GlobalVariables.usuario = await UsuarioService.Consultar(id);
+                Authenticate();
             }
         }
 

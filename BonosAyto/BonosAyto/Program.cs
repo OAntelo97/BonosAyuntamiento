@@ -35,6 +35,11 @@ builder.Services
     .AddBootstrap5Providers()
     .AddFontAwesomeIcons();
 
+builder.Services.AddHttpClient("LoginApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7278/"); // cambia a tu URL real
+});
+
 var app = builder.Build();
 
 

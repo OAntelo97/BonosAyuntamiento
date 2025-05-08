@@ -1,9 +1,10 @@
-﻿.contenedor-login {
+﻿.app-contenedor-login {
     height: 100vh;
 }
 
 .card {
     width: 33vw;
+    min-width:270px
 }
 
 img {

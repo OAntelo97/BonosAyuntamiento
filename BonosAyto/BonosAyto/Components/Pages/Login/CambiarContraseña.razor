@@ -11,15 +11,15 @@
 <div class="card">
 	<div class="card-body text-center">
 		<h4 class="text-center">Cambiar contraseña</h4>
-		<EditForm EditContext="editContext" OnValidSubmit="Authenticate">
+		<EditForm Model="usuario" OnValidSubmit="Validaciones">
 			<DataAnnotationsValidator />
 
 			<div class="form-floating mt-4">
-				<InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+				<input id="usuario" @bind-value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
 				<label for="floatingInput">Usuario</label>
 			</div>
 			<div class="form-floating">
-				<InputText type="password" id="pass" @bind-Value="usuario.Pass" class="form-control mt-3" placeholder="Contraseña anterior" required />
+				<input type="password" id="pass" @bind-value="usuario.Pass" class="form-control mt-3" placeholder="Contraseña anterior" required />
 				<label for="floatingPassword">Contraseña anterior</label>
 			</div>
 			<div class="form-floating">
@@ -30,11 +30,11 @@
 				<input type="password" id="newPassConfirm" @bind-value="nuevaContrasena.repetido" class="form-control mt-3" placeholder="Repetir nueva contraseña" required />
 				<label for="floatingPassword">Repetir nueva contraseña</label>
 			</div>
-			
-			
-			
-			
-			<Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+
+			@if (!string.IsNullOrEmpty(mesageError))
+			{
+				<p class="mt-2 text-danger">@mesageError</p>
+			}
 
 			<button type="submit" class="btn btn-secondary mt-2 w-100">Cambiar contraseña</button>
 			<a href="/login" class="d-block text-secondary text-center mt-2">Acceder</a>

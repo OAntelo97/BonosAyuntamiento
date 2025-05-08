@@ -2,7 +2,7 @@
 @page "/"
 @page "/login"
 
-
+@inject IHttpClientFactory ClientFactory
 @inject NavigationManager Navigate
 @using BonosAyto.Components.Layout
 
@@ -14,7 +14,7 @@
 	<div class="card-body text-center">
 		<img class="m-auto" src="favicon.png" alt="Alternate Text" />
 		<h4 class="text-center">Acceso</h4>
-		<EditForm EditContext="editContext" OnValidSubmit="Authenticate">
+		<EditForm EditContext="editContext" OnValidSubmit="Validaciones">
 			<DataAnnotationsValidator />
 			
 
@@ -28,7 +28,7 @@
 				<input type="checkbox" class="form-check-input" @bind="recordarme"/>
 			</div>
 			<button type="submit" class="btn btn-secondary mt-2 w-100">Acceder</button>
-			<a href="#" class="d-block text-secondary text-center mt-2">Recordar contrasena</a>
+			<a href="/login/RecordarContrasena" class="d-block text-secondary text-center mt-2">Recordar contrasena</a>
 			<a href="/login/CambiarContrasena" class="d-block text-secondary text-center mt-1">Cambiar contrasena</a>
 		</EditForm>
 	</div>

@@ -1,0 +1,31 @@
+﻿@layout LoginLayout
+@page "/login/RecordarContrasena"
+
+@inject NavigationManager Navigate
+@using BonosAyto.Components.Layout
+
+<HeadContent>
+	<link href="CSS/EstilosLogin.css" rel="stylesheet" />
+</HeadContent>
+
+<div class="card">
+	<div class="card-body text-center">
+		<h4 class="text-center">Recordar contraseña</h4>
+		<EditForm Model="usuario" OnValidSubmit="Validaciones">
+			<DataAnnotationsValidator />
+
+			<div class="form-floating mt-4">
+				<input id="usuario" @bind-value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+				<label for="floatingInput">Usuario</label>
+			</div>
+
+			@if (!string.IsNullOrEmpty(mesageError))
+			{
+				<p class="mt-2 text-danger">@mesageError</p>
+			}
+
+			<button type="submit" class="btn btn-secondary mt-2 w-100">Recordar contraseña</button>
+			<a href="/login" class="d-block text-secondary text-center mt-2">Acceder</a>
+		</EditForm>
+	</div>
+</div>

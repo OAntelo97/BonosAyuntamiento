@@ -64,6 +64,14 @@ namespace BonosAytoService.DAOs
             return usuario != null ? usuario.Id : -1;
         }
 
+        public async Task<int> comprobarNombreUsuario(Usuarios user)
+        {
+            using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
+            var sql = "SELECT Id, Usuario, Pass, Rol, Email, IdEstablecimiento, UsuarioMod, FechaMod FROM Usuarios WHERE Usuario = @Usuario;";
+            Usuarios? usuario = await conection.QueryFirstOrDefaultAsync<Usuarios>(sql, user);
+            return usuario != null ? usuario.Id : -1;
+        }
+
         public async Task<IEnumerable<Usuarios>> Listar()
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());

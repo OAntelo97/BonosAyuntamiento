@@ -53,6 +53,12 @@ namespace BonosAytoService.Services
             var umap = _mapper.Map<Usuarios>(user);
             return await _dao.comprobarUsuario(umap);
         }
+        
+        public async Task<int> comprobarNombreUsuario(UsuarioDTO user)
+        {
+            var umap = _mapper.Map<Usuarios>(user);
+            return await _dao.comprobarNombreUsuario(umap);
+        }
 
 
         public async Task<IEnumerable<UsuarioDTO>> Listar()
