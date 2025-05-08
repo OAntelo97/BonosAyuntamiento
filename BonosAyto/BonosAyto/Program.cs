@@ -25,6 +25,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddControllers();
+builder.Services.AddScoped<EmailService>();
 
 // Blazorise + ChartJs
 builder.Services
@@ -34,11 +35,6 @@ builder.Services
     })
     .AddBootstrap5Providers()
     .AddFontAwesomeIcons();
-
-builder.Services.AddHttpClient("LoginApi", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7278/"); // cambia a tu URL real
-});
 
 var app = builder.Build();
 

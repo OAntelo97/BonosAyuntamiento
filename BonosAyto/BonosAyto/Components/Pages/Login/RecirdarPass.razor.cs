@@ -36,7 +36,7 @@ namespace BonosAyto.Components.Pages.Login
                 }
                 else
                 {
-                    await EmailService.SendEmailAsync(usuario.Email, "peuba", "prueba  envio de correo");
+                    //await EmailService.SendEmailAsync(usuario.Email, "peuba", "prueba  envio de correo");
                     Navigate.NavigateTo("/login");
                 }
             }

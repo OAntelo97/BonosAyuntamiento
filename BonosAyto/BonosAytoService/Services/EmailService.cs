@@ -12,7 +12,7 @@ namespace BonosAytoService.Services
     {
         public async Task SendEmailAsync(string to, string subject, string body)
         {
-            var smtpClient = new SmtpClient("smtp.tuservidor.com")
+            var smtpClient = new SmtpClient("smtp.ionos.es")
             {
                 Port = 587,
                 Credentials = new NetworkCredential("tu@email.com", "tu_contraseña"),
