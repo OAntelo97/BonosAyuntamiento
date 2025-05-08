@@ -79,7 +79,7 @@ namespace BonosAytoService.DAOs
             
             try
             {
-                return await connection.ExecuteAsync(sql, user) > 0? 0:-1;
+                return await connection.ExecuteAsync(sql, user) > 0? 1:-1;
             }
             catch (SqlException ex)
             {

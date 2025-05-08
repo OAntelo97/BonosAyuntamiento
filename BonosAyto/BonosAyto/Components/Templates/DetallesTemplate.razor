@@ -19,6 +19,9 @@
                 <div class="tab-pane fade show active" id="lista" role="tabpanel" aria-labelledby="lista-tab">
                     <div class="row">
                         <!-- Formulario -->
+
+                        <!--
+
                         <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <div class="container">
                                 <div class="row">
@@ -46,6 +49,38 @@
                                 </div>
                             </div>
                         </div>
+                        -->
+                        
+
+
+                        
+                         <div class="card border border-2 shadow h-100">
+
+                            <div class="card-header bg-primary text-white text-center ">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <h5 class="my-1 me-2">@TituloFormulario</h5>
+                                        @if (EsModoLectura)
+                                        {
+                                            <button class="btn p-0" title="Editar" @onclick="() => Editar()">
+                                                <i class="bi bi-pencil fs-4"></i>
+                                             </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn p-0" title="Ver Detalle" @onclick="() => VerDetalle()">
+                                                <i class="bi bi-eye fs-4"></i>
+                                            </button>
+                                        }
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                 @FormFragment
+                            </div>
+                        </div>
+                       
+
+
+                        
                     </div>
                 </div>
                 @PestanaContenidoFragment
