@@ -10,6 +10,8 @@ namespace BonosAyto.Components.Pages.Informes
     {
         private List<string> nombresEstablecimientos = new();
         private string inputEstablecimiento;
+        private string mensajeAlert = string.Empty;
+        private bool soloTrimestre = false; 
 
 
         /****************************** ¡NUEVO! / CAMBIOS PARA AÑADIR COMPONENTES HIJO ************************************/
@@ -41,17 +43,43 @@ namespace BonosAyto.Components.Pages.Informes
             await InvokeAsync(StateHasChanged); // 'obliga a renderizarse de nuevo', por seguridad en la visualizacion de los cambios
         }
 
-        private void ValidarYSeleccionarEstablecimiento(ChangeEventArgs e)
+        private async Task ValidarYSeleccionarEstablecimiento(ChangeEventArgs e)
         {
             inputEstablecimiento = e.Value?.ToString();
 
-            if (string.IsNullOrWhiteSpace(inputEstablecimiento) || inputEstablecimiento == "Todos")
-                CambiarEstablecimiento(null);
-            else if (nombresEstablecimientos.Contains(inputEstablecimiento))
-                CambiarEstablecimiento(inputEstablecimiento);
+            InvokeAsync(StateHasChanged);   
+
+            //comprobacion de que el input no está con espacios en blanco ni vacio
+            if (string.IsNullOrWhiteSpace(inputEstablecimiento))
+            {
+                mensajeAlert = "Debes introducir un establecimiento o \"Todos\".";
+                inputEstablecimiento = string.Empty;
+            }
             else
-                CambiarEstablecimiento(null);
+            {
+                var datos = await EstablecimientoService.ObtenerDatosPorEstablecimiento(inputEstablecimiento);
+
+                //si se escribe un establecimiento (sin ser Todos), se comprueba si tiene datos, si no tiene se muestra un alert
+                if (datos == null && inputEstablecimiento != "Todos")
+                {
+                    mensajeAlert = $"No se encontraron datos para \"{inputEstablecimiento}\".";
+                    inputEstablecimiento = string.Empty;
+                }
+                else
+                {
+                    mensajeAlert = string.Empty;
+
+                    if (inputEstablecimiento == "Todos")
+                        CambiarEstablecimiento("Todos");
+                    else if (nombresEstablecimientos.Contains(inputEstablecimiento))
+                        CambiarEstablecimiento(inputEstablecimiento);
+                    else
+                        CambiarEstablecimiento(null);
+
+                }
+            }
         }
+
 
         protected override async Task OnInitializedAsync()
         {

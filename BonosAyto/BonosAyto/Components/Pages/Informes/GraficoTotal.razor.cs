@@ -45,34 +45,32 @@ namespace BonosAyto.Components.Pages.Informes
             bool soloTrimestre = Filtros.FiltroSeleccionado != "Total";
             EstablecimientoDatosDTO item;
 
-            if (string.IsNullOrWhiteSpace(establecimiento) || establecimiento == "Todos")
+
+            /*Solo compruebo si es "Todos" o un establecimiento porque en el componente padre ya se comprueba que el datalist de establecimientos no pueda 
+                estar vacio(ser null) ni espacios en blanco*/
+            if (establecimiento == "Todos")
             {
+                // Caso: "Todos"
                 item = await EstablecimientoService.ObtenerDatosDeTodosLosEstablecimientos(soloTrimestre);
-                if (soloTrimestre)
-                {
-                    tituloGrafico = "Bonos canjeados + Importe en el trimestre activo";
-                    await InvokeAsync(StateHasChanged); // 'obliga a renderizarse de nuevo', para que se cambien los titulos
-                }
-                else
-                {
-                    tituloGrafico = "Bonos canjeados + Importe total";
-                    await InvokeAsync(StateHasChanged); 
-                }
+                tituloGrafico = soloTrimestre
+                    ? "Bonos canjeados + Importe en el trimestre activo"
+                    : "Bonos canjeados + Importe total";
+                await InvokeAsync(StateHasChanged);
             }
             else
             {
+                // Caso: establecimiento seleccionado
                 if (soloTrimestre)
                 {
                     item = await EstablecimientoService.ObtenerDatosUltimoTrimestrePorEstablecimiento(establecimiento);
                     tituloGrafico = "Bonos canjeados + Importe en el trimestre activo";
-                    await InvokeAsync(StateHasChanged); 
                 }
                 else
                 {
                     item = await EstablecimientoService.ObtenerDatosPorEstablecimiento(establecimiento);
                     tituloGrafico = "Bonos canjeados + Importe total";
-                    await InvokeAsync(StateHasChanged);
                 }
+                await InvokeAsync(StateHasChanged);
             }
 
 

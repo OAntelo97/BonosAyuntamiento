@@ -55,7 +55,9 @@ namespace BonosAyto.Components.Pages.Informes
 
             Dictionary<int, (int Bonos, double Importe)> datos;
 
-            if (string.IsNullOrWhiteSpace(establecimiento) || establecimiento == "Todos")
+            /*Solo compruebo si es "Todos" o un establecimiento porque en el componente padre ya se comprueba que el datalist de establecimientos no pueda 
+                estar vacio(ser null) ni espacios en blanco*/
+            if (establecimiento == "Todos")
             {
                 datos = await EstablecimientoService.ObtenerBonosEImportePorMesTodos(soloTrimestre);
                 if (soloTrimestre)
@@ -102,6 +104,7 @@ namespace BonosAyto.Components.Pages.Informes
             if (bonos.Sum() == 0 && importes.Sum() == 0)
             {
                 mensajeAviso = "No existen datos para el establecimiento seleccionado.";
+                tituloGrafico = string.Empty;
                 await InvokeAsync(StateHasChanged);
                 return;
             }

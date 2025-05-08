@@ -53,7 +53,9 @@ namespace BonosAyto.Components.Pages.Informes
 
             Dictionary<int, (int Bonos, double Importe)> datos;
 
-            if (string.IsNullOrWhiteSpace(establecimiento) || establecimiento == "Todos")
+            /*Solo compruebo si es "Todos" o un establecimiento porque en el componente padre ya se comprueba que el datalist de establecimientos no pueda 
+                estar vacio(ser null) ni espacios en blanco*/
+            if (establecimiento == "Todos")
             {
                 // Obtener datos de todos los establecimientos
                 datos = await EstablecimientoService.ObtenerBonosEImportePorDiaSemanaTodos(soloTrimestre);
