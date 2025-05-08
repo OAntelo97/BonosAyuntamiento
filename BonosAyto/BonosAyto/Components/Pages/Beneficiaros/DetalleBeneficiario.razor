@@ -83,7 +83,7 @@
     </FormFragment>
 
    
-    <OtherTabsFragment>
+    <PestanaFragment>
         <li class="nav-item" role="presentation">
             <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Bonos</button>
         </li>
@@ -96,121 +96,124 @@
             </button>
         </li>
         -->
-    </OtherTabsFragment>
+    </PestanaFragment>
 
-    <OtherTabsContentsFragment>
+    <PestanaContenidoFragment>
          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-         <div class="container mt-3 w-100">
-                <div class="row">
-
-                    <div class="col-4 border border-dark px-3 py-5">
-                        <!--Formulario asignar talonario-->
-                        <h6 class="mb-3 mt-2 text-center">
-
-                            Formulario: Asignar Talonario
-                        </h6>
-
-
-                        <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
-
-                            <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select">
-                                <!--cambiar valores-->
-                                <option value=' '>Tipo servicio</option>
-                                <option value='R'>Restaurante</option>
-                            </InputSelect>
-
-                            <div class="container mt-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="fechainicio">Fecha inicio</label>
-                                        <InputDate id="fechainicio" onblur="@AutoCaducidad" @bind-Value="bonoAsig.FechaInicio" class="form-control" />
-                                    </div>
-                                    <div class="col">
-                                        <label for="fechafin">Fecha caducidad</label>
-                                        <InputDate id="fechafin" onblur="@CheckCaducidad" @bind-Value="bonoAsig.FechaCaducidad" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="container mt-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="imp">Importe</label>
-                                        <InputRadioGroup id="imp" @bind-Value="bonoAsig.Importe">
-                                            <div class="form-check">
-                                                <InputRadio class="form-check-input" Value="3" />
-                                                <label class="form-check-label">3€</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <InputRadio class="form-check-input" Value="6" />
-                                                <label class="form-check-label">6€</label>
-                                            </div>
-                                        </InputRadioGroup>
-                                    </div>
-                                    <div class="col">
-                                        <label for="can">Cantidad</label>
-                                        <InputNumber id="can" @bind-Value="bonoAsig.Activados" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0">Asignar</button>
-                            </div>
-                        </EditForm>
-
-                    </div>
-                    <div class="col-1"></div>
-
-                    <div class="col-7 border border-dark ">
-                        <div class="d-inline">
-
-                            <button class="btn btn-dark rounded-0 m-2" onclick="@FiltrarTri">Trimestre</button>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card border border-2 shadow h-100">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h5 class="my-1">Asignación de talonarios</h5>
                         </div>
+                        <div class="card-body">
+                            <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
 
+                                <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select">
+                                    <!--cambiar valores-->
+                                    <option value=' '>Tipo servicio</option>
+                                    <option value='R'>Restaurante</option>
+                                </InputSelect>
 
-                        <DataTablesBonos>
+                                <div class="container mt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="fechainicio">Fecha inicio</label>
+                                            <InputDate id="fechainicio" onblur="@AutoCaducidad" @bind-Value="bonoAsig.FechaInicio" class="form-control" />
+                                        </div>
+                                        <div class="col">
+                                            <label for="fechafin">Fecha caducidad</label>
+                                            <InputDate id="fechafin" onblur="@CheckCaducidad" @bind-Value="bonoAsig.FechaCaducidad" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <table class="table" id="listaBonosBeneficiario">
-                                <thead class="bg-light ">
-                                    <tr>
-                                        <th>Tipo servicio</th>
-                                        <th>Fecha inicio</th>
-                                        <th>Fecha caducidad</th>
-                                        <th>Importe</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
+                                <div class="container mt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="imp">Importe</label>
+                                            <InputRadioGroup id="imp" @bind-Value="bonoAsig.Importe">
+                                                <div class="form-check">
+                                                    <InputRadio class="form-check-input" Value="3" />
+                                                    <label class="form-check-label">3€</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <InputRadio class="form-check-input" Value="6" />
+                                                    <label class="form-check-label">6€</label>
+                                                </div>
+                                            </InputRadioGroup>
+                                        </div>
+                                        <div class="col">
+                                            <label for="can">Cantidad</label>
+                                            <InputNumber id="can" @bind-Value="bonoAsig.Activados" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <tbody>
-                                    @foreach (var bon in listaBonos)
-                                    {
-                                        <tr data-id="@bon.Id">
-                                            <td> @TipoServicioNombre(bon.TipoServicio) </td>
-                                            <td>@bon.FechaInicio.ToString("dd-MM-yyyy")</td>
-                                            <td>@bon.FechaCaducidad.ToString("dd-MM-yyyy")</td>
-                                            <td>@bon.Importe</td>
-                                            <td>
-                                                <i class="bi bi-search me-1" @onclick="() => VerDetalleBono(bon.Id)"></i>
-                                                <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => ModificarBono(bon.Id)" style="transform: scaleX(-1);"></i>
-                                                <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </DataTablesBonos>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-dark mt-4 align-content-end rounded-0">Asignar</button>
+                                </div>
+                            </EditForm>
 
+                        </div>
                     </div>
+                </div>
 
+                <div class="col-md-8">
+                    <div class="card border border-2 shadow h-100">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="my-1 text-center">Lista de talonarios</h5>
+                        </div>
+                        <div class="card-body">
+                                   <div class="d-inline">
+
+                                <button class="btn btn-dark rounded-0 m-2" onclick="@FiltrarTri">Trimestre</button>
+                            </div>
+
+
+                            <DataTablesBonos>
+
+                                <table class="table" id="listaBonosBeneficiario">
+                                    <thead class="bg-light ">
+                                        <tr>
+                                            <th>Tipo servicio</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha caducidad</th>
+                                            <th>Importe</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var bon in listaBonos)
+                                        {
+                                            <tr data-id="@bon.Id">
+                                                <td> @TipoServicioNombre(bon.TipoServicio) </td>
+                                                <td>@bon.FechaInicio.ToString("dd-MM-yyyy")</td>
+                                                <td>@bon.FechaCaducidad.ToString("dd-MM-yyyy")</td>
+                                                <td>@bon.Importe</td>
+                                                <td>
+                                                    <i class="bi bi-search me-1" @onclick="() => VerDetalleBono(bon.Id)"></i>
+                                                    <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => ModificarBono(bon.Id)" style="transform: scaleX(-1);"></i>
+                                                    <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </DataTablesBonos>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            
+         </div>
 
               
-    </OtherTabsContentsFragment>
+    </PestanaContenidoFragment>
 
 </DetallesTemplate>
 

@@ -10,13 +10,13 @@ namespace BonosAyto.Components.Templates
         public string TituloLista { get; set; }
         public string TituloPestana { get; set; }
         [Parameter]
-        public RenderFragment OtherTabsFragment { get; set; }
+        public RenderFragment PestanaFragment { get; set; }
         [Parameter]
         public RenderFragment FormFragment { get; set; }
         [Parameter]
         public RenderFragment ListFragment { get; set; }
         [Parameter]
-        public RenderFragment OtherTabsContentsFragment { get; set; }
+        public RenderFragment PestanaContenidoFragment { get; set; }
         [Parameter]
         public PageType Tipo { get; set; }
 
@@ -37,8 +37,6 @@ namespace BonosAyto.Components.Templates
             Modo = segments[segments.Length-2];
             Id = int.Parse(segments[segments.Length - 1]);
         }
-
-
 
         private string GetBasePath()
         {
