@@ -51,7 +51,7 @@ namespace BonosAyto.Components.Templates
             return "/";
         }
 
-        private void VerDetalle()
+        public void VerDetalle()
         {
            Modo = "ver";
             var basePath = GetBasePath(); 
@@ -85,7 +85,6 @@ namespace BonosAyto.Components.Templates
                 case PageType.Beneficiarios:
                     Titulo = "Información del beneficiario";
                     TituloFormulario = "Datos";
-                   // TituloLista = ":::::::::::::::";
                     TituloPestana = "Datos";
                     break;
                 case PageType.Establecimientos:

@@ -1,4 +1,5 @@
-﻿using BonosAytoService.DTOs;
+﻿using BonosAyto.Components.Templates;
+using BonosAytoService.DTOs;
 using BonosAytoService.Models;
 using BonosAytoService.Services;
 using Microsoft.AspNetCore.Components;
@@ -16,7 +17,7 @@ namespace BonosAyto.Components.Pages.Usuarios
         [Inject]
         private EstablecimientoService EstablecimientoService { get; set; }
 
-        private UsuarioDTO? usuario = new();
+        private UsuarioDTO usuario = new UsuarioDTO();
 
         [Inject]
         private IJSRuntime JS { get; set; }
@@ -29,6 +30,9 @@ namespace BonosAyto.Components.Pages.Usuarios
 
         private string tituloError = "";
         private string MensajeErrorEliminar = "";
+
+        private DetallesTemplate detallesTemplate;
+
         protected override async Task OnInitializedAsync()
         {
             // Cargar el usuario desde la base de datos
@@ -47,32 +51,29 @@ namespace BonosAyto.Components.Pages.Usuarios
 
         private async Task GuardarCambios()
         {
-            if (!EsModoLectura)
+           
+            int res = await UsuarioService.Actualizar(usuario);
+            // Comprobar si el nombre de usuario ya existe
+            if (res <= 0)
             {
-                int res = await UsuarioService.Actualizar(usuario);
-                // Comprobar si el nombre de usuario ya existe
-                if (res <= 0)
+                tituloError = "actualizar";
+                switch (res)
                 {
-                    tituloError = "actualizar";
-                    switch (res)
-                    {
-                        case -2:
-                            MensajeErrorEliminar = "Ya existe un usuario con este nombre. Por favor, intriduzca otro nombre";
-                            break;
-                        case -3:
-                            MensajeErrorEliminar = "Ya existe un usuario con este correo.";
-                            break;
-                        default:
-                            MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
-                            break;
-                    }
-                    AbrirModal("EliminarError");
-                    return;
+                    case -2:
+                        MensajeErrorEliminar = "Ya existe un usuario con este nombre. Por favor, intriduzca otro nombre";
+                        break;
+                    case -3:
+                        MensajeErrorEliminar = "Ya existe un usuario con este correo.";
+                        break;
+                    default:
+                        MensajeErrorEliminar = "Se ha producido un error inesperado. Por favor, vuelva a intentarlo mas tarde";
+                        break;
                 }
-
-
-                Navigate.NavigateTo("/usuarios");
+                AbrirModal("EliminarError");
+                return;
             }
+
+            detallesTemplate.VerDetalle();
         }
 
         /*

@@ -124,11 +124,11 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         //botones accion
         private void VerDetalle(int Id)
         {
-            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}?edit=false");
+            Navigate.NavigateTo($"/beneficiarios/ver/{Id}");
         }
         private void Modificar(int Id)
         {
-            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}?edit=true");
+            Navigate.NavigateTo($"/beneficiarios/editar/{Id}");
         }
         private async Task Borrar(int Id)
         {

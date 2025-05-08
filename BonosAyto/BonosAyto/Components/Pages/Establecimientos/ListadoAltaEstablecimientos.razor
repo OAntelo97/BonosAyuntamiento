@@ -65,7 +65,7 @@
                             <th class="nombre-columna text-truncate">Nombre</th>
                             <th>Telefono</th>
                             <th>Email</th>
-                            <th class="text-center">Acciones</th>
+                        <th class="text-center acciones-columna">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +76,7 @@
                                 <td>@est.Telefono</td>
                                 <td>@est.Email</td>
 
-                                <td class="text-center">
+                            <td class="text-center acciones-columna">
                                     <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(est.Id))">
                                         <i class="bi bi-search" title="Ver detalles"></i>
                                     </button>

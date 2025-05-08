@@ -17,6 +17,7 @@ using System.ComponentModel;
 using ClosedXML.Excel;
 using Microsoft.JSInterop;
 using DocumentFormat.OpenXml.EMMA;
+using BonosAyto.Components.Templates;
 
 
 namespace BonosAyto.Components.Pages.Beneficiaros
@@ -45,8 +46,11 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
-        private IJSRuntime JS { get; set; } 
-        private string tituloDetalleBeneficiario { get; set; }
+        private IJSRuntime JS { get; set; }
+        //   private string tituloDetalleBeneficiario { get; set; }
+
+        private DetallesTemplate detallesTemplate;
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -82,7 +86,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             bonoContext = new EditContext(bonoAsig);
             messageStore = new ValidationMessageStore(bonoContext);
 
-            titulo();
+          //  titulo();
         }
         private async Task ModificarBeneficiario()         //modificar beneficiarios           
         {
@@ -116,14 +120,15 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 AbrirModal("EliminarError");
                 return;
             }
-
-            titulo();
+            detallesTemplate.VerDetalle();
+            // titulo();
         }
-
+        /*
         private void titulo()
         {
             tituloDetalleBeneficiario = $"Información de {detalleB.Nombre} {detalleB.PrimerApellido} {detalleB.SegundoApellido}";
         }
+        */
 
         private void AutoCaducidad()
         {

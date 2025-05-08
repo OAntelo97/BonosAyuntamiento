@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
+using BonosAyto.Components.Templates;
 
 namespace BonosAyto.Components.Pages.Establecimientos
 {
@@ -38,6 +39,7 @@ namespace BonosAyto.Components.Pages.Establecimientos
         private string tituloError = "";
         private string MensajeErrorEliminar = "";
 
+        private DetallesTemplate detallesTemplate;
 
 
         private string tituloDetalleEstablecimiento { get; set; }
@@ -72,7 +74,8 @@ namespace BonosAyto.Components.Pages.Establecimientos
                 AbrirModal("EliminarError");
                 return;
             }
-            VerDetalleEditar("ver", detalleE.Id);
+            detallesTemplate.VerDetalle();
+//            VerDetalleEditar("ver", detalleE.Id);
         }
 
         private void titulo()
@@ -123,6 +126,11 @@ namespace BonosAyto.Components.Pages.Establecimientos
                     break;
             }
             return res;
+        }
+
+        private void VolverAtras()
+        {
+            Navigate.NavigateTo("/establecimientos");
         }
     }
 }

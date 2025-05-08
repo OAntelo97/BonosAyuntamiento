@@ -54,7 +54,7 @@
                     <tr>
                         <th class="nombre-columna">Nombre</th>
                         <th>Email</th>
-                        <th class="text-center">Acciones</th>
+                        <th class="text-center acciones-columna">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,12 +63,12 @@
                         <tr>
                             <td class="nombre-columna">@usuario.Usuario</td>
                             <td>@usuario.Email</td>
-                            <td class="text-center">
+                            <td class="text-center acciones-columna">
                                 <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(usuario.Id))">
                                     <i class="bi bi-search" title="Ver detalles"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(usuario.Id))">
-                                    <i class="bi bi-pencil" title="Editar campos"></i>
+                                    <i class="bi bi-pencil pen" title="Editar campos"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = usuario.Id;AbrirModal("AlertaEliminar");})">
                                     <i class="bi bi-trash" title="Eliminar usuario"></i>
