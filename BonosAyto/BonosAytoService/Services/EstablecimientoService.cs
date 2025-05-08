@@ -77,17 +77,17 @@ namespace BonosAytoService.Services
                 BeneficiarioDTO beneficiario = await beneficiarioService.Consultar(bono.IdBeneficiario);
                 BenCanjBonEst benCanjBonEst = new BenCanjBonEst
                 {
-                    establecimiento= establecimiento,
-                    canjeo= canjeo,
+                    establecimiento = establecimiento,
+                    canjeo = canjeo,
                     bono = bono,
-                    beneficiario  = beneficiario
+                    beneficiario = beneficiario
                 };
                 res.Add(benCanjBonEst);
             }
 
             return res;
         }
-        public async Task<(int,float)> ConsultarMetricas(int id)
+        public async Task<(int, float)> ConsultarMetricas(int id)
         {
             return await _dao.ConsultarMetricas(id);
         }
@@ -109,7 +109,7 @@ namespace BonosAytoService.Services
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var (fechaInicio, fechaFin) = ObtenerRangoTrimestreEnCurso();
-            Console.WriteLine("FECHA DE INNICIOOOOOOOO: "+fechaInicio);
+            Console.WriteLine("FECHA DE INNICIOOOOOOOO: " + fechaInicio);
             var query = @"
                 SELECT 
                     'Todos' AS NombreEstablecimiento,
@@ -148,7 +148,6 @@ namespace BonosAytoService.Services
                 FROM Canjeos c
                 JOIN Bonos b ON c.IdBono = b.Id
                 JOIN Establecimientos e ON c.IdEstablecimiento = e.Id";
-                
             if (soloTrimestreActivo)
             {
                 //si es solo en el trimestre activo
@@ -266,7 +265,8 @@ namespace BonosAytoService.Services
             int mes = hoy.Month;
             int trimestre = 1;
 
-            switch (mes){
+            switch (mes)
+            {
                 case 1:
                 case 2:
                 case 3:
@@ -388,9 +388,6 @@ namespace BonosAytoService.Services
 
             return meses;
         }
-
-
-
 
     }
 }

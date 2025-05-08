@@ -11,7 +11,7 @@ namespace BonosAytoService.DAOs
         {
             using var conection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "INSERT INTO Establecimientos (Nombre, NIF, Direccion, CodigoPostal, Telefono, Email, UsuarioMod, FechaMod) VALUES (@Nombre, @NIF, @Direccion, @CodigoPostal, @Telefono, @Email, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-            
+
             try
             {
                 return await conection.QuerySingleAsync<int>(sql, establecimiento);

@@ -40,6 +40,8 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         private int IdElimunar = 0;
         private string MensajeErrorEliminar = "";
         private string tituloError = "";
+        [Parameter] public string? Modo { get; set; }
+        private bool EsModoLectura => Modo?.ToLower() != "editar";
 
         private IEnumerable<BonoDTO> listaBonos = [];
         [Inject]
@@ -145,12 +147,28 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             }
         }
 
+        /*
+        private void VerDetalle()
+        {
+            Navigate.NavigateTo($"/beneficiarios/ver/{Id}");
+        }
+        private void Editar()
+        {
+            Navigate.NavigateTo($"/beneficiairos/editar/{Id}");
+        }
+        */
+        private void VolverAtras()
+        {
+            Navigate.NavigateTo("/beneficiarios");
+        }
+
+
         //botones accion
-        private void VerDetalle(int id)
+        private void VerDetalleBono(int id)
         {
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
         }
-        private void Modificar(int id)
+        private void ModificarBono(int id)
         {
             Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
         }

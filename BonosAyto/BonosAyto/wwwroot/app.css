@@ -76,5 +76,6 @@ h5 {
 }
 
 .pen {
+    display: inline-block;
     transform: scaleX(-1);
 }
