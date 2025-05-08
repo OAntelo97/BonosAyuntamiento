@@ -17,7 +17,7 @@ namespace BonosAytoService.DAOs
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "INSERT INTO Bonos (IdBeneficiario, TipoServicio, FechaInicio, FechaCaducidad, Importe, Activados, Canjeados, Caducados, UsuarioMod, FechaMod) VALUES " +
                 "(@IdBeneficiario, @TipoServicio, @FechaInicio, @FechaCaducidad, @Importe, @Activados, @Canjeados, @Caducados, @UsuarioMod, @FechaMod); SELECT CAST(SCOPE_IDENTITY() AS INT);";
-            
+
             try
             {
                 int valorAsignado = await connection.QuerySingleAsync<int>(sql, bono);
@@ -28,8 +28,6 @@ namespace BonosAytoService.DAOs
                 return -1;
             }
         }
-
-
 
         public async Task<Bono?> Consultar(int id)
         {
@@ -44,8 +42,6 @@ namespace BonosAytoService.DAOs
             var sql = "SELECT Id, IdBeneficiario, TipoServicio, FechaInicio, FechaCaducidad, Importe, Activados, Canjeados, Caducados, UsuarioMod, FechaMod FROM Bonos WHERE IdBeneficiario=@IdBeneficiario ORDER BY FechaInicio ASC";
             return await connection.QueryAsync<Bono>(sql, new { IdBeneficiario = idBeneficiario });
         }
-
-
 
         public async Task<IEnumerable<Bono>> Listar()
         {
@@ -72,38 +68,12 @@ namespace BonosAytoService.DAOs
             return await connection.QueryAsync<Bono>(sqlBonos, new { Id = id, F1 = f1, F2 = f2 });
         }
 
-        public IEnumerable<Bono> Listar(int id)
-        {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-            var sql = "SELECT * FROM Bonos where IdBeneficiario=@Id ORDER BY FechaInicio ASC";
-            return connection.Query<Bono>(sql, new { Id = id });
-        }
-        public IEnumerable<Bono> ListarFiltT(int id)
-        {
-            using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
-
-            var sqlFecha = "SELECT MAX(FechaCaducidad) FROM Bonos WHERE IdBeneficiario = @Id";
-            var maxFecha = connection.ExecuteScalar<DateTime?>(sqlFecha, new { Id = id });
-
-            if (maxFecha == null)
-                return Enumerable.Empty<Bono>();
-
-            var f2 = maxFecha.Value;
-            var f1 = f2.AddMonths(-3);
-
-            var sqlBonos = "SELECT * FROM Bonos WHERE IdBeneficiario = @Id AND FechaCaducidad BETWEEN @F1 AND @F2 ORDER BY FechaInicio ASC";
-
-            return connection.Query<Bono>(sqlBonos, new { Id = id, F1 = f1, F2 = f2 });
-        }
-
-
-
         public async Task<bool> Actualizar(Bono bono)
         {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "UPDATE Bonos SET IdBeneficiario=@IdBeneficiario, TipoServicio=@TipoServicio, FechaInicio=@FechaInicio, FechaCaducidad=@FechaCaducidad," +
                 " Importe=@Importe, Activados=@Activados, Canjeados=@Canjeados, Caducados=@Caducados, UsuarioMod=@UsuarioMod, FechaMod=@FechaMod WHERE ID=@Id";
-            
+
             try
             {
                 return await connection.ExecuteAsync(sql, bono) > 0;
@@ -113,8 +83,6 @@ namespace BonosAytoService.DAOs
                 return false;
             }
         }
-
-
 
         public async Task<int> Eliminar(int id)
         {
@@ -138,10 +106,11 @@ namespace BonosAytoService.DAOs
             }
         }
 
-        public bool EliminarTalonarios(int id) {
+        public bool EliminarTalonarios(int id)
+        {
             using var connection = new SqlConnection(ConexionBD.CadenaDeConexion());
             var sql = "DELETE FROM Bonos WHERE IdBeneficiario=@Id";
-            return connection.Execute(sql, new { Id= id }) > 0;
+            return connection.Execute(sql, new { Id = id }) > 0;
         }
     }
 }

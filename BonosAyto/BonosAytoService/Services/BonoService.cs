@@ -15,7 +15,6 @@ namespace BonosAytoService.Services
         private readonly BonoDAO _dao;
         private readonly IMapper _mapper;
 
-
         public BonoService()
         {
             _dao = new BonoDAO();
@@ -37,8 +36,6 @@ namespace BonosAytoService.Services
             return await _dao.Insertar(bono);
         }
 
-
-
         public async Task<BonoDTO?> Consultar(int id)
         {
             var bono = await _dao.Consultar(id);
@@ -50,31 +47,19 @@ namespace BonosAytoService.Services
             var lista = await _dao.ConsultarPorBeneficiario(idBeneficiario);
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
         }
-        public IEnumerable<BonoDTO> Listar(int Id)
-        {
-            var lista = _dao.Listar(Id).OrderBy(b => b.FechaInicio);
-            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
-            return mapped;
-        }
-        public IEnumerable<BonoDTO> ListarFiltT(int Id)
-        {
-            var lista = _dao.ListarFiltT(Id).OrderBy(b => b.FechaInicio);
-            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
-            return mapped;
-        }
 
         public async Task<IEnumerable<BonoDTO>> Listar()
         {
             var lista = await _dao.Listar();
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
         }
+
         public async Task<IEnumerable<BonoDTO>> ListarFiltT(int Id)
         {
             var lista = (await _dao.ListarFiltT(Id)).OrderBy(b => b.FechaInicio);
             var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
             return mapped;
         }
-
 
         public async Task<bool> Actualizar(BonoDTO bonoDTO)
         {
@@ -83,7 +68,6 @@ namespace BonosAytoService.Services
             bono.UsuarioMod = GlobalVariables.usuario.Id;
             return await _dao.Actualizar(bono);
         }
-
 
         public async Task<int> Eliminar(int id)
         {
@@ -95,6 +79,5 @@ namespace BonosAytoService.Services
 
             return _dao.EliminarTalonarios(id);
         }
-
     }
 }
