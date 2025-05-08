@@ -1,4 +1,5 @@
 ﻿using BonosAytoService.Model;
+using BonosAytoService.Services;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;

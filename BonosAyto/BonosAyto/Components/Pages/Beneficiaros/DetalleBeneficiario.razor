@@ -1,4 +1,4 @@
-﻿@page "/beneficiarios/detallebeneficiario/{Id:int}"
+@page "/beneficiarios/detallebeneficiario/{Id:int}"
 @using BonosAytoService.DTOs
 @using BonosAyto.Components.DataTables
 @inject NavigationManager Navigate
@@ -30,7 +30,7 @@
                     <div class="border border-dark my-3 me-3 p-3">
                         <EditForm Model="detalleValid" class="w-50 mx-auto" OnValidSubmit="@ModificarBeneficiario">
                             <DataAnnotationsValidator />
-                            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+                            <ValidationSummary />
 
                             <label for="nombre">Nombre</label>
                             <InputText id="nombre" disabled="@(!edit)" @bind-Value="detalleValid.Nombre" class="form-control" />
@@ -80,7 +80,7 @@
 
                         <EditForm Model="bonoAsig" OnValidSubmit="@AgregarBono">
                             <DataAnnotationsValidator />
-                            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+                            <ValidationSummary />
 
                             <InputSelect @bind-Value="bonoAsig.TipoServicio" class="form-select">
                                 <!--cambiar valores-->

@@ -139,6 +139,71 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
         private async Task AgregarBono()
         {
+            listaBonos = bonoService.Listar(Id);
+
+            BonoDTO bonoDTO = new BonoDTO
+            {
+                IdBeneficiario = Id,
+                TipoServicio = bonoAsig.TipoServicio,
+                FechaInicio = bonoAsig.FechaInicio,
+                FechaCaducidad = bonoAsig.FechaCaducidad,
+                Importe = bonoAsig.Importe + "€",
+                Activados = bonoAsig.Activados,
+                Canjeados = 0,
+                Caducados = 0
+            };
+
+            int nuevoId = bonoService.Insertar(bonoDTO);
+            listaBonos = bonoService.Listar(Id);
+            bonoAsig.reset();
+        }
+
+        public string TipoServicioNombre(char c)
+        {
+            switch (c)
+            {
+                case 'R': return "Restaurante";
+                default: return "Tipo inválido";
+            }
+        }
+
+        //botones accion
+        private void VerDetalle(int id)
+        {
+            Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=false");
+        }
+        private void Modificar(int id)
+        {
+            Navigate.NavigateTo($"/bonos/detalletalonario/{id}?edit=true");
+        }
+
+        private bool filtT = false;
+        public async Task FiltrarTri() {
+            if (filtT) {
+                filtT = false;
+                listaBonos = bonoService.Listar(Id);
+            }
+            else
+            {
+                filtT = true;
+                //filtrar
+                listaBonos=bonoService.ListarFiltT(Id);
+            }
+        }
+
+        private async Task Borrar(int id)
+        {
+            bool confirmed = await JS.InvokeAsync<bool>("confirm", $"¿Está seguro de que desea borrar este talonario?");
+            if (confirmed)
+            {
+                bonoService.Eliminar(id);
+                listaBonos = bonoService.Listar(Id);
+            }
+        }
+
+
+        private async Task AgregarBono()
+        {
             listaBonos = await bonoService.ConsultarPorBeneficiario(Id);
 
             BonoDTO bonoDTO = new BonoDTO

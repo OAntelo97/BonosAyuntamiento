@@ -10,11 +10,16 @@ using ClosedXML.Excel;
 using System.Threading.Tasks;
 using BonosAytoService.Model;
 using Microsoft.JSInterop;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.JSInterop;
+using BonosAytoService.Model;
+
+
 
 
 namespace BonosAyto.Components.Pages.Beneficiaros
 {
-    public partial class ListadoAltaBeneficiarios     
+    public partial class ListadoAltaBeneficiarios
     {
         AltaBen modeloAlta = new AltaBen(); //clase de validacion
 
@@ -65,8 +70,7 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 Direccion = modeloAlta.Direccion,
                 Email = modeloAlta.Email,
                 CodigoPostal = modeloAlta.CodigoPostal,
-                Telefono = modeloAlta.Telefono,
-                UsuarioMod = 0                                //Cambiar UsuarioMod
+                Telefono = modeloAlta.Telefono
             };
             ;
             int res = await beneficiarioService.Insertar(ben);
@@ -121,11 +125,11 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         //botones accion
         private void VerDetalle(int Id)
         {
-            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}");
+            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}?edit=false");
         }
         private void Modificar(int Id)
         {
-            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}");
+            Navigate.NavigateTo($"/beneficiarios/detallebeneficiario/{Id}?edit=true");
         }
         private async Task Borrar(int Id)
         {
@@ -176,9 +180,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
 
                     var nuevosBeneficiarios = new List<BeneficiarioDTO>();
 
-                    int currentRow = 2; 
+                    int currentRow = 2;
 
-                    foreach (var row in rows)  //recorrer
+                    foreach (var row in rows)
                     {
                         var alta = new AltaBen
                         {
@@ -195,9 +199,9 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                         var context = new ValidationContext(alta);
                         var results = new List<ValidationResult>();
 
-                        bool isValid = Validator.TryValidateObject(alta, context, results, true);  //validar
-                          
-                        if (isValid)  
+                        bool isValid = Validator.TryValidateObject(alta, context, results, true);
+
+                        if (isValid)
                         {
                             nuevosBeneficiarios.Add(new BeneficiarioDTO
                             {
@@ -263,8 +267,5 @@ namespace BonosAyto.Components.Pages.Beneficiaros
             }
             cargando = false;
         }
-
-
-
     }
 }

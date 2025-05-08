@@ -50,6 +50,18 @@ namespace BonosAytoService.Services
             var lista = await _dao.ConsultarPorBeneficiario(idBeneficiario);
             return _mapper.Map<IEnumerable<BonoDTO>>(lista);
         }
+        public IEnumerable<BonoDTO> Listar(int Id)
+        {
+            var lista = _dao.Listar(Id).OrderBy(b => b.FechaInicio);
+            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
+            return mapped;
+        }
+        public IEnumerable<BonoDTO> ListarFiltT(int Id)
+        {
+            var lista = _dao.ListarFiltT(Id).OrderBy(b => b.FechaInicio);
+            var mapped = _mapper.Map<IEnumerable<BonoDTO>>(lista);
+            return mapped;
+        }
 
         public async Task<IEnumerable<BonoDTO>> Listar()
         {
@@ -76,6 +88,12 @@ namespace BonosAytoService.Services
         public async Task<int> Eliminar(int id)
         {
             return await _dao.Eliminar(id);
+        }
+
+        public bool EliminarTalonariosBeneficiario(int id)
+        {
+
+            return _dao.EliminarTalonarios(id);
         }
 
     }
