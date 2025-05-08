@@ -21,8 +21,8 @@ namespace BonosAytoService.Services
         {
             _dao = new UsuarioDAO();
             var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Usuarios, UsuarioDTO>();
-                cfg.CreateMap<UsuarioDTO, Usuarios>();
+                cfg.CreateMap<Usuario, UsuarioDTO>();
+                cfg.CreateMap<UsuarioDTO, Usuario>();
             });
             _mapper = config.CreateMapper();
 
@@ -30,7 +30,7 @@ namespace BonosAytoService.Services
 
         public async Task<int> Insertar(UsuarioDTO user)
         {
-            var umap = _mapper.Map<Usuarios>(user);
+            var umap = _mapper.Map<Usuario>(user);
             umap.FechaMod = DateTime.Now;
             umap.UsuarioMod = GlobalVariables.usuario.Id;
             return await _dao.Insertar(umap);
@@ -50,7 +50,7 @@ namespace BonosAytoService.Services
 
         public async Task<int> comprobarUsuario(UsuarioDTO user)
         {
-            var umap = _mapper.Map<Usuarios>(user);
+            var umap = _mapper.Map<Usuario>(user);
             return await _dao.comprobarUsuario(umap);
         }
 
@@ -63,7 +63,7 @@ namespace BonosAytoService.Services
 
         public async Task<int> Actualizar(UsuarioDTO user)
         {
-            var umap = _mapper.Map<Usuarios>(user);
+            var umap = _mapper.Map<Usuario>(user);
             umap.FechaMod = DateTime.Now;
             umap.UsuarioMod = GlobalVariables.usuario.Id;
             return await _dao.Actualizar(umap);

@@ -106,7 +106,7 @@ namespace BonosAyto.Components.Pages.Login
             LoginViewModel usuarioLogin = new LoginViewModel
             {
                 Id  = GlobalVariables.usuario.Id,
-                Usuario = GlobalVariables.usuario.Usuario,
+                Usuario = GlobalVariables.usuario.Nick,
                 Rol = GlobalVariables.usuario.Rol
             };
             await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));

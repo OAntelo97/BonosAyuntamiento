@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BonosAytoService.Models
 {
-    public class Usuarios
+    public class Usuario
     {
         public int Id { get; set; }
-        public string Usuario { get; set; }
+        public string Nick { get; set; }
         public string Pass { get; set; }
         public char Rol { get; set; }
         public string? Email { get; set; }

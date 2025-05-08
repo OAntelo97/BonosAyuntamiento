@@ -10,7 +10,7 @@ namespace BonosAytoService.DTOs
     public partial class UsuarioDTO
     {
         public int Id { get; set; }
-        public string Usuario { get; set; }
+        public string Nick { get; set; }
         public string Pass { get; set; }
         public char Rol { get; set; }
 

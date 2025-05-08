@@ -8,7 +8,7 @@
             <DataAnnotationsValidator />
             <div class="mb-3">
                 <label for="usuario" class="form-label">Usuario</label>
-                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+                <InputText id="usuario" @bind-Value="usuario.Nick" class="form-control" placeholder="Usuario" required />
             </div>
             <div class="mb-3">
                 <label for="pass" class="form-label">Contraseña</label>
@@ -61,7 +61,7 @@
                     @foreach (var usuario in usuarios)
                     {
                         <tr>
-                            <td class="nombre-columna">@usuario.Usuario</td>
+                            <td class="nombre-columna">@usuario.Nick</td>
                             <td>@usuario.Email</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(usuario.Id))">

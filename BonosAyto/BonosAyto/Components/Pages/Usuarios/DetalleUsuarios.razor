@@ -12,7 +12,7 @@
             {
                 <!-- Usuario -->
                 <label for="usuario">Usuario</label>
-                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" required />
+                <InputText id="usuario" @bind-Value="usuario.Nick" class="form-control mb-2" required />
 
                 <!-- Rol, en el form de la vista se muestran los nombres pero a la bd se envia la inicial: 'G', 'S', 'C' -->
                 <label for="rol">Rol</label>
@@ -49,7 +49,7 @@
             {
                 <!-- Usuario -->
                 <label for="usuario">Usuario</label>
-                <InputText id="usuario" @bind-Value="usuario.Usuario" class="form-control mb-2" disabled />
+                <InputText id="usuario" @bind-Value="usuario.Nick" class="form-control mb-2" disabled />
 
                 <!-- Rol, en el form de la vista se muestran los nombres pero a la bd se envia la inicial: 'G', 'S', 'C' -->
                 <label for="rol">Rol</label>
