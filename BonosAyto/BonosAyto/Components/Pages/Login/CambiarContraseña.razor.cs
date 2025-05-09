@@ -1,6 +1,7 @@
 ﻿using Blazorise;
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace BonosAyto.Components.Pages.Login
@@ -12,6 +13,9 @@ namespace BonosAyto.Components.Pages.Login
         private string mesageError = "";
 
         private (string contrasena, string repetido) nuevaContrasena  = ("", "");
+        [Parameter]
+        public int? Id { get; set; }
+
 
         protected override void OnInitialized()
         {

@@ -111,7 +111,6 @@ namespace BonosAyto.Components.Pages.Login
             //var client = ClientFactory.CreateClient("LoginApi");
             //var response = await client.PostAsJsonAsync("api/auth/login", usuarioLogin);
             var respuesta = await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
-            StateHasChanged();
 
             Navigate.NavigateTo("/home", forceLoad: true);
         }

@@ -1,8 +1,14 @@
 ﻿@layout LoginLayout
-@page "/login/CambiarContrasena"
+@page "/login/CambiarContrasena/{Id:int?}"
 
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigate
 @using BonosAyto.Components.Layout
+
+@if(Id != null)
+{
+	@attribute [Authorize(]
+}
 
 <HeadContent>
 	<link href="CSS/EstilosLogin.css" rel="stylesheet" />

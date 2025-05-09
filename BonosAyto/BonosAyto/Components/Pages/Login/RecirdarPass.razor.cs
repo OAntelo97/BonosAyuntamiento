@@ -1,7 +1,10 @@
-﻿using BonosAytoService.DTOs;
+﻿using System.Text.Json;
+using BonosAytoService.DTOs;
 using BonosAytoService.Services;
+using BonosAytoService.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace BonosAyto.Components.Pages.Login
 {
@@ -12,6 +15,12 @@ namespace BonosAyto.Components.Pages.Login
         private string mesageError = "";
         [Inject]
         private EmailService EmailService { get; set; }
+        [Inject]
+        private IJSRuntime JS { get; set; }
+        private string codigo = "";
+        private string usuairoCodigo = "";
+        private string correoMostrar = "";
+        private string textoRenviarCodigo = "¿No ha recibido el código? Pulse aquí para reenviarlo.";
 
         protected override void OnInitialized()
         {
@@ -23,30 +32,66 @@ namespace BonosAyto.Components.Pages.Login
             mesageError = "";
 
             int id = await UsuarioService.comprobarNombreUsuario(usuario);
-            if (id == -1)
+            if(codigo == null)
             {
-                mesageError = "No se a encontrado un usuario con este nombre";
-            }
-            else
-            {
-                usuario = await UsuarioService.Consultar(id);
-                if (usuario.Email == null)
+                if (id == -1)
                 {
-                    mesageError = "Este usuario no tiene un correo electrónico asociado para recuperar la contraseña.";
+                    mesageError = "No se a encontrado un usuario con este nombre";
                 }
                 else
                 {
-                    //await EmailService.SendEmailAsync(usuario.Email, "peuba", "prueba  envio de correo");
-                    Navigate.NavigateTo("/login");
+                    usuario = await UsuarioService.Consultar(id);
+                    if (usuario.Email == null)
+                    {
+                        mesageError = "Este usuario no tiene un correo electrónico asociado para recuperar la contraseña.";
+                    }
+                    else
+                    {
+                        //await EmailService.SendEmailAsync(usuario.Email, "peuba", "prueba  envio de correo");
+                        mesageError = "";
+                        string[] correioPartido = usuario.Email.Split('@');
+                        correoMostrar = correioPartido[0].Substring(0, 2) + "......." + correioPartido[0].Substring(correioPartido[0].Length, 2) + "@" + correioPartido[1];
+                        //Navigate.NavigateTo("/login");
+                        EnviarCodigo();
+                    }
+                }
+            }
+            else
+            {
+                if (codigo != HashUtil.ObtenerHashSHA256(usuairoCodigo))
+                {
+                    mesageError = "El codigo introducido no conincide.";
+                    textoRenviarCodigo = "Reenviar código";
+                }
+                else
+                {
+                    Authenticate();
                 }
             }
         }
 
+        private void EnviarCodigo()
+        {
+            if(codigo != null)
+            {
+                textoRenviarCodigo = "El código ha sido reenviado correctamente.";
+            }
+            codigo = HashUtil.GenerarCodigoAlfanumerico(8);
+            Console.WriteLine(codigo);
+            codigo = HashUtil.ObtenerHashSHA256(codigo);
+        }
+
         private async Task Authenticate()
         {
-            //await UsuarioService.ActualizarContrasena(GlobalVariables.usuario);
+            LoginViewModel usuarioLogin = new LoginViewModel
+            {
+                Id = GlobalVariables.usuario.Id,
+                Usuario = GlobalVariables.usuario.Usuario,
+                Rol = GlobalVariables.usuario.Rol
+            };
+            var respuesta = await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
 
-            Navigate.NavigateTo("/login");
+            Navigate.NavigateTo("/home", forceLoad: true);
         }
     }
 }

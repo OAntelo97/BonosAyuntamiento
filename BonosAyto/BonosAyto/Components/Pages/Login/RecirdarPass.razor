@@ -15,9 +15,19 @@
 			<DataAnnotationsValidator />
 
 			<div class="form-floating mt-4">
-				<input id="usuario" @bind-value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+				<input id="usuario" @bind-value="usuario.Usuario" disabled="@(codigo != "")" class="form-control" placeholder="Usuario" required />
 				<label for="floatingInput">Usuario</label>
 			</div>
+
+			@if (codigo != "")
+			{
+				<p>Se ha enviado un correo a la dirección @(correoMostrar) con un código de verificación. Por favor, introduzca el código en el campo que aparece a continuación."</p>
+				<div class="form-floating mt-4">
+					<input id="usuario" @bind-value="usuairoCodigo" class="form-control" placeholder="Código" required />
+					<label for="floatingInput">Código</label>
+				</div>
+				<a href="#" @onclick="EnviarCodigo" class="d-block text-secondary mt-2">@textoRenviarCodigo</a>
+			}
 
 			@if (!string.IsNullOrEmpty(mesageError))
 			{
