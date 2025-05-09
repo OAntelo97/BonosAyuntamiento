@@ -14,8 +14,6 @@ namespace BonosAyto.Components.Pages.Login
         public UsuarioService UsuarioService { get; set; } = new UsuarioService();
         private string mesageError = "";
         [Inject]
-        private EmailService EmailService { get; set; }
-        [Inject]
         private IJSRuntime JS { get; set; }
         private string codigo = "";
         private string usuairoCodigo = "";
@@ -32,7 +30,7 @@ namespace BonosAyto.Components.Pages.Login
             mesageError = "";
 
             int id = await UsuarioService.comprobarNombreUsuario(usuario);
-            if(codigo == null)
+            if(codigo == "")
             {
                 if (id == -1)
                 {
@@ -50,7 +48,7 @@ namespace BonosAyto.Components.Pages.Login
                         //await EmailService.SendEmailAsync(usuario.Email, "peuba", "prueba  envio de correo");
                         mesageError = "";
                         string[] correioPartido = usuario.Email.Split('@');
-                        correoMostrar = correioPartido[0].Substring(0, 2) + "......." + correioPartido[0].Substring(correioPartido[0].Length, 2) + "@" + correioPartido[1];
+                        correoMostrar = correioPartido[0].Substring(0, 2) + "......." + correioPartido[0].Substring(correioPartido[0].Length-2, 2) + "@" + correioPartido[1];
                         //Navigate.NavigateTo("/login");
                         EnviarCodigo();
                     }
@@ -65,6 +63,7 @@ namespace BonosAyto.Components.Pages.Login
                 }
                 else
                 {
+                    GlobalVariables.usuario = usuario;
                     Authenticate();
                 }
             }
@@ -72,7 +71,7 @@ namespace BonosAyto.Components.Pages.Login
 
         private void EnviarCodigo()
         {
-            if(codigo != null)
+            if(codigo != "")
             {
                 textoRenviarCodigo = "El código ha sido reenviado correctamente.";
             }
@@ -91,7 +90,7 @@ namespace BonosAyto.Components.Pages.Login
             };
             var respuesta = await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
 
-            Navigate.NavigateTo("/home", forceLoad: true);
+            Navigate.NavigateTo($"/login/CambiarContrasena/{usuario.Id}", forceLoad: true);
         }
     }
 }

@@ -21,12 +21,12 @@
 
 			@if (codigo != "")
 			{
-				<p>Se ha enviado un correo a la dirección @(correoMostrar) con un código de verificación. Por favor, introduzca el código en el campo que aparece a continuación."</p>
+				<p class="text-start">Se ha enviado un correo a la dirección @(correoMostrar) con un código de verificación. Por favor, introduzca el código en el campo que aparece a continuación.</p>
 				<div class="form-floating mt-4">
 					<input id="usuario" @bind-value="usuairoCodigo" class="form-control" placeholder="Código" required />
 					<label for="floatingInput">Código</label>
 				</div>
-				<a href="#" @onclick="EnviarCodigo" class="d-block text-secondary mt-2">@textoRenviarCodigo</a>
+				<a href="javascript:void(0)" @onclick="EnviarCodigo" class="d-block text-secondary mt-2">@textoRenviarCodigo</a>
 			}
 
 			@if (!string.IsNullOrEmpty(mesageError))

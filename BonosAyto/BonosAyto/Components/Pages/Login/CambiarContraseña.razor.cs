@@ -1,6 +1,8 @@
-﻿using Blazorise;
+﻿using System.Security.Claims;
+using Blazorise;
 using BonosAytoService.DTOs;
 using BonosAytoService.Services;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -13,13 +15,32 @@ namespace BonosAyto.Components.Pages.Login
         private string mesageError = "";
 
         private (string contrasena, string repetido) nuevaContrasena  = ("", "");
+        private bool autorizado = false;
         [Parameter]
         public int? Id { get; set; }
 
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            UsuarioService = new UsuarioService();
+            if (Id != null) {
+                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                var user = authState.User;
+
+                if (user.Identity is { IsAuthenticated: true })
+                {
+                    string userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                    if (userId == Id.ToString())
+                    {
+                        usuario = await UsuarioService.Consultar(Id ?? 0);
+
+                    }
+                    else
+                    {
+                        Navigate.NavigateTo("/login/CambiarContrasena");
+                    }
+                }
+            }
         }
 
         private async Task Validaciones()
@@ -27,7 +48,7 @@ namespace BonosAyto.Components.Pages.Login
             mesageError = "";
 
             int id = await UsuarioService.comprobarUsuario(usuario);
-            if (id == -1)
+            if (id == -1 && Id == null)
             {
                 mesageError = "El nombre de usuario o la contraseña no son correctos";
             }
@@ -37,7 +58,7 @@ namespace BonosAyto.Components.Pages.Login
             }
             else
             {
-                Authenticate(await UsuarioService.Consultar(id));
+                Authenticate(Id == null ? await UsuarioService.Consultar(id): usuario);
             }
         }
 

@@ -19,6 +19,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.Cookie.Name = "UsId";
         options.LoginPath = "/login";
+        options.AccessDeniedPath = "/login";
         options.Cookie.MaxAge = TimeSpan.FromDays(30);
     });
 builder.Services.AddHttpContextAccessor();

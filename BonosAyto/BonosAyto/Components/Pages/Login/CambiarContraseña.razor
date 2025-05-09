@@ -1,5 +1,6 @@
 ﻿@layout LoginLayout
 @page "/login/CambiarContrasena/{Id:int?}"
+@using Microsoft.AspNetCore.Components.Authorization;
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigate
@@ -7,7 +8,7 @@
 
 @if(Id != null)
 {
-	@attribute [Authorize(]
+	@attribute [Authorize]
 }
 
 <HeadContent>
@@ -20,14 +21,18 @@
 		<EditForm Model="usuario" OnValidSubmit="Validaciones">
 			<DataAnnotationsValidator />
 
-			<div class="form-floating mt-4">
-				<input id="usuario" @bind-value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
-				<label for="floatingInput">Usuario</label>
-			</div>
-			<div class="form-floating">
-				<input type="password" id="pass" @bind-value="usuario.Pass" class="form-control mt-3" placeholder="Contraseña anterior" required />
-				<label for="floatingPassword">Contraseña anterior</label>
-			</div>
+			@if (Id == null)
+			{
+				<div class="form-floating mt-4">
+					<input id="usuario" @bind-value="usuario.Usuario" class="form-control" placeholder="Usuario" required />
+					<label for="floatingInput">Usuario</label>
+				</div>
+				<div class="form-floating">
+					<input type="password" id="pass" @bind-value="usuario.Pass" class="form-control mt-3" placeholder="Contraseña anterior" required />
+					<label for="floatingPassword">Contraseña anterior</label>
+				</div>
+			}
+			
 			<div class="form-floating">
 				<input type="password" id="newPass" @bind-value="nuevaContrasena.contrasena" class="form-control mt-3" placeholder="Contraseña nueva" required />
 				<label for="floatingPassword">Contraseña nueva</label>
