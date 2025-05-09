@@ -34,7 +34,7 @@ namespace BonosAyto.Components.Pages.Login
             validationMessageStore = new(editContext);
             //HttpContext = httpContextAccessor.HttpContext;
 
-            editContext.OnValidationRequested += Validaciones;
+            editContext.OnValidationRequested += (object sender, ValidationRequestedEventArgs e) => { validationMessageStore.Clear(); };
             //var token = httpContextAccessor.HttpContext.Request.Cookies["UsId"];
             //if (token != null)
             //{
@@ -63,8 +63,8 @@ namespace BonosAyto.Components.Pages.Login
 
         async void IniciarSesion(object sender, ValidationRequestedEventArgs e)
         {
-            validationMessageStore.Clear();
 
+            validationMessageStore.Clear();
 
             int id = await UsuarioService.comprobarUsuario(usuario);
 
@@ -111,14 +111,12 @@ namespace BonosAyto.Components.Pages.Login
             };
             await JS.InvokeAsync<string>("cookieHelper.authLogin", JsonSerializer.Serialize(usuarioLogin));
             
-            Navigate.NavigateTo("/home");
+            Navigate.NavigateTo("/home", forceLoad: true);
         }
         
 
-        private async void Validaciones(object sender, ValidationRequestedEventArgs e)
+        private async Task Validaciones()
         {
-            validationMessageStore.Clear();
-
             int id = await UsuarioService.comprobarUsuario(usuario);
             if (id == -1)
             {
@@ -127,7 +125,8 @@ namespace BonosAyto.Components.Pages.Login
             }
             else
             {
-                GlobalVariables.usuario = await UsuarioService.Consultar(id); ;
+                GlobalVariables.usuario = await UsuarioService.Consultar(id);
+                Authenticate();
             }
         }
 
