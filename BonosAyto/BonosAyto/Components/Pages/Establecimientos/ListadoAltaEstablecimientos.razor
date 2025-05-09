@@ -60,28 +60,65 @@
     <RenderListadoFragment>
           <DataTables>
                 <table class="table table-hover align-middle" id="tablaListado">
+                <thead class="table-light">
+                    <tr>
+                        <th class="nombre-columna">Nombre</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th class="text-center acciones-columna">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var est in establecimientos)
+                    {
+                        <tr>
+                            <td class="nombre-columna">
+                                <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    @est.Nombre
+                                </div>
+                            </td> 
+                            <td>@est.Telefono</td>
+                            <td>@est.Email</td>
+                            <td class="text-center acciones-columna">
+                                <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(est.Id))">
+                                    <i class="bi bi-search" title="Ver detalles"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(est.Id))">
+                                    <i class="bi bi-pencil pen" title="Editar campos"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = est.Id;AbrirModal("AlertaEliminar");})">
+                                    <i class="bi bi-trash" title="Eliminar usuario"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+
+                    <!--
+
                     <thead class="table-light">
                         <tr>
-                            <th class="nombre-columna text-truncate">Nombre</th>
+                            <th class="nombre-columna">Nombre</th>
                             <th>Telefono</th>
                             <th>Email</th>
-                        <th class="text-center acciones-columna">Acciones</th>
+                            <th class="text-center acciones-columna">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var est in establecimientos)
                         {
                             <tr>
-                                <td class="nombre-columna text-truncate">@est.Nombre</td>
+                            <td class="nombre-columna text-truncate">@est.Nombre</td>
                                 <td>@est.Telefono</td>
                                 <td>@est.Email</td>
 
-                            <td class="text-center acciones-columna">
+                                <td class="text-center acciones-columna">
                                     <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalle(est.Id))">
                                         <i class="bi bi-search" title="Ver detalles"></i>
                                     </button>
                                     <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => Editar(est.Id))">
-                                        <i class="bi bi-pencil d-inline-block"  style="transform:scaleX(-1);" title="Editar campos"></i>
+                                        <i class="bi bi-pencil pen" title="Editar campos"></i>
                                     </button>
                                     <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = est.Id;AbrirModal("AlertaEliminar");})">
                                         <i class="bi bi-trash" title="Eliminar usuario"></i>
@@ -90,6 +127,7 @@
                             </tr>
                         }
                     </tbody>
+                    -->
                 </table>
            </DataTables>
 

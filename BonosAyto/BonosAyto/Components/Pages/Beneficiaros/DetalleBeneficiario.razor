@@ -72,7 +72,7 @@
     <PestanaContenidoFragment>
          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card border border-2 shadow h-100">
                         <div class="card-header bg-primary text-white text-center">
                             <h5 class="my-1">Asignación de talonarios</h5>
@@ -118,7 +118,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="can">Cantidad</label>
-                                            <InputNumber id="can" @bind-Value="bonoAsig.Activados" />
+                                            <InputNumber id="can" class="w-100" @bind-Value="bonoAsig.Activados" />
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="card border border-2 shadow h-100">
                         <div class="card-header bg-secondary text-white">
                             <h5 class="my-1 text-center">Lista de talonarios</h5>
@@ -144,15 +144,15 @@
                             </div>
 
 
-                            <DataTablesBonos>
+                            <DataTables>
 
-                                <table class="table" id="listaBonosBeneficiario">
+                                <table class="table" id="tablaListado">
                                     <thead class="bg-light ">
                                         <tr>
                                             <th>Tipo servicio</th>
-                                            <th>Fecha inicio</th>
-                                            <th>Fecha cad.</th>
-                                            <th>Importe</th>
+                                            <th>Inicio</th>
+                                            <th>Caducidad</th>
+                                            <th>Imp</th>
                                             <th class=" text-center acciones-columna">Acciones</th>
                                         </tr>
                                     </thead>
@@ -187,7 +187,7 @@
                                         }
                                     </tbody>
                                 </table>
-                            </DataTablesBonos>
+                            </DataTables>
 
                         </div>
                     </div>

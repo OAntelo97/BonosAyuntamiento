@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using BonosAyto.Components.Modales;
 using BonosAytoService.DTOs;
+using BonosAytoService.Models;
 using BonosAytoService.Services;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office2010.Excel;
@@ -72,6 +73,9 @@ namespace BonosAyto.Components.Pages.Establecimientos
 
         protected async override Task OnInitializedAsync()
         {
+          
+
+
             // Obtener todas las inscripciones usando el servicio y un ienumerable
             establecimientos = await EstablecimientoService.Listar();
         }

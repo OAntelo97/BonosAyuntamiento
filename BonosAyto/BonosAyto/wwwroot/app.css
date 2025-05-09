@@ -70,7 +70,7 @@ h5 {
 
 #tablaListado {
     width: 100% !important;
-    table-layout: fixed; 
+    table-layout: fixed;
 }
 
 #tablaListado th,
@@ -80,13 +80,9 @@ h5 {
     white-space: nowrap;
 }
 
-/*
-
 .nombre-columna {
     width: 30%;
 }
-*/
-
 
 .acciones-columna {
     width: 60px;

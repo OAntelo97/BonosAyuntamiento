@@ -25,37 +25,18 @@ namespace BonosAyto.Components.Pages.Beneficiaros
         private BeneficiarioService beneficiarioService = new BeneficiarioService();
 
         private IEnumerable<BeneficiarioDTO> listaBeneficiarios = [];
-        private List<BeneficiarioDTO> beneficiariosFiltrados = new();
         [Inject]
         private IJSRuntime JS { get; set; }
-        private string searchbar = "";
         private string fichero = "Sin selección";
         private int IdElimunar = 0;
         private string MensajeErrorEliminar = ""; 
         private string tituloError = "";
-        private void FiltrarBeneficiarios() //filtrar lista
-        {
-            
-            if (string.IsNullOrWhiteSpace(searchbar))
-            {
-                beneficiariosFiltrados = listaBeneficiarios.ToList();
-            }
-            else
-            {
-                beneficiariosFiltrados = listaBeneficiarios
-                    .Where(b => (b.Nombre + " " + b.PrimerApellido + " " + b.SegundoApellido).ToLower().Contains(searchbar.ToLower())
-                             || b.Telefono.Contains(searchbar)
-                             || b.Email.ToLower().Contains(searchbar.ToLower()))
-                    .ToList();
-                StateHasChanged();
-            }
-        }
+        
 
 
         protected override async Task OnInitializedAsync() //cargar lista
         {
             listaBeneficiarios = await beneficiarioService.Listar();
-            beneficiariosFiltrados = listaBeneficiarios.ToList();
         }
 
         private async Task AltaBeneficiario()         //dar de alta beneficiarios           
@@ -93,7 +74,6 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 return;
             }
             listaBeneficiarios = await beneficiarioService.Listar();
-            FiltrarBeneficiarios();
             modeloAlta.reset();
         }
 
@@ -149,7 +129,6 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                 AbrirModal("EliminarError");
             }
             listaBeneficiarios = await beneficiarioService.Listar();
-            FiltrarBeneficiarios();
         }
         private async Task AbrirModal(string modalId)
         {
@@ -239,7 +218,6 @@ namespace BonosAyto.Components.Pages.Beneficiaros
                         }
                     }
                     listaBeneficiarios =  await beneficiarioService.Listar();
-                    FiltrarBeneficiarios();
 
                     mensajeError.Add($"Se cargaron {numBeneficiarios} beneficiarios correctamente.");
                     if (DNIErrors.Count + EmailErrors.Count > 0)
