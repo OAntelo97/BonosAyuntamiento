@@ -151,9 +151,9 @@
                                         <tr>
                                             <th>Tipo servicio</th>
                                             <th>Fecha inicio</th>
-                                            <th>Fecha caducidad</th>
+                                            <th>Fecha cad.</th>
                                             <th>Importe</th>
-                                            <th>Acciones</th>
+                                            <th class=" text-center acciones-columna">Acciones</th>
                                         </tr>
                                     </thead>
 
@@ -165,10 +165,23 @@
                                                 <td>@bon.FechaInicio.ToString("dd-MM-yyyy")</td>
                                                 <td>@bon.FechaCaducidad.ToString("dd-MM-yyyy")</td>
                                                 <td>@bon.Importe</td>
-                                                <td>
+                                                <td class="text-center acciones-columna">
+                                                    <button class="btn btn-sm btn-outline-info me-1" @onclick="@(() => VerDetalleBono(bon.Id))">
+                                                        <i class="bi bi-search" title="Ver detalles"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-warning me-1" @onclick="@(() => ModificarBono(bon.Id))">
+                                                        <i class="bi bi-pencil d-inline-block pen" title="Editar campos"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" @onclick="@(() => {IdElimunar = bon.Id;AbrirModal("AlertaEliminar");})">
+                                                        <i class="bi bi-trash" title="Eliminar beneficiario"></i>
+                                                    </button>
+
+                                                    <!--
+
                                                     <i class="bi bi-search me-1" @onclick="() => VerDetalleBono(bon.Id)"></i>
                                                     <i class="bi bi-pencil me-1 d-inline-block" @onclick="() => ModificarBono(bon.Id)" style="transform: scaleX(-1);"></i>
                                                     <i class="bi bi-trash me-1" @onclick="() => Borrar(bon.Id)"></i>
+                                                    -->
                                                 </td>
                                             </tr>
                                         }

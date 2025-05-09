@@ -62,32 +62,33 @@ h5 {
     min-height: 75vh;
 }
 
-.acciones-columna {
-    width: 24vh;
-    display: inline-block;
-}
-
-.nombre-columna {
-    max-width: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font: bold;
-}
-
 .pen {
     display: inline-block;
     transform: scaleX(-1);
 }
 
+
 #tablaListado {
     width: 100% !important;
-    table-layout: auto;
+    table-layout: fixed; 
 }
 
 #tablaListado th,
 #tablaListado td {
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*
+
+.nombre-columna {
+    width: 30%;
+}
+*/
+
+
+.acciones-columna {
+    width: 60px;
+    text-align: center;
 }
