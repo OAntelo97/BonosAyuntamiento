@@ -79,3 +79,15 @@ h5 {
     display: inline-block;
     transform: scaleX(-1);
 }
+
+#tablaListado {
+    width: 100% !important;
+    table-layout: auto;
+}
+
+#tablaListado th,
+#tablaListado td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
